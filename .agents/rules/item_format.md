@@ -1,6 +1,6 @@
 # Mytholohiya: Item & Equipment Generation Rules
 
-All items, weapons, wearables, tools, and Project Zomboid-inspired medical/crafting supplies live in `js/data/items/` and register via `ItemRegistry.registerItem(...)` or `ItemRegistry.registerItemPack([...])`.
+All items, weapons, wearables, tools, and tactical medical/crafting supplies live in `js/data/items/` and register via `ItemRegistry.registerItem(...)` or `ItemRegistry.registerItemPack([...])`.
 
 ## 1. The 14 Equipment Slots
 Wearables, weapons, and off-hand tools may target one of the following `slot` values:
@@ -18,7 +18,7 @@ Wearables, weapons, and off-hand tools may target one of the following `slot` va
 * `primary` (Main-hand melee/ranged weapons & staves)
 * `offhand` (Shields, torches, lanterns, prybars)
 
-## 2. Project Zomboid & Philippine Folklore Item Flags
+## 2. Realistic Survival & Philippine Folklore Item Flags
 * `canFlipInsideOut: true`: Allows fabric garments and armor (`torso`, `cape`, `leggings`, `helmet`) to be flipped **Inside-Out** (`Baliktad`).
   * **Folkloric Benefit:** Grants the `clothing_inside_out` WorldContext tag (`ItemConditionFlags.Inverted`) and `+1 WIS` against forest spirit illusions (Tikbalang, Tambal, Engkanto).
   * **Armor & Stat Trade-Off (Stat Suppression):** Whenever gear or armor is worn inside-out (`insideOut: true`), **all of its positive stat bonuses (e.g., `+1 CON`, `+2 STR`, armor/defense bonuses) are disabled**. The inverted lining compromises structural padding, plates, or physical alignment, sacrificing physical stat benefits in exchange for spiritual illusion warding.

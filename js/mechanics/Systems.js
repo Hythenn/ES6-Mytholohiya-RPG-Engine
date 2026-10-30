@@ -1,6 +1,6 @@
 /**
  * Systems.js
- * ECS Systems governing Vitality (HP), Remnants, and the Project Zomboid-inspired
+ * ECS Systems governing Vitality (HP), Remnants, and the granular
  * 14-Slot Equipment & Folklore Inventory System for "Mytholohiya".
  * Item definitions live in their dedicated directory: js/data/items/
  */
