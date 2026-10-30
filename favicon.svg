@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <!-- Obsidian Octagonal Amulet Base -->
+  <polygon points="18,4 46,4 60,18 60,46 46,60 18,60 4,46 4,18" fill="#0d0a0c" stroke="#c89b4f" stroke-width="4" />
+  <polygon points="20,8 44,8 56,20 56,44 44,56 20,56 8,44 8,20" fill="#171115" stroke="#5e4324" stroke-width="2" />
+
+  <!-- Blood-Red Eclipse Corona -->
+  <circle cx="32" cy="32" r="18" fill="#6b1821" />
+  <circle cx="32" cy="32" r="15" fill="#9e242f" />
+
+  <!-- Golden Crescent Moon (Bulan) -->
+  <path d="M 35 16 A 16 16 0 1 0 47 41 A 13 13 0 1 1 35 16 Z" fill="#f0c76e" />
+  <path d="M 33 18 A 14 14 0 1 0 44 40 A 12 12 0 1 1 33 18 Z" fill="#fae19c" />
+
+  <!-- Bakunawa Jaws / Serpent Silhouette Coiling Across the Eclipse -->
+  <path d="M 28 22 L 42 20 L 36 28 L 44 32 L 30 34 Z" fill="#120c10" />
+  <rect x="35" y="22" width="3" height="3" fill="#ff5242" />
+
+  <!-- Four Cardinal Diamond Studs (Pre-Colonial Gold Ornament) -->
+  <rect x="30" y="6" width="4" height="4" fill="#f0c76e" />
+  <rect x="30" y="54" width="4" height="4" fill="#f0c76e" />
+  <rect x="6" y="30" width="4" height="4" fill="#f0c76e" />
+  <rect x="54" y="30" width="4" height="4" fill="#f0c76e" />
+</svg>
+
