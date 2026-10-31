@@ -9,6 +9,7 @@ import { SubstoryEarlyBalete } from './EarlyGameBalete.js';
 import { SubstoryMidTerraces } from './MidGameTerraces.js';
 import { SubstoryLateBakunawa } from './LateGameBakunawaMaw.js';
 import './MiscScenarios.js';
+import './PeopleAndTerrainScenarios.js';
 
 export {
   ScenarioData,

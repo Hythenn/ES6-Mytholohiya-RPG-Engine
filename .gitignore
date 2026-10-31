@@ -16,5 +16,6 @@ Desktop.ini
 
 # Editor artifacts
 .vscode/
+.vs/
 .idea/
 
