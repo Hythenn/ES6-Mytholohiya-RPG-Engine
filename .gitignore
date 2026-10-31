@@ -1,0 +1,16 @@
+# AI and agent instructions
+.agents/
+
+# Temporary and upload artifacts
+.tmp.driveupload/
+*.tmp
+*.log
+
+# Operating system artifacts
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor artifacts
+.vscode/
+.idea/
