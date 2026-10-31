@@ -1,6 +1,9 @@
 # AI and agent instructions
 .agents/
 
+# Documentation and private lore
+docs/
+
 # Temporary and upload artifacts
 .tmp.driveupload/
 *.tmp
@@ -14,3 +17,4 @@ Desktop.ini
 # Editor artifacts
 .vscode/
 .idea/
+
