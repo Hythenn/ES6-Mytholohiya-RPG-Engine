@@ -146,13 +146,13 @@ NarrativeRegistry.registerMiscScenario({
       }
     },
     {
-      text: 'Exchange 2 Remnants for a pouch of fresh coarse sea salt for your journey',
+      text: 'Exchange 2 Piloncitos for a pouch of fresh coarse sea salt for your journey',
       check: null,
       successStory: [
-        'You hand over a pair of brass remnants; Manang Elena blesses your coins and hands you a tightly bound abaca pouch of dry coarse salt.'
+        'You hand over a pair of gold piloncitos; Manang Elena blesses your coins and hands you a tightly bound abaca pouch of dry coarse salt.'
       ],
       onSuccess: {
-        remnants: -2,
+        piloncitos: -2,
         addItem: 'coarse_salt_pouch',
         emitTags: ['salt_ward', 'kapwa_bond']
       }
@@ -214,7 +214,7 @@ NarrativeRegistry.registerMiscScenario({
       ],
       onSuccess: {
         addItem: 'abaca_tunic',
-        remnants: 4,
+        piloncitos: 4,
         emitTags: ['steady_nerves', 'high_ground', 'clear_sky']
       }
     },
@@ -229,7 +229,7 @@ NarrativeRegistry.registerMiscScenario({
       ],
       onSuccess: {
         addItem: 'ripped_sheets',
-        remnants: 3,
+        piloncitos: 3,
         emitTags: ['cautious', 'high_ground']
       },
       onFail: {
@@ -310,23 +310,23 @@ NarrativeRegistry.registerMiscScenario({
         'He talks circles around your offer, slickly pocketing 3 of your remnants for a trinket that rubs off black on your fingers.'
       ],
       onSuccess: {
-        remnants: -1,
+        piloncitos: -1,
         addItem: 'waxed_rain_cape',
         emitTags: ['kapwa_bond', 'clear_sky']
       },
       onFail: {
-        remnants: -3,
+        piloncitos: -3,
         emitTags: ['cautious']
       }
     },
     {
-      text: 'Pay 4 Remnants for what he claims is a blessed brass talisman',
+      text: 'Pay 4 Piloncitos for what he claims is a blessed brass talisman',
       check: null,
       successStory: [
-        'You hand over 4 remnants and pocket the brass piece. It feels heavy and cool in your hand, though you suspect its greatest power is the confidence it lends your stride.'
+        'You hand over 4 piloncitos and pocket the brass piece. It feels heavy and cool in your hand, though you suspect its greatest power is the confidence it lends your stride.'
       ],
       onSuccess: {
-        remnants: -4,
+        piloncitos: -4,
         addItem: 'tanso_agimat',
         emitTags: ['cautious']
       }
@@ -384,14 +384,14 @@ NarrativeRegistry.registerMiscScenario({
         'Your hand snaps out like iron, clamping around his wrist before his fingers can touch your sash! Caught red-handed, the boy bursts into genuine tears, admits he was sent by older thieves up the road, and hands over a stolen brass knife ring to buy your mercy.'
       ],
       failStory: [
-        'You swat at his hand a second too late; the nimble street-urchin slips 2 of your remnants into his palm and dashes like a lizard into the thicket!'
+        'You swat at his hand a second too late; the nimble street-urchin slips 2 of your piloncitos into his palm and dashes like a lizard into the thicket!'
       ],
       onSuccess: {
         addItem: 'iron_nail_ring',
         emitTags: ['steady_nerves', 'cautious']
       },
       onFail: {
-        remnants: -2,
+        piloncitos: -2,
         hp: 0,
         emitTags: ['cautious']
       }
@@ -403,13 +403,13 @@ NarrativeRegistry.registerMiscScenario({
         'Looking him square in the eye, you share a handful of dried fruit and tell him you know how hard survival is on the roads. Stunned by your kindness, the boy pulls his hands back in shame, warns you of a bandit toll-gate half a league ahead, and bows deeply.'
       ],
       failStory: [
-        'While your eyes soften in sympathy, his sly fingers snatch 2 remnants from your side before he runs into the ditch!'
+        'While your eyes soften in sympathy, his sly fingers snatch 2 piloncitos from your side before he runs into the ditch!'
       ],
       onSuccess: {
         emitTags: ['kapwa_bond', 'cautious', 'steady_nerves']
       },
       onFail: {
-        remnants: -2,
+        piloncitos: -2,
         emitTags: ['cautious']
       }
     },
@@ -481,20 +481,20 @@ NarrativeRegistry.registerMiscScenario({
       }
     },
     {
-      text: 'Offer 3 Remnants calmly, bargaining down their toll as a contribution between travelers',
+      text: 'Offer 3 Piloncitos calmly, bargaining down their toll as a contribution between travelers',
       check: { stat: 'CHA', dc: 13 },
       successStory: [
-        'Treating the leader with respectful dignity, you toss him 3 remnants and wish him dry weather. Surprised by your calm honor, the leader accepts the coins, points out an upcoming washed-out bridge, and clears the log for you.'
+        'Treating the leader with respectful dignity, you toss him 3 piloncitos and wish him dry weather. Surprised by your calm honor, the leader accepts the coins, points out an upcoming washed-out bridge, and clears the log for you.'
       ],
       failStory: [
         'They sneer at your offer and demand the full 5 remnants, shoving you roughly as you hand over the silver.'
       ],
       onSuccess: {
-        remnants: -3,
+        piloncitos: -3,
         emitTags: ['kapwa_bond', 'high_ground']
       },
       onFail: {
-        remnants: -5,
+        piloncitos: -5,
         hp: -1,
         emitTags: ['cautious']
       }
@@ -571,7 +571,7 @@ NarrativeRegistry.registerMiscScenario({
         'The moment the consecrated salt grains strike her skin, the sweet illusion melts away with a sickening hiss! Screeching in demonic agony, the weredog twists into a feral black canine form and flees howling into the bamboo thicket, leaving behind a dropped pouch of remnants!'
       ],
       onSuccess: {
-        remnants: 6,
+        piloncitos: 6,
         emitTags: ['salt_ward', 'steady_nerves', 'clear_sky']
       }
     },
@@ -585,7 +585,7 @@ NarrativeRegistry.registerMiscScenario({
         'You step too close before verifying her eyes; razor-sharp claws erupt from her wrinkled hands, tearing your forearm before you drive her back with your blade!'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         emitTags: ['steady_nerves', 'cautious']
       },
       onFail: {
@@ -807,10 +807,10 @@ NarrativeRegistry.registerMiscScenario({
       itemActionTag: 'Tool // Iron Prybar Lever',
       check: null,
       successStory: [
-        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing 5 brass remnants and a bundle of dried herbs into your hands!'
+        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing 5 gold piloncitos and a bundle of dried herbs into your hands!'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         addItem: 'bayabas_herbs',
         emitTags: ['kapwa_bond', 'steady_nerves', 'high_ground']
       }
@@ -819,13 +819,13 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Brace your back beneath the cart-bed and heave the timber upward with raw Strength',
       check: { stat: 'STR', dc: 14 },
       successStory: [
-        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards you with 4 remnants and helps you back to the high road.'
+        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards you with 4 piloncitos and helps you back to the high road.'
       ],
       failStory: [
         'The wet oak slips against your shoulder, bruising your collarbone deeply before Danas manages to wrench his boot free from the mud.'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         addItem: 'bayabas_herbs',
         emitTags: ['kapwa_bond', 'steady_nerves']
       },
@@ -844,7 +844,7 @@ NarrativeRegistry.registerMiscScenario({
         'The frightened beast thrashes its horns, clipping your arm and knocking you into the mud before you manage to slip the trace-ropes loose.'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         emitTags: ['kapwa_bond', 'cautious']
       },
       onFail: {
@@ -932,14 +932,13 @@ NarrativeRegistry.registerMiscScenario({
       ],
       onSuccess: {
         hp: 2,
-        remnants: 6,
+        piloncitos: 6,
         addItem: 'herbal_poultice',
         heatDelta: -15,
         emitTags: ['kapwa_bond', 'well_rested']
       },
       onFail: {
         hp: 2,
-        remnants: 2,
         heatDelta: -10,
         emitTags: ['kapwa_bond']
       }
@@ -1071,7 +1070,6 @@ NarrativeRegistry.registerMiscScenario({
         'A damp slat crumbles beneath your boot! You catch yourself on the upper cable with bruised forearms, hanging over the abyss before hauling yourself onto the far rock.'
       ],
       onSuccess: {
-        remnants: 4,
         emitTags: ['high_ground', 'steady_nerves', 'clear_sky']
       },
       onFail: {
@@ -1154,7 +1152,7 @@ NarrativeRegistry.registerMiscScenario({
         'The deep silt sucks off your footing; you take a hard tumble into the brackish sludge, scraping your knee on submerged barnacles before dragging yourself to firm ground.'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         emitTags: ['steady_nerves', 'muddy_ground']
       },
       onFail: {
@@ -1229,13 +1227,13 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Navigate the razor limestone spine with measured footsteps and keen body control',
       check: { stat: 'DEX', dc: 13 },
       successStory: [
-        'Placing each step with mountain precision, you traverse the karst needles without a scratch, finding an ancient offerings cache tucked in a rock fissure containing 5 remnants!'
+        'Placing each step with mountain precision, you traverse the karst needles without a scratch, finding an ancient offerings cache tucked in a rock fissure containing 5 piloncitos!'
       ],
       failStory: [
         'A limestone needle crumbles beneath your palm, slicing a deep cut into your hand before you catch your footing.'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         emitTags: ['high_ground', 'steady_nerves', 'clear_sky']
       },
       onFail: {
@@ -1252,7 +1250,6 @@ NarrativeRegistry.registerMiscScenario({
         'With your hands protected against the razor edges, you haul yourself confidently across the karst pinnacles and arrive at the summit ridge completely unscathed.'
       ],
       onSuccess: {
-        remnants: 4,
         emitTags: ['high_ground', 'steady_nerves']
       }
     },

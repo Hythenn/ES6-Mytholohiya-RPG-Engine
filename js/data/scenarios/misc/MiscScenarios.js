@@ -60,7 +60,7 @@ NarrativeRegistry.registerMiscScenario({
         'With a flick of your keen edge, the briar falls away cleanly. The tiny elder straightens his mushroom cap, nods in gruff respect at your blade-work, and sinks into the red clay.',
         'You gain no gold nor salve today, only the quiet certainty that the earth-elder remembers your courtesy.'
       ],
-      onSuccess: { remnants: 6, addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] }
+      onSuccess: { addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] }
     },
     {
       text: 'Kneel respectfully, murmur "Tabi-tabi po," and carefully untangle his beard by hand',
@@ -74,7 +74,7 @@ NarrativeRegistry.registerMiscScenario({
       failStory: [
         'Your thumb slips on a wet thorn and tugs his beard sharply. The Nuno hisses like a scalded cat, spits a curse on your shadow, and vanishes into a crack in the mound.'
       ],
-      onSuccess: { remnants: 6, addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] },
+      onSuccess: { addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] },
       onFail: { hp: -2, emitTags: ['slighted_nuno', 'spirit_hexed', 'fog_gathering'] }
     },
     {
@@ -87,7 +87,7 @@ NarrativeRegistry.registerMiscScenario({
       failStory: [
         'Your rough tug jerks his beard painfully! Offended by your insolence, the Nuno spits on your boots and invokes a spiteful swelling on your limbs!'
       ],
-      onSuccess: { remnants: 4, addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] },
+      onSuccess: { addItem: 'tanso_agimat', emitTags: ['helped_nuno', 'spirit_respect', 'clear_sky'] },
       onFail: { hp: -3, emitTags: ['slighted_nuno', 'spirit_hexed', 'fog_gathering'] }
     },
     {
@@ -379,7 +379,7 @@ NarrativeRegistry.registerMiscScenario({
         'You bow low to the earth-elder and take the firm path he revealed, recovering a pouch of ancestral piloncitos and a Sterilized Bayabas Poultice from the fallen pack on the far ridge.'
       ],
       onSuccess: {
-        remnants: 7,
+        piloncitos: 7,
         addItem: 'herbal_poultice',
         emitTags: ['clear_sky', 'high_ground']
       }
@@ -433,7 +433,7 @@ NarrativeRegistry.registerMiscScenario({
       successStory: [
         'Spared a bloody battle in the ravine, you harvest the fallen beasts spirit-shards and climb safely to high ground.'
       ],
-      onSuccess: { remnants: 6, emitTags: ['high_ground', 'clear_sky'] }
+      onSuccess: { piloncitos: 6, emitTags: ['high_ground', 'clear_sky'] }
     }
   ]
 });
@@ -487,7 +487,6 @@ NarrativeRegistry.registerMiscScenario({
         'Seeing your reversed seams, the Tikbalang snorts in startled amusement. Its spatial illusion dissolves around you like morning dew, revealing the true mountain road.'
       ],
       onSuccess: {
-        remnants: 6,
         addItem: 'cotton_bahag_leggings',
         emitTags: ['clear_sky', 'spirit_respect']
       }
@@ -504,7 +503,6 @@ NarrativeRegistry.registerMiscScenario({
         'A sudden gust across the ravine scatters your calculations, sending you tumbling into a thorny ravine before the trail straightens.'
       ],
       onSuccess: {
-        remnants: 5,
         addItem: 'tanso_agimat',
         emitTags: ['steady_nerves', 'clear_sky']
       },
@@ -525,7 +523,7 @@ NarrativeRegistry.registerMiscScenario({
         'The Tikbalang hurls you into a thorny bamboo clump with bone-rattling force before vanishing in a cloud of pipe smoke!'
       ],
       onSuccess: {
-        remnants: 10,
+        piloncitos: 10,
         addItem: 'mutya_ng_saging',
         emitTags: ['tamed_tikbalang', 'high_ground', 'clear_sky']
       },
@@ -546,7 +544,7 @@ NarrativeRegistry.registerMiscScenario({
         'You wander in exhausting circles until dusk, scratching your arms on rattan thorns before the spirit grows bored and releases the path.'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         emitTags: ['steady_nerves', 'clear_sky']
       },
       onFail: {
@@ -614,7 +612,7 @@ NarrativeRegistry.registerMiscScenario({
         'Unimpressed by your hurried greeting, the Kapre exhales a choking cloud of cigar ash that leaves you coughing blindly along the ditch.'
       ],
       onSuccess: {
-        remnants: 8,
+        piloncitos: 8,
         addItem: 'bamboo_torch',
         emitTags: ['kapre_boon', 'spirit_respect', 'clear_sky']
       },
@@ -634,7 +632,6 @@ NarrativeRegistry.registerMiscScenario({
         'Splintering branches clip your shoulder as the bough crashes down through the smoke!'
       ],
       onSuccess: {
-        remnants: 4,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -707,7 +704,7 @@ NarrativeRegistry.registerMiscScenario({
       failStory: [
         'Your heel dislodges a stone down the ravine. Below, the water turns dark as iron and a piercing chill lances through your chest before the figure vanishes in a flash of spray.'
       ],
-      onSuccess: { hp: 4, remnants: 8, addItem: 'black_coral_ring', emitTags: ['diwata_remembered', 'clear_sky'] },
+      onSuccess: { hp: 4, addItem: 'black_coral_ring', emitTags: ['diwata_remembered', 'clear_sky'] },
       onFail: { hp: -3, emitTags: ['diwata_displeased', 'fog_gathering'] }
     },
     {
@@ -764,7 +761,6 @@ NarrativeRegistry.registerMiscScenario({
         'A burst of electrical spirit-flame singes your cloak before you splash into the safety of the current!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['steady_nerves', 'clear_sky']
       },
       onFail: {
@@ -782,7 +778,6 @@ NarrativeRegistry.registerMiscScenario({
         'Blistering spirit-fire scorches your forearms before the orb dissipates in a clap of thunder!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -851,7 +846,6 @@ NarrativeRegistry.registerMiscScenario({
         'Your offering is hurried and clumsy, but the guardian spirits accept your gesture with quiet tolerance.'
       ],
       onSuccess: {
-        remnants: 6,
         addItem: 'anito_wood_mask',
         heatDelta: -35,
         emitTags: ['spirit_respect', 'blessed_by_anito', 'clear_sky']
@@ -1027,7 +1021,6 @@ NarrativeRegistry.registerMiscScenario({
         'Panic clouds your focus for agonizing seconds before your teeth finally graze your thumb, leaving you gasping and bruised on the floorboards!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['lore_enriched', 'steady_nerves']
       },
       onFail: {
@@ -1046,7 +1039,6 @@ NarrativeRegistry.registerMiscScenario({
         'Black spots swim across your vision as the Batibat nearly crushes the breath from your lungs before dawn light cracks through the shutters!'
       ],
       onSuccess: {
-        remnants: 6,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1104,7 +1096,6 @@ NarrativeRegistry.registerMiscScenario({
         'Your muscles remain like lead. The Batibat chuckles deep in her throat as darkness edges your vision before she slips away into the wood grain.'
       ],
       onSuccess: {
-        remnants: 4,
         cureCondition: 'bangungot_paralysis',
         emitTags: ['steady_nerves', 'clear_sky']
       },
@@ -1125,7 +1116,6 @@ NarrativeRegistry.registerMiscScenario({
         'The hag presses a calloused thumb across your lips, choking your prayer into a muffled gasp.'
       ],
       onSuccess: {
-        remnants: 5,
         cureCondition: 'bangungot_paralysis',
         emitTags: ['spirit_respect', 'clear_sky']
       },
@@ -1146,7 +1136,6 @@ NarrativeRegistry.registerMiscScenario({
         'Your paralyzed muscles cannot overcome the demon weight; the Batibat crushes the air from your lungs!'
       ],
       onSuccess: {
-        remnants: 5,
         cureCondition: 'bangungot_paralysis',
         emitTags: ['steady_nerves']
       },
@@ -1206,7 +1195,6 @@ NarrativeRegistry.registerMiscScenario({
         'Baffled by your reversed threads, the fanged mimic loses its sense of direction and hisses furiously as it scrambles away into the thorns.'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['steady_nerves', 'clear_sky']
       }
     },
@@ -1222,7 +1210,6 @@ NarrativeRegistry.registerMiscScenario({
         'You hesitate for a split second out of pity, allowing the fanged imp to slash your shin before you kick it into the reeds!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1241,7 +1228,6 @@ NarrativeRegistry.registerMiscScenario({
         'Needle-sharp teeth sink into your ankle before you pry its jaws apart!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1298,7 +1284,6 @@ NarrativeRegistry.registerMiscScenario({
         'You slip on the muddy bank while crossing, taking a bruising blow from the revenant stiff arm before the deep water claims it!'
       ],
       onSuccess: {
-        remnants: 5,
         emitTags: ['lore_enriched', 'clear_sky']
       },
       onFail: {
@@ -1318,7 +1303,6 @@ NarrativeRegistry.registerMiscScenario({
         'Your heel catches on a root during the turn, and the Amalanhig rakes your shoulder before overshooting into the ditch!'
       ],
       onSuccess: {
-        remnants: 4,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1337,7 +1321,6 @@ NarrativeRegistry.registerMiscScenario({
         'Your stamina flags on the muddy incline; the cold fingers of the revenant graze your shoulder before you break free!'
       ],
       onSuccess: {
-        remnants: 4,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1394,7 +1377,7 @@ NarrativeRegistry.registerMiscScenario({
         'The reeds obscure the tether until the astral projection rakes your back with freezing spectral claws!'
       ],
       onSuccess: {
-        remnants: 8,
+        piloncitos: 8,
         emitTags: ['lore_enriched', 'clear_sky']
       },
       onFail: {
@@ -1414,7 +1397,7 @@ NarrativeRegistry.registerMiscScenario({
         'The screech locks your muscles in terror for a heartbeat as spectral talons sear your chest!'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         emitTags: ['steady_nerves']
       },
       onFail: {
@@ -1629,7 +1612,7 @@ NarrativeRegistry.registerMiscScenario({
         emitTags: ['kapwa_bond']
       },
       onFail: {
-        remnants: -2,
+        piloncitos: -2,
         emitTags: ['cautious']
       }
     },
@@ -1640,7 +1623,6 @@ NarrativeRegistry.registerMiscScenario({
         'Letting the warm wash of human voices and distant agung chimes steady your spirit, you glean vital bearings from the harbor oarsmen before departing the gates.'
       ],
       onSuccess: {
-        remnants: 3,
         emitTags: ['lore_enriched', 'steady_nerves']
       }
     }

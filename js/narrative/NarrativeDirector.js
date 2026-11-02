@@ -955,7 +955,6 @@ export class HierarchicalProbabilisticNarrativeDirector {
           successStory: buildTaleResolutionStory(creatureId, scenario),
           onSuccess: {
             resolveCreatureTale: creatureId,
-            remnants: 5,
             heatDelta: -25,
             hp: 3,
             emitTags: ['well_rested', 'kapwa_bond', `shared_tale_${creatureId}`]

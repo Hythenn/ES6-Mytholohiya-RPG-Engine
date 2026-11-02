@@ -76,7 +76,7 @@ export const ScenarioData = {
           failStory: [
             'Panicked by your approach, the boy bolts blindly across the dike, accidentally kicking a rotten sluice-beam down onto your shin!'
           ],
-          onSuccess: { remnants: 4, addItem: 'coarse_salt_pouch', emitTags: ['helped_salt_boy', 'fog_gathering', 'cautious'] },
+          onSuccess: { addItem: 'coarse_salt_pouch', emitTags: ['helped_salt_boy', 'fog_gathering', 'cautious'] },
           onFail: { hp: -3, emitTags: ['raining', 'muddy_ground', 'wounded'] }
         },
         {
@@ -90,7 +90,7 @@ export const ScenarioData = {
             'Wedging the shipwright prybar under the rusted iron hasp, you snap the lock with a single heave and recover the salt-tax piloncitos and a coil of blessed oil without risking the sharp coral.'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             addItem: 'blessed_lana_vial',
             emitTags: ['abandoned_salt_boy', 'clear_sky']
           }
@@ -106,7 +106,7 @@ export const ScenarioData = {
           failStory: [
             'A sudden tidal shift muddles the current markers, plunging you knee-deep into sulfurous silt before you scramble free.'
           ],
-          onSuccess: { remnants: 4, emitTags: ['cautious', 'high_ground'] },
+          onSuccess: { emitTags: ['cautious', 'high_ground'] },
           onFail: { hp: -2, emitTags: ['muddy_ground', 'raining'] }
         },
         {
@@ -128,7 +128,7 @@ export const ScenarioData = {
           failStory: [
             'The iron clasp snaps your grip and slices your palm open in the stinging salt water as a venomous stonefish spines your ankle!'
           ],
-          onSuccess: { remnants: 5, emitTags: ['abandoned_salt_boy', 'clear_sky'] },
+          onSuccess: { piloncitos: 5, emitTags: ['abandoned_salt_boy', 'clear_sky'] },
           onFail: {
             hp: -4,
             applyStatus: 'Bleeding',
@@ -206,7 +206,7 @@ export const ScenarioData = {
           failStory: [
             'As you struggle with the final spike, the tormented spirit lashes out in blind agony, searing your forearms with graveyard frost!'
           ],
-          onSuccess: { remnants: 5, addItem: 'iron_nail_ring', emitTags: ['unbound_mangrove_anito', 'spirit_respect', 'clear_sky'] },
+          onSuccess: { addItem: 'iron_nail_ring', emitTags: ['unbound_mangrove_anito', 'spirit_respect', 'clear_sky'] },
           onFail: { hp: -4, emitTags: ['spirit_hexed', 'fog_gathering', 'wounded'] }
         },
         {
@@ -295,7 +295,7 @@ export const ScenarioData = {
             'The sputtering sahing-resin flame scorches the demon skinless grin, breaking its concentration over the mangrove loop and forcing it to retreat into the mud! In its retreat, you recognize the traits of the Tambaluslos, etching its lore into memory.'
           ],
           onSuccess: {
-            remnants: 4,
+            piloncitos: 4,
             discoverCreature: 'tambaluslos',
             emitTags: ['outwitted_tambaluslos', 'clear_sky']
           }
@@ -312,7 +312,7 @@ export const ScenarioData = {
             'The hideous ear-to-ear grin freezes your blood; as you stumble backward into the coastal mud, its long claws rake across your shoulder!'
           ],
           onSuccess: {
-            remnants: 6,
+            piloncitos: 6,
             addItem: 'abaca_face_wrap',
             discoverCreature: 'tambaluslos',
             emitTags: ['outwitted_tambaluslos', 'clear_sky']
@@ -331,7 +331,7 @@ export const ScenarioData = {
             'The acoustic echoes double back unpredictably off the wet bark, disorienting your calculations until a sharp root-spur gashes your knee!'
           ],
           onSuccess: {
-            remnants: 7,
+            piloncitos: 7,
             addItem: 'tanso_agimat',
             discoverCreature: 'tambaluslos',
             emitTags: ['outwitted_tambaluslos', 'steady_nerves', 'clear_sky']
@@ -350,7 +350,7 @@ export const ScenarioData = {
             'Your heel slips on the wet bakawan bark, plunging you into the mud where the demon grazing lunge tears your forearm before you scramble free!'
           ],
           onSuccess: {
-            remnants: 6,
+            piloncitos: 6,
             discoverCreature: 'tambaluslos',
             emitTags: ['outwitted_tambaluslos', 'high_ground']
           },
@@ -437,7 +437,6 @@ export const ScenarioData = {
             'The swamp monster lunges into the shallows and capsizes the skiff, bruising your ribs against the roots before you scramble up the far bank!'
           ],
           onSuccess: {
-            remnants: 5,
             discoverCreature: 'angongolood',
             emitTags: ['clear_sky', 'high_ground']
           },
@@ -454,7 +453,7 @@ export const ScenarioData = {
             'Its crushing embrace nearly turns your ribs to rigid timber before a collapsing bank forces the beast to release its grip!'
           ],
           onSuccess: {
-            remnants: 7,
+            piloncitos: 7,
             addItem: 'rattan_armguards',
             discoverCreature: 'angongolood',
             emitTags: ['high_ground', 'steady_nerves']
@@ -530,7 +529,7 @@ export const ScenarioData = {
             'Your consecrated talisman hums with a warm golden note that parts the hypnotic glamour completely. Seeing your sacred ward, the Sirena and Magindara bow in the surf and toss a cluster of sea-pearls onto the ledge as you recover the Sterilized Bayabas Poultice!'
           ],
           onSuccess: {
-            remnants: 6,
+            piloncitos: 6,
             addItem: 'herbal_poultice',
             discoverCreature: 'sirena',
             emitTags: ['clear_sky', 'well_rested', 'spirit_respect']
@@ -546,7 +545,7 @@ export const ScenarioData = {
             'Your voice cracks on the high cadence; displeased, the merfolk summon a rogue wave that crashes over the ledge, soaking your gear and battering you against the coral!'
           ],
           onSuccess: {
-            remnants: 8,
+            piloncitos: 8,
             addItem: ['herbal_poultice', 'black_coral_ring'],
             discoverCreature: 'sirena',
             emitTags: ['clear_sky', 'well_rested']
@@ -563,7 +562,7 @@ export const ScenarioData = {
             'Entranced for a heartbeat too long after stepping near the cliff lip, you slip on the spray-soaked coral and gash your shin before tearing your mind free of the song!'
           ],
           onSuccess: {
-            remnants: 4,
+            piloncitos: 4,
             addItem: 'herbal_poultice',
             discoverCreature: 'sirena',
             emitTags: ['clear_sky', 'cautious']

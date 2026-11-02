@@ -145,7 +145,7 @@ export const SubstoryKotaHub = {
             '"May the tides favor your paddle, friend," the vendor beams, tucking the gold into his waistband.'
           ],
           onSuccess: {
-            remnants: -4,
+            piloncitos: -4,
             addItem: ['coarse_salt_pouch', 'bayabas_herbs'],
             emitTags: ['at_kota_market']
           }
@@ -160,7 +160,7 @@ export const SubstoryKotaHub = {
             'You trade six Piloncitos for the talisman, feeling its reassuring weight against your collarbone.'
           ],
           onSuccess: {
-            remnants: -6,
+            piloncitos: -6,
             addItem: 'anting_anting_brass_pendant',
             emitTags: ['at_kota_market']
           }
@@ -212,7 +212,7 @@ export const SubstoryKotaHub = {
           ],
           onSuccess: {
             hp: 8,
-            remnants: -3,
+            piloncitos: -3,
             heatDelta: -30,
             emitTags: ['at_kota_tavern', 'well_rested', 'cleansed']
           }
@@ -250,7 +250,7 @@ export const SubstoryKotaHub = {
             'The river traveler traps your shells in a clever pit sequence, taking the game with a good-natured grin. Still, the mental exercise sharpens your focus.'
           ],
           onSuccess: {
-            remnants: 3,
+            piloncitos: 3,
             emitTags: ['at_kota_tavern', 'quick_wits']
           },
           onFail: {
@@ -303,7 +303,7 @@ export const SubstoryKotaHub = {
             'A gentle breeze stirs the cotton streamers. An unmistakable aura of spiritual warmth washes over you, purging any lingering spirit hexes or fevers from your body.'
           ],
           onSuccess: {
-            remnants: -2,
+            piloncitos: -2,
             heatDelta: -25,
             cureCondition: ['spirit_fever', 'infected_aswang_bite'],
             emitTags: ['at_kota_shrine', 'anito_blessed', 'cleansed']
@@ -323,7 +323,7 @@ export const SubstoryKotaHub = {
           ],
           onSuccess: {
             addItem: 'whetstone',
-            remnants: -3,
+            piloncitos: -3,
             emitTags: ['at_kota_shrine', 'blacksmith_patron']
           },
           onFail: {

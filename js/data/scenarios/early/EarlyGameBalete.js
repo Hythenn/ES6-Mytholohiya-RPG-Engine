@@ -60,7 +60,7 @@ export const SubstoryEarlyBalete = {
             'The high-frequency resonance of your Aswang-warded weapon cracks against the rafters! Both the Wakwak scout and the winged Manananggal shriek in agony, dropping a cluster of piloncitos as they retreat toward the giant Balete.'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             addItem: 'rattan_staff',
             discoverCreature: ['wakwak', 'manananggal'],
             emitTags: ['wounded_manananggal', 'clear_sky']
@@ -94,7 +94,7 @@ export const SubstoryEarlyBalete = {
             'Your throw grazes the eave, and though the salt startles the Wakwak into flight, its beak rakes your arm as it escapes.'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             heatDelta: -15,
             discoverCreature: 'wakwak',
             emitTags: ['wounded_manananggal', 'clear_sky']
@@ -133,7 +133,7 @@ export const SubstoryEarlyBalete = {
           ],
           onSuccess: {
             heatDelta: 10,
-            remnants: 6,
+            piloncitos: 6,
             addItem: 'coarse_salt_pouch',
             discoverCreature: 'wakwak',
             emitTags: ['wounded_manananggal', 'high_ground']
@@ -158,7 +158,7 @@ export const SubstoryEarlyBalete = {
             'The pungent stench of fermented oil and spoiled viscera overwhelms your senses in the dark; you lose the trail as cold claws scrape near your ear!'
           ],
           onSuccess: {
-            remnants: 6,
+            piloncitos: 6,
             addItem: 'anting_anting_brass_pendant',
             discoverCreature: 'manananggal',
             emitTags: ['found_hidden_torso', 'steady_nerves']
@@ -254,7 +254,7 @@ export const SubstoryEarlyBalete = {
             'Before you can lash the final thorn bundle, a razor talon punches through the thatch and gashes your forearm!'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             addItem: 'salakot_hat',
             discoverCreature: 'manananggal',
             emitTags: ['wounded_manananggal', 'helped_lito']
@@ -272,7 +272,7 @@ export const SubstoryEarlyBalete = {
             'The creature slams through the rotten thatch, raking your shoulder with iron-hard talons before flapping back into the night!'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             addItem: 'bagacay_bamboo_spear',
             discoverCreature: 'manananggal',
             emitTags: ['wounded_manananggal', 'helped_lito']
@@ -324,7 +324,7 @@ export const SubstoryEarlyBalete = {
           ],
           onSuccess: {
             removeItem: 'blessed_lana_vial',
-            remnants: 8,
+            piloncitos: 8,
             addItem: 'brass_vambraces',
             discoverCreature: 'manananggal',
             emitTags: ['destroyed_manananggal_torso', 'clear_sky', 'salt_ward']
@@ -343,7 +343,7 @@ export const SubstoryEarlyBalete = {
             'Black ichor sprays from the roots as you pack the salt, searing your forearms before you retreat into the square!'
           ],
           onSuccess: {
-            remnants: 6,
+            piloncitos: 6,
             addItem: 'hemp_utility_belt',
             discoverCreature: 'manananggal',
             emitTags: ['destroyed_manananggal_torso', 'salt_ward']
@@ -361,7 +361,7 @@ export const SubstoryEarlyBalete = {
             'The strangler roots whip like barbed whips, bruising your shoulders before you extract yourself from the hollow!'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             discoverCreature: 'manananggal',
             emitTags: ['destroyed_manananggal_torso', 'steady_nerves']
           },
@@ -416,14 +416,13 @@ export const SubstoryEarlyBalete = {
             'A bloodied claw grazes your ribs in the frantic pre-dawn clash before the rising sunlight finally forces the stalkers to burn and scatter!'
           ],
           onSuccess: {
-            remnants: 10,
+            piloncitos: 10,
             addItem: ['herbal_poultice', 'kampilan_sword'],
             discoverCreature: ['aswang', 'manananggal'],
             emitTags: ['clear_sky', 'slain_matriarch']
           },
           onFail: {
             hp: -3,
-            remnants: 4,
             emitTags: ['wounded', 'slain_matriarch']
           }
         },
@@ -438,14 +437,13 @@ export const SubstoryEarlyBalete = {
             'The psychic and physical strain of the bloodied clash leaves you feverish, though the sunrise destroys the winged matriarch.'
           ],
           onSuccess: {
-            remnants: 10,
+            piloncitos: 10,
             addItem: ['herbal_poultice', 'carabao_hide_cuirass'],
             discoverCreature: ['aswang', 'manananggal'],
             emitTags: ['clear_sky', 'slain_matriarch']
           },
           onFail: {
             hp: -4,
-            remnants: 4,
             applyStatus: 'InfectedBite',
             spiritScent: 15,
             applyCondition: { id: 'infected_aswang_bite', bodyPart: 'Ribs / Shoulder' },

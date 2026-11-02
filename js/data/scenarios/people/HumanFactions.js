@@ -84,7 +84,7 @@ NarrativeRegistry.registerMiscScenario({
         'The gate officer accepts your 5 piloncitos with a nod, stamping your arm with vegetable dye. The heavy timbers groan open, allowing you entrance into the fortified streets of Kota Dula.'
       ],
       onSuccess: {
-        remnants: -5,
+        piloncitos: -5,
         heatDelta: -15,
         emitTags: ['inside_kota', 'peaceful_trade']
       }
@@ -103,7 +103,7 @@ NarrativeRegistry.registerMiscScenario({
         'The captain scoffs at your words, suspecting you of being a spy for coastal pirates: "Save your tall tales! Pay the toll or turn back before our archers take your pack!"'
       ],
       onSuccess: {
-        remnants: 3,
+        piloncitos: 3,
         emitTags: ['rep_rajahnate_ally', 'inside_kota', 'steady_nerves']
       },
       onFail: {
@@ -123,7 +123,7 @@ NarrativeRegistry.registerMiscScenario({
         'A loose river rock clatters beneath your boot! An iron crossbow bolt clangs off the stones inches from your ear, forcing you to dive into the river muck!'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         emitTags: ['inside_kota', 'high_ground']
       },
       onFail: {
@@ -193,7 +193,7 @@ NarrativeRegistry.registerMiscScenario({
         'Pandak counts your 8 piloncitos, spits on his palm, and hands you a finely balanced single-edged Kampilan sword forged from layered archipelagic steel.'
       ],
       onSuccess: {
-        remnants: -8,
+        piloncitos: -8,
         addItem: 'kampilan_sword',
         emitTags: ['blacksmith_tuned']
       }
@@ -210,7 +210,7 @@ NarrativeRegistry.registerMiscScenario({
         'The intense furnace blast scorches your forearms, causing you to lose your rhythm on the bellows and ruin the batch.'
       ],
       onSuccess: {
-        remnants: 4,
+        piloncitos: 4,
         addItem: 'salakot_hat',
         emitTags: ['steady_nerves']
       },
@@ -271,7 +271,7 @@ NarrativeRegistry.registerMiscScenario({
         'A lead-weighted net wraps around your shoulders, dragging you into the brackish mire while iron blades strike your ribs!'
       ],
       onSuccess: {
-        remnants: 6,
+        piloncitos: 6,
         addItem: 'carabao_hide_cuirass',
         emitTags: ['steady_nerves', 'high_ground']
       },
@@ -308,7 +308,7 @@ NarrativeRegistry.registerMiscScenario({
         'The captain catches the coin pouch, weighs it with a sly grin, and signals his men to lower their spears: "We never saw you, traveler. But do not show your face near the Kota gates again."'
       ],
       onSuccess: {
-        remnants: -10,
+        piloncitos: -10,
         heatDelta: -20,
         emitTags: ['cautious']
       }
@@ -385,7 +385,7 @@ NarrativeRegistry.registerMiscScenario({
         'Your offering hums with bioluminescent warmth as the ancestors accept your tribute. A wave of profound calm washes over your mind, lifting any lurking spirit fatigue.'
       ],
       onSuccess: {
-        remnants: -3,
+        piloncitos: -3,
         heatDelta: -20,
         emitTags: ['rep_babaylan_ally', 'spirit_respect', 'clear_sky']
       }
@@ -399,7 +399,7 @@ NarrativeRegistry.registerMiscScenario({
         'Seizing the unguarded offering bowl, you scoop 15 gleaming piloncitos into your pack! As you turn to flee, a cold wind extinguishes the sacred candles, and a terrifying spectral wail chills your bones: the ancestral anito have witnessed your greed!'
       ],
       onSuccess: {
-        remnants: 15,
+        piloncitos: 15,
         heatDelta: 30,
         emitTags: ['stole_shrine_gold', 'cursed_by_anito', 'rep_babaylan_enemy', 'fog_gathering']
       }
@@ -456,7 +456,7 @@ NarrativeRegistry.registerMiscScenario({
         'Your apology rings hollow in the cold mist; the vengeful spirits lash your mind with phantom frost!'
       ],
       onSuccess: {
-        remnants: -10,
+        piloncitos: -10,
         heatDelta: -25,
         emitTags: ['atoned_shrine', 'steady_nerves', 'clear_sky']
       },
@@ -541,7 +541,7 @@ NarrativeRegistry.registerMiscScenario({
         'You botch the navigation through the tidal breakers, losing half the kegs in the surf. Datu Magat docks your pay and threatens your life if you return empty-handed.'
       ],
       onSuccess: {
-        remnants: 12,
+        piloncitos: 12,
         addItem: 'kampilan_sword',
         emitTags: ['merc_contract_fulfilled', 'rep_karakoa_ally', 'karakoa_smuggler']
       },
@@ -563,7 +563,6 @@ NarrativeRegistry.registerMiscScenario({
         'A drunken sentry drops his coconut bowl and shouts the alarm! A thrown spear grazes your thigh as you sprint into the dark mangroves!'
       ],
       onSuccess: {
-        remnants: 6,
         emitTags: ['defied_sea_raiders', 'rep_karakoa_enemy', 'rep_rajahnate_ally', 'steady_nerves']
       },
       onFail: {
@@ -582,7 +581,7 @@ NarrativeRegistry.registerMiscScenario({
         'Exchanging 6 piloncitos with the quartermaster, you acquire a sturdy Hemp Utility Belt and two bundles of sharpened bamboo stakes.'
       ],
       onSuccess: {
-        remnants: -6,
+        piloncitos: -6,
         addItem: 'hemp_utility_belt',
         emitTags: ['peaceful_trade']
       }
@@ -638,7 +637,7 @@ NarrativeRegistry.registerMiscScenario({
         'The curved Kampilan hacks through your guard, slicing across your shoulder before you tumble into the river mud!'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         addItem: 'rattan_staff',
         emitTags: ['steady_nerves', 'clear_sky']
       },
@@ -722,7 +721,7 @@ NarrativeRegistry.registerMiscScenario({
         'Datu Lando smiles, revealing needle-sharp canines, and clasps your wrist in dark kinship. He gifts you a flask of dark alchemical coconut oil and promises that nocturnal hunters will spare your camp during your journey!'
       ],
       onSuccess: {
-        remnants: -6,
+        piloncitos: -6,
         addItem: 'blessed_lana_vial',
         heatDelta: -30,
         emitTags: ['rep_aswang_cult_ally', 'night_lineage_initiate', 'dark_alchemy_access']
@@ -751,7 +750,7 @@ NarrativeRegistry.registerMiscScenario({
         'Before your salt can strike, Datu Lando whips around with supernatural speed, raking your shoulder with razor talons before you can break free!'
       ],
       onSuccess: {
-        remnants: 7,
+        piloncitos: 7,
         heatDelta: 25,
         emitTags: ['rep_aswang_cult_enemy', 'marked_for_harvest', 'clear_sky']
       },
@@ -811,7 +810,7 @@ NarrativeRegistry.registerMiscScenario({
         'Fire and salt create an impassable folkloric barrier! Shrieking in pain as the flames scorch their wings and salt burns their fur, the transformed cultists break off the attack and scatter into the dark!'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         addItem: 'coarse_salt_pouch',
         emitTags: ['steady_nerves', 'salt_ward']
       }
@@ -828,7 +827,7 @@ NarrativeRegistry.registerMiscScenario({
         'The hound slams through your guard, tearing your forearm before you drive it back with a pommel strike!'
       ],
       onSuccess: {
-        remnants: 6,
+        piloncitos: 6,
         addItem: 'boar_hide_gloves',
         emitTags: ['steady_nerves', 'high_ground']
       },
@@ -899,7 +898,7 @@ NarrativeRegistry.registerMiscScenario({
         emitTags: ['rep_headhunters_ally', 'mountain_truce', 'steady_nerves']
       },
       onFail: {
-        remnants: -4,
+        piloncitos: -4,
         emitTags: ['cautious']
       }
     },
@@ -986,7 +985,7 @@ NarrativeRegistry.registerMiscScenario({
         'Your foot slips on the crumbling ledge! You tumble into the edge of the pit; sharp bamboo spikes tear into your calf before you drag yourself free!'
       ],
       onSuccess: {
-        remnants: 5,
+        piloncitos: 5,
         addItem: 'carabao_leather_sandals',
         emitTags: ['steady_nerves', 'high_ground']
       },

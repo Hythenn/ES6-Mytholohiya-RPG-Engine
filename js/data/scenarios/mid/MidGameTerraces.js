@@ -51,7 +51,7 @@ export const SubstoryMidTerraces = {
             'Recognizing the sacred kamagong visage over your face, the animated Bulul lowers its iron axe and steps aside on creaking wooden joints, revealing a cache of mountain offerings.'
           ],
           onSuccess: {
-            remnants: 8,
+            piloncitos: 8,
             addItem: 'gold_linglingo',
             emitTags: ['bulul_blessed', 'high_ground']
           }
@@ -65,7 +65,7 @@ export const SubstoryMidTerraces = {
           failStory: [
             'The guardian rejects your lowland accent, swinging its heavy iron head-axe in a glancing blow across your ribs before freezing back into wood!'
           ],
-          onSuccess: { remnants: 6, addItem: 'bayabas_herbs', emitTags: ['bulul_blessed', 'spirit_respect'] },
+          onSuccess: { piloncitos: 6, addItem: 'bayabas_herbs', emitTags: ['bulul_blessed', 'spirit_respect'] },
           onFail: { hp: -4, emitTags: ['wounded', 'fog_gathering'] }
         }
       ]
@@ -112,7 +112,7 @@ export const SubstoryMidTerraces = {
           ],
           onSuccess: {
             addItem: 'carabao_horn_helm',
-            remnants: 6,
+            piloncitos: 6,
             discoverCreature: 'rabot',
             emitTags: ['proven_in_duel', 'clear_sky']
           },
@@ -129,7 +129,7 @@ export const SubstoryMidTerraces = {
           ],
           onSuccess: {
             addItem: ['carabao_horn_helm', 'kalasag_wooden_shield'],
-            remnants: 8,
+            piloncitos: 8,
             discoverCreature: 'rabot',
             emitTags: ['proven_in_duel', 'clear_sky']
           },
@@ -178,7 +178,7 @@ export const SubstoryMidTerraces = {
             'Oryol laughs at your stumble in courtly rhetoric; her hypnotic song twists your path through briars before she slithers into the dark.'
           ],
           onSuccess: {
-            remnants: 8,
+            piloncitos: 8,
             addItem: 'ceremonial_malong',
             discoverCreature: 'oryol',
             emitTags: ['oryol_alliance', 'proven_in_duel', 'clear_sky']
@@ -195,7 +195,7 @@ export const SubstoryMidTerraces = {
             'You swing at a phantom image while the real serpent tail sweeps your legs hard against the terrace wall!'
           ],
           onSuccess: {
-            remnants: 8,
+            piloncitos: 8,
             addItem: 'buntot_pagi',
             discoverCreature: 'oryol',
             emitTags: ['oryol_alliance', 'high_ground']
@@ -245,7 +245,7 @@ export const SubstoryMidTerraces = {
             'The psychic weight of the eclipse rebounds through the brass gong, leaving your ears ringing and your nose bleeding as the ritual concludes.'
           ],
           onSuccess: {
-            remnants: 12,
+            piloncitos: 12,
             hp: 3,
             addItem: 'brass_agung_gong',
             emitTags: ['mumbaki_blessing', 'clear_sky']

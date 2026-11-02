@@ -72,7 +72,7 @@ export const SubstoryMerchantRescue = {
             'You charge forward and drive the pack back, but the second hound snaps viciously at your calf before slipping into the deep mangrove channels!'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             emitTags: ['rescued_merchant_lito', 'clear_sky', 'steady_nerves']
           },
           onFail: {
@@ -94,7 +94,7 @@ export const SubstoryMerchantRescue = {
             'The splashing brackish water douses your flame! You manage to drag the merchant up into the roots, but not before a shadow claw rakes across your shoulder.'
           ],
           onSuccess: {
-            remnants: 4,
+            piloncitos: 4,
             emitTags: ['rescued_merchant_lito', 'clear_sky']
           },
           onFail: {
@@ -115,7 +115,7 @@ export const SubstoryMerchantRescue = {
             'A sudden gust disperses the salt powder too thin, though the burning scent buys you enough time to pull the terrified merchant to safety.'
           ],
           onSuccess: {
-            remnants: 5,
+            piloncitos: 5,
             emitTags: ['rescued_merchant_lito', 'salt_ward']
           },
           onFail: {
@@ -208,12 +208,12 @@ export const SubstoryMerchantRescue = {
           ],
           onSuccess: {
             addItem: ['bayabas_herbs', 'blessed_lana_vial'],
-            remnants: 8,
+            piloncitos: 8,
             emitTags: ['rep_rajahnate_trusted', 'tasyo_trade_ally']
           },
           onFail: {
             addItem: 'bayabas_herbs',
-            remnants: 4,
+            piloncitos: 4,
             emitTags: ['rep_rajahnate_trusted']
           }
         },
@@ -231,7 +231,7 @@ export const SubstoryMerchantRescue = {
             'As you draw your weapon, Mang Tasyo anticipates the strike and flings a fistful of blinding lime dust straight into your eyes! He slips into the stilt-roots while you stumble blindly in the mire.'
           ],
           onSuccess: {
-            remnants: 25,
+            piloncitos: 25,
             addItem: ['coarse_salt_pouch', 'triangle_brass_pendant'],
             emitTags: [
               'rep_rajahnate_enemy',

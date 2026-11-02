@@ -513,8 +513,8 @@ export function buildPrologueScenarios(identity) {
             failStory: [
               'The nervous boatman shoves his skiff off too early in the dark, dumping you knee-deep into barnacle-encrusted pilings!'
             ],
-            onSuccess: { remnants: -3, emitTags: ['status_rich', 'clear_sky'] },
-            onFail: { remnants: -3, hp: -3, emitTags: ['status_rich', 'wounded', 'raining'] }
+            onSuccess: { piloncitos: -3, emitTags: ['status_rich', 'clear_sky'] },
+            onFail: { piloncitos: -3, hp: -3, emitTags: ['status_rich', 'wounded', 'raining'] }
           },
           {
             text: 'Keep your piloncitos tied tight and walk the upper cliff road around the harbor at your own pace',
@@ -623,7 +623,7 @@ export function buildPrologueScenarios(identity) {
             ],
             onSuccess: {
               addItem: 'bayabas_herbs',
-              remnants: 2,
+              piloncitos: 2,
               emitTags: ['status_poor', 'steady_nerves', 'raining']
             },
             onFail: {
