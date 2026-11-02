@@ -281,8 +281,16 @@ export class MythosRPGApp {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function bootMythosApp() {
+  if (window.__mythosAppInitialized) return;
+  window.__mythosAppInitialized = true;
   const app = new MythosRPGApp();
   window.app = app;
   app.init();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootMythosApp);
+} else {
+  bootMythosApp();
+}

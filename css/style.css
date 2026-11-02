@@ -112,7 +112,11 @@ body::before {
   transition: background 0.8s ease;
 }
 
-.site-header,
+.site-header {
+  position: relative;
+  z-index: 50;
+}
+
 .launch-screen,
 .background-screen,
 .workspace-layout {
@@ -385,6 +389,9 @@ body::before {
 .launch-actions .pixel-btn-start,
 .launch-options-btn {
   width: 100%;
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
 }
 
 .launch-options-btn {

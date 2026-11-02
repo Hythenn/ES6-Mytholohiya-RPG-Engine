@@ -473,6 +473,11 @@ export class UIManager {
     const isSelect = state === 'CHARACTER_SELECT';
     const isGame = state === 'GAMEPLAY';
 
+    if (this.dom.screenFadeOverlay) {
+      this.dom.screenFadeOverlay.classList.remove('is-active');
+      this.dom.screenFadeOverlay.style.pointerEvents = '';
+    }
+
     if (this.visualizer) {
       this.visualizer.setScreenMode(isGame ? 'GAMEPLAY' : 'MAP');
     }
@@ -534,6 +539,7 @@ export class UIManager {
       window.clearTimeout(this._fadePointerTimeoutId);
       this._fadePointerTimeoutId = null;
     }
+    overlay.style.pointerEvents = '';
 
     this.closeOptionsModal();
     this.closeCharInfoModal();
@@ -571,7 +577,6 @@ export class UIManager {
         : 900;
 
     overlay.style.transition = `opacity ${fadeOutMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-    overlay.style.pointerEvents = 'all';
 
     // Force layout reflow to commit transition property before class change
     void overlay.offsetHeight;
@@ -588,13 +593,8 @@ export class UIManager {
       window.requestAnimationFrame(() => {
         window.requestAnimationFrame(() => {
           overlay.classList.remove('is-active');
-
-          this._fadePointerTimeoutId = window.setTimeout(() => {
-            if (!overlay.classList.contains('is-active')) {
-              overlay.style.pointerEvents = '';
-            }
-            this._fadePointerTimeoutId = null;
-          }, fadeInMs);
+          overlay.style.pointerEvents = '';
+          this._fadePointerTimeoutId = null;
         });
       });
 
@@ -1054,7 +1054,11 @@ export class UIManager {
   }
 
   closeChronicleModal() {
-    this.audio.playClick();
+    if (this.dom.chronicleModal && !this.dom.chronicleModal.hidden) {
+      try {
+        this.audio.playClick();
+      } catch (_err) {}
+    }
     if (this.dom.chronicleModal) {
       this.dom.chronicleModal.hidden = true;
       this.dom.chronicleModal.style.display = 'none';
@@ -1152,68 +1156,135 @@ export class UIManager {
 
   _bindGlobalEvents() {
     if (this.dom.btnLaunchStart) {
-      this.dom.btnLaunchStart.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnLaunchStart.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnLaunchStart.addEventListener('click', () => {
-        this._enterFullscreen();
-        this.audio.playStartGong();
-        this.audio.setAmbientEnvironment('DRIZZLE', 'DUSK');
+        try {
+          this._enterFullscreen();
+        } catch (_err) {}
+        try {
+          this.audio.playStartGong();
+          this.audio.setAmbientEnvironment('DRIZZLE', 'DUSK');
+        } catch (_err) {}
         this.showBackgroundScreen();
       });
     }
 
     if (this.dom.btnLaunchOptions) {
-      this.dom.btnLaunchOptions.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnLaunchOptions.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnLaunchOptions.addEventListener('click', () => {
-        this.audio.playClick();
+        try { this.audio.playClick(); } catch (_err) {}
         this.openOptionsModal();
       });
     }
 
     if (this.dom.btnHeaderCodex) {
-      this.dom.btnHeaderCodex.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnHeaderCodex.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnHeaderCodex.addEventListener('click', () => {
-        this.audio.playClick();
-        this.openCodexModal();
+        try { this.audio.playClick(); } catch (_err) {}
+        if (this.dom.mythCodexModal && !this.dom.mythCodexModal.hidden) {
+          this.closeCodexModal();
+        } else {
+          this.openCodexModal();
+        }
       });
     }
 
     if (this.dom.btnCloseCodex) {
-      this.dom.btnCloseCodex.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnCloseCodex.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnCloseCodex.addEventListener('click', () => {
-        this.audio.playClick();
+        try { this.audio.playClick(); } catch (_err) {}
         this.closeCodexModal();
       });
     }
 
     if (this.dom.btnHeaderOptions) {
-      this.dom.btnHeaderOptions.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnHeaderOptions.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnHeaderOptions.addEventListener('click', () => {
-        this.audio.playClick();
-        this.openOptionsModal();
+        try { this.audio.playClick(); } catch (_err) {}
+        if (this.dom.optionsModal && !this.dom.optionsModal.hidden) {
+          this.closeOptionsModal();
+        } else {
+          this.openOptionsModal();
+        }
       });
     }
 
     if (this.dom.btnCloseOptions) {
-      this.dom.btnCloseOptions.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnCloseOptions.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnCloseOptions.addEventListener('click', () => {
-        this.audio.playClick();
+        try { this.audio.playClick(); } catch (_err) {}
         this.closeOptionsModal();
       });
     }
 
     if (this.dom.btnOpenCharInfo) {
-      this.dom.btnOpenCharInfo.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnOpenCharInfo.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnOpenCharInfo.addEventListener('click', () => {
-        this.audio.playClick();
-        this.openCharInfoModal();
+        try { this.audio.playClick(); } catch (_err) {}
+        if (this.dom.charInfoModal && !this.dom.charInfoModal.hidden) {
+          this.closeCharInfoModal();
+        } else {
+          this.openCharInfoModal();
+        }
       });
     }
 
     if (this.dom.btnCloseCharInfo) {
-      this.dom.btnCloseCharInfo.addEventListener('mouseenter', () => this.audio.playHover());
+      this.dom.btnCloseCharInfo.addEventListener('mouseenter', () => {
+        try { this.audio.playHover(); } catch (_err) {}
+      });
       this.dom.btnCloseCharInfo.addEventListener('click', () => {
-        this.audio.playClick();
+        try { this.audio.playClick(); } catch (_err) {}
         this.closeCharInfoModal();
+      });
+    }
+
+    if (this.dom.optionsModal) {
+      this.dom.optionsModal.addEventListener('click', (e) => {
+        if (e.target === this.dom.optionsModal) {
+          try { this.audio.playClick(); } catch (_err) {}
+          this.closeOptionsModal();
+        }
+      });
+    }
+
+    if (this.dom.mythCodexModal) {
+      this.dom.mythCodexModal.addEventListener('click', (e) => {
+        if (e.target === this.dom.mythCodexModal) {
+          try { this.audio.playClick(); } catch (_err) {}
+          this.closeCodexModal();
+        }
+      });
+    }
+
+    if (this.dom.charInfoModal) {
+      this.dom.charInfoModal.addEventListener('click', (e) => {
+        if (e.target === this.dom.charInfoModal) {
+          try { this.audio.playClick(); } catch (_err) {}
+          this.closeCharInfoModal();
+        }
+      });
+    }
+
+    if (this.dom.chronicleModal) {
+      this.dom.chronicleModal.addEventListener('click', (e) => {
+        if (e.target === this.dom.chronicleModal) {
+          this.closeChronicleModal();
+        }
       });
     }
 
@@ -1678,7 +1749,9 @@ export class UIManager {
 
   showBackgroundScreen() {
     this.transitionScreenState('CHARACTER_SELECT', () => {
-      this.typewriter.clear();
+      if (this.typewriter && typeof this.typewriter.clear === 'function') {
+        this.typewriter.clear();
+      }
       this.presetState.name = generateRandomName();
       this.presetState.socialStatus = rollRandomSocialStatus();
       this._updatePresetBanner();

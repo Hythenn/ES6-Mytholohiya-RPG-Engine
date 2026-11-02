@@ -19,8 +19,8 @@ Desktop.ini
 .vs/
 .idea/
 
-# Browser test profiles
-scratch/edge_profile*/
+# Browser test profiles and scratch scripts
+scratch/
 
 
 
