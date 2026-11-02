@@ -3036,6 +3036,7 @@ export class UIManager {
     }
 
     this.dom.diceRollModal.hidden = false;
+    this.dom.diceRollModal.style.display = 'flex';
   }
 
   _executeDiceRoll() {
