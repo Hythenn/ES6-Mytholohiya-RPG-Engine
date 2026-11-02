@@ -80,7 +80,7 @@ export const ANSTRAL_BOONS = Object.freeze({
 
 export class SurvivalStatusSystem extends System {
   init() {
-    this.eventBus.on('status:applyCondition', ({ id, bodyPart, source = 'Hazard' }) => {
+    this.subscribe('status:applyCondition', ({ id, bodyPart, source = 'Hazard' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -118,7 +118,7 @@ export class SurvivalStatusSystem extends System {
       });
     });
 
-    this.eventBus.on('status:cureCondition', ({ id, remedy = 'First Aid' }) => {
+    this.subscribe('status:cureCondition', ({ id, remedy = 'First Aid' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -145,7 +145,7 @@ export class SurvivalStatusSystem extends System {
       });
     });
 
-    this.eventBus.on('status:wiggleToes', () => {
+    this.subscribe('status:wiggleToes', () => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -176,14 +176,14 @@ export class SurvivalStatusSystem extends System {
       }
     });
 
-    this.eventBus.on('status:dryOff', () => {
+    this.subscribe('status:dryOff', () => {
       this.eventBus.emit('status:cureCondition', {
         id: 'soaked_hypothermia',
         remedy: 'Warm Campfire Hearth'
       });
     });
 
-    this.eventBus.on('dambana:offerAtang', ({ boonId, costType = 'remnants', costAmount = 2 }) => {
+    this.subscribe('dambana:offerAtang', ({ boonId, costType = 'remnants', costAmount = 2 }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -254,7 +254,7 @@ export class SurvivalStatusSystem extends System {
       }
     });
 
-    this.eventBus.on('narrative:nodeEntered', () => {
+    this.subscribe('narrative:nodeEntered', () => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -276,7 +276,7 @@ export class SurvivalStatusSystem extends System {
 
 export class PanganibSystem extends System {
   init() {
-    this.eventBus.on('danger:modifyHeat', ({ delta, source = 'Environment', reason = '' }) => {
+    this.subscribe('danger:modifyHeat', ({ delta, source = 'Environment', reason = '' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -341,7 +341,7 @@ export class PanganibSystem extends System {
       }
     });
 
-    this.eventBus.on('narrative:nodeEntered', () => {
+    this.subscribe('narrative:nodeEntered', () => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -369,7 +369,7 @@ export class PanganibSystem extends System {
       });
     });
 
-    this.eventBus.on('danger:reset', () => {
+    this.subscribe('danger:reset', () => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const panganib = player.getComponent('Panganib');
@@ -393,7 +393,7 @@ export class PanganibSystem extends System {
 
 export class VitalitySystem extends System {
   init() {
-    this.eventBus.on('player:modifyVitality', ({ amount, source = 'Encounter' }) => {
+    this.subscribe('player:modifyVitality', ({ amount, source = 'Encounter' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -422,11 +422,11 @@ export class VitalitySystem extends System {
 
 export class RemnantSystem extends System {
   init() {
-    this.eventBus.on('player:modifyPiloncitos', (payload) => {
+    this.subscribe('player:modifyPiloncitos', (payload) => {
       this.eventBus.emit('player:modifyRemnants', payload);
     });
 
-    this.eventBus.on('player:modifyRemnants', ({ amount, source = 'Encounter' }) => {
+    this.subscribe('player:modifyRemnants', ({ amount, source = 'Encounter' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -456,7 +456,7 @@ export const PiloncitosSystem = RemnantSystem;
 
 export class ExperienceSystem extends System {
   init() {
-    this.eventBus.on('player:gainXp', ({ amount = 0, source = 'Scenario Outcome' }) => {
+    this.subscribe('player:gainXp', ({ amount = 0, source = 'Scenario Outcome' }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
 
@@ -499,7 +499,7 @@ export class ExperienceSystem extends System {
 
 export class InventorySystem extends System {
   init() {
-    this.eventBus.on('inventory:add', ({ templateId, item, autoEquip = false }) => {
+    this.subscribe('inventory:add', ({ templateId, item, autoEquip = false }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -522,7 +522,7 @@ export class InventorySystem extends System {
       }
     });
 
-    this.eventBus.on('inventory:equipToggle', ({ uid }) => {
+    this.subscribe('inventory:equipToggle', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -537,7 +537,7 @@ export class InventorySystem extends System {
       }
     });
 
-    this.eventBus.on('inventory:flipInsideOut', ({ uid }) => {
+    this.subscribe('inventory:flipInsideOut', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -556,7 +556,7 @@ export class InventorySystem extends System {
       });
     });
 
-    this.eventBus.on('inventory:ripItem', ({ uid }) => {
+    this.subscribe('inventory:ripItem', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -585,7 +585,7 @@ export class InventorySystem extends System {
       });
     });
 
-    this.eventBus.on('inventory:wringItem', ({ uid }) => {
+    this.subscribe('inventory:wringItem', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -604,7 +604,7 @@ export class InventorySystem extends System {
       });
     });
 
-    this.eventBus.on('inventory:combineWithSheet', ({ uid }) => {
+    this.subscribe('inventory:combineWithSheet', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -635,7 +635,7 @@ export class InventorySystem extends System {
       });
     });
 
-    this.eventBus.on('inventory:useItem', ({ uid }) => {
+    this.subscribe('inventory:useItem', ({ uid }) => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');
@@ -729,7 +729,7 @@ export class InventorySystem extends System {
       this._syncEquipmentState(player);
     });
 
-    this.eventBus.on('inventory:washBloodied', () => {
+    this.subscribe('inventory:washBloodied', () => {
       const player = this.world.getEntity('player');
       if (!player) return;
       const inv = player.getComponent('Inventory');

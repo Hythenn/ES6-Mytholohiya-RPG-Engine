@@ -133,6 +133,7 @@ export class HierarchicalProbabilisticNarrativeDirector {
     this.chronicleLog = [];
     this.currentPassiveList = [];
     this.instinctCheckIndex = 0;
+    this._unsubscribers = [];
 
     if (this.typewriter && typeof this.typewriter.setInstinctAnnotator === 'function') {
       this.typewriter.setInstinctAnnotator((paragraphEl) => {
@@ -140,72 +141,93 @@ export class HierarchicalProbabilisticNarrativeDirector {
       });
     }
 
-    this.eventBus.on('inventory:add', ({ templateId, item }) => {
-      if (this.currentScenario && this.trackingDeltas) {
-        let name = '';
-        if (item && item.name) {
-          name = item.name;
-        } else if (templateId) {
-          name = formatItemName(templateId);
+    this._unsubscribers.push(
+      this.eventBus.on('inventory:add', ({ templateId, item }) => {
+        if (this.currentScenario && this.trackingDeltas) {
+          let name = '';
+          if (item && item.name) {
+            name = item.name;
+          } else if (templateId) {
+            name = formatItemName(templateId);
+          }
+          if (name) {
+            this.currentScenarioDeltas.push({
+              type: 'item',
+              change: 1,
+              name
+            });
+          }
         }
-        if (name) {
+      })
+    );
+
+    this._unsubscribers.push(
+      this.eventBus.on('inventory:remove', ({ item, name }) => {
+        if (this.currentScenario && this.trackingDeltas) {
+          const itemName = (item && item.name) || (name ? formatItemName(name) : '');
+          if (itemName) {
+            this.currentScenarioDeltas.push({
+              type: 'item',
+              change: -1,
+              name: itemName
+            });
+          }
+        }
+      })
+    );
+
+    this._unsubscribers.push(
+      this.eventBus.on('player:modifyRemnants', ({ amount }) => {
+        if (this.currentScenario && this.trackingDeltas && typeof amount === 'number' && amount !== 0) {
           this.currentScenarioDeltas.push({
-            type: 'item',
-            change: 1,
-            name
+            type: 'currency',
+            change: amount,
+            name: 'Piloncitos'
           });
         }
-      }
-    });
+      })
+    );
 
-    this.eventBus.on('inventory:remove', ({ item, name }) => {
-      if (this.currentScenario && this.trackingDeltas) {
-        const itemName = (item && item.name) || (name ? formatItemName(name) : '');
-        if (itemName) {
+    this._unsubscribers.push(
+      this.eventBus.on('player:modifyVitality', ({ amount }) => {
+        if (this.currentScenario && this.trackingDeltas && typeof amount === 'number' && amount !== 0) {
           this.currentScenarioDeltas.push({
-            type: 'item',
-            change: -1,
-            name: itemName
+            type: 'health',
+            change: amount,
+            name: 'HP'
           });
         }
-      }
-    });
+      })
+    );
 
-    this.eventBus.on('player:modifyRemnants', ({ amount }) => {
-      if (this.currentScenario && this.trackingDeltas && typeof amount === 'number' && amount !== 0) {
-        this.currentScenarioDeltas.push({
-          type: 'currency',
-          change: amount,
-          name: 'Piloncitos'
-        });
-      }
-    });
+    this._unsubscribers.push(
+      this.eventBus.on('player:defeated', () => {
+        this.isGameOver = true;
+        this.awaitingContinue = false;
+        this._presentDefeatScreen();
+      })
+    );
 
-    this.eventBus.on('player:modifyVitality', ({ amount }) => {
-      if (this.currentScenario && this.trackingDeltas && typeof amount === 'number' && amount !== 0) {
-        this.currentScenarioDeltas.push({
-          type: 'health',
-          change: amount,
-          name: 'HP'
-        });
-      }
-    });
-
-    this.eventBus.on('player:defeated', () => {
-      this.isGameOver = true;
-      this.awaitingContinue = false;
-      this._presentDefeatScreen();
-    });
-
-    this.eventBus.on('ui:updateInventory', () => {
-      if (this.currentScenario && !this.typewriter.isTyping && !this.isGameOver) {
-        if (this.awaitingContinue) {
-          this._presentContinuePrompt();
-        } else {
-          this._presentChoices(this.currentScenario);
+    this._unsubscribers.push(
+      this.eventBus.on('ui:updateInventory', () => {
+        if (this.currentScenario && !this.typewriter.isTyping && !this.isGameOver) {
+          if (this.awaitingContinue) {
+            this._presentContinuePrompt();
+          } else {
+            this._presentChoices(this.currentScenario);
+          }
         }
-      }
-    });
+      })
+    );
+  }
+
+  destroy() {
+    for (const unsub of this._unsubscribers) {
+      try {
+        if (typeof unsub === 'function') unsub();
+      } catch (_err) {}
+    }
+    this._unsubscribers = [];
   }
 
   startScenario(substoryId) {
@@ -538,6 +560,9 @@ export class HierarchicalProbabilisticNarrativeDirector {
     }));
 
     const totalWeight = weightedPool.reduce((sum, entry) => sum + entry.weight, 0);
+    if (weightedPool.length === 0 || totalWeight <= 0) {
+      return null;
+    }
     let roll = Math.random() * totalWeight;
 
     for (const entry of weightedPool) {

@@ -29,116 +29,129 @@ export class DarkReverbAudioEngine {
   }
 
   _ensureContext() {
-    if (!this.ctx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return false;
-      this.ctx = new AudioCtx();
+    try {
+      if (!this.ctx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return false;
+        this.ctx = new AudioCtx();
 
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.value = 0.48;
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = 0.48;
 
-      this.analyser = this.ctx.createAnalyser();
-      this.analyser.fftSize = 64;
-      this.analyser.smoothingTimeConstant = 0.78;
-      this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyser = this.ctx.createAnalyser();
+        this.analyser.fftSize = 64;
+        this.analyser.smoothingTimeConstant = 0.78;
+        this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
 
-      this.masterGain.connect(this.analyser);
-      this.analyser.connect(this.ctx.destination);
+        this.masterGain.connect(this.analyser);
+        this.analyser.connect(this.ctx.destination);
 
-      // 2.4s Dark Cavern Reverb Impulse
-      this.convolver = this.ctx.createConvolver();
-      const rate = this.ctx.sampleRate;
-      const length = Math.floor(rate * 2.4);
-      const impulse = this.ctx.createBuffer(2, length, rate);
-      for (let ch = 0; ch < 2; ch += 1) {
-        const data = impulse.getChannelData(ch);
-        for (let i = 0; i < length; i += 1) {
-          const decay = Math.pow(1 - i / length, 2.8);
-          data[i] = (Math.random() * 2 - 1) * decay * 0.45;
+        // 2.4s Dark Cavern Reverb Impulse
+        this.convolver = this.ctx.createConvolver();
+        const rate = this.ctx.sampleRate;
+        const length = Math.floor(rate * 2.4);
+        const impulse = this.ctx.createBuffer(2, length, rate);
+        for (let ch = 0; ch < 2; ch += 1) {
+          const data = impulse.getChannelData(ch);
+          for (let i = 0; i < length; i += 1) {
+            const decay = Math.pow(1 - i / length, 2.8);
+            data[i] = (Math.random() * 2 - 1) * decay * 0.45;
+          }
+        }
+        this.convolver.buffer = impulse;
+
+        const reverbFilter = this.ctx.createBiquadFilter();
+        reverbFilter.type = 'lowpass';
+        reverbFilter.frequency.value = 950;
+
+        this.convolver.connect(reverbFilter);
+        reverbFilter.connect(this.masterGain);
+
+        this._initAmbientGraph();
+      }
+
+      if (this.ctx && this.ctx.state === 'suspended') {
+        const resumePromise = this.ctx.resume();
+        if (resumePromise && typeof resumePromise.catch === 'function') {
+          resumePromise.catch(() => {});
         }
       }
-      this.convolver.buffer = impulse;
-
-      const reverbFilter = this.ctx.createBiquadFilter();
-      reverbFilter.type = 'lowpass';
-      reverbFilter.frequency.value = 950;
-
-      this.convolver.connect(reverbFilter);
-      reverbFilter.connect(this.masterGain);
-
-      this._initAmbientGraph();
+      return Boolean(this.ctx);
+    } catch (_err) {
+      return false;
     }
-
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
-    return true;
   }
 
   _initAmbientGraph() {
-    if (!this.ctx || this.ambientGain) return;
+    try {
+      if (!this.ctx || this.ambientGain) return;
 
-    this.ambientGain = this.ctx.createGain();
-    this.ambientGain.gain.value = this.ambientEnabled ? 0.28 : 0.0001;
-    this.ambientGain.connect(this.masterGain);
+      this.ambientGain = this.ctx.createGain();
+      this.ambientGain.gain.value = this.ambientEnabled ? 0.28 : 0.0001;
+      this.ambientGain.connect(this.masterGain);
 
-    // Looping Pink-ish Noise Buffer for Rain / Wind / Surf
-    const bufferSize = this.ctx.sampleRate * 4;
-    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    let b0 = 0;
-    let b1 = 0;
-    let b2 = 0;
-    for (let i = 0; i < bufferSize; i += 1) {
-      const white = Math.random() * 2 - 1;
-      b0 = 0.997 * b0 + white * 0.029;
-      b1 = 0.985 * b1 + white * 0.032;
-      b2 = 0.950 * b2 + white * 0.048;
-      output[i] = (b0 + b1 + b2 + white * 0.015) * 0.35;
+      // Looping Pink-ish Noise Buffer for Rain / Wind / Surf
+      const bufferSize = this.ctx.sampleRate * 4;
+      const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      let b0 = 0;
+      let b1 = 0;
+      let b2 = 0;
+      for (let i = 0; i < bufferSize; i += 1) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.997 * b0 + white * 0.029;
+        b1 = 0.985 * b1 + white * 0.032;
+        b2 = 0.950 * b2 + white * 0.048;
+        output[i] = (b0 + b1 + b2 + white * 0.015) * 0.35;
+      }
+
+      this.noiseBuffer = noiseBuffer;
+      this.noiseSource = this.ctx.createBufferSource();
+      this.noiseSource.buffer = noiseBuffer;
+      this.noiseSource.loop = true;
+
+      this.noiseFilter = this.ctx.createBiquadFilter();
+      this.noiseFilter.type = 'bandpass';
+      this.noiseFilter.frequency.value = 650;
+      this.noiseFilter.Q.value = 0.9;
+
+      this.noiseSource.connect(this.noiseFilter);
+      this.noiseFilter.connect(this.ambientGain);
+      this.noiseSource.start(0);
+
+      // Subtle Atmospheric Drone Oscillators for Spirit Fog & Night Depth
+      this.droneGain = this.ctx.createGain();
+      this.droneGain.gain.value = 0.04;
+      this.droneGain.connect(this.ambientGain);
+
+      this.droneOsc1 = this.ctx.createOscillator();
+      this.droneOsc2 = this.ctx.createOscillator();
+      this.droneOsc1.type = 'sine';
+      this.droneOsc2.type = 'triangle';
+      this.droneOsc1.frequency.value = 73.42; // D2
+      this.droneOsc2.frequency.value = 110.0; // A2
+
+      const droneFilter = this.ctx.createBiquadFilter();
+      droneFilter.type = 'lowpass';
+      droneFilter.frequency.value = 260;
+
+      this.droneOsc1.connect(droneFilter);
+      this.droneOsc2.connect(droneFilter);
+      droneFilter.connect(this.droneGain);
+
+      this.droneOsc1.start(0);
+      this.droneOsc2.start(0);
+
+      // Periodic ambient detail generator (hearth fire, tent wind gusts, crowd chatter, thunder, crickets)
+      this.ambientIntervalId = window.setInterval(() => {
+        try {
+          if (!this.ambientEnabled || !this.ctx || this.ctx.state !== 'running') return;
+          this._triggerAmbientDetail();
+        } catch (_err) {}
+      }, 1150);
+    } catch (_err) {
+      // Ambient graph failure should not crash application
     }
-
-    this.noiseBuffer = noiseBuffer;
-    this.noiseSource = this.ctx.createBufferSource();
-    this.noiseSource.buffer = noiseBuffer;
-    this.noiseSource.loop = true;
-
-    this.noiseFilter = this.ctx.createBiquadFilter();
-    this.noiseFilter.type = 'bandpass';
-    this.noiseFilter.frequency.value = 650;
-    this.noiseFilter.Q.value = 0.9;
-
-    this.noiseSource.connect(this.noiseFilter);
-    this.noiseFilter.connect(this.ambientGain);
-    this.noiseSource.start(0);
-
-    // Subtle Atmospheric Drone Oscillators for Spirit Fog & Night Depth
-    this.droneGain = this.ctx.createGain();
-    this.droneGain.gain.value = 0.04;
-    this.droneGain.connect(this.ambientGain);
-
-    this.droneOsc1 = this.ctx.createOscillator();
-    this.droneOsc2 = this.ctx.createOscillator();
-    this.droneOsc1.type = 'sine';
-    this.droneOsc2.type = 'triangle';
-    this.droneOsc1.frequency.value = 73.42; // D2
-    this.droneOsc2.frequency.value = 110.0; // A2
-
-    const droneFilter = this.ctx.createBiquadFilter();
-    droneFilter.type = 'lowpass';
-    droneFilter.frequency.value = 260;
-
-    this.droneOsc1.connect(droneFilter);
-    this.droneOsc2.connect(droneFilter);
-    droneFilter.connect(this.droneGain);
-
-    this.droneOsc1.start(0);
-    this.droneOsc2.start(0);
-
-    // Periodic ambient detail generator (hearth fire, tent wind gusts, crowd chatter, thunder, crickets)
-    this.ambientIntervalId = window.setInterval(() => {
-      if (!this.ambientEnabled || !this.ctx || this.ctx.state !== 'running') return;
-      this._triggerAmbientDetail();
-    }, 1150);
   }
 
   /**
@@ -148,75 +161,79 @@ export class DarkReverbAudioEngine {
    * @param {string} [environment='OUTDOOR'] - 'OUTDOOR' | 'CABIN' | 'TENT' | 'CITY'
    */
   setAmbientEnvironment(weather = 'DRIZZLE', timeOfDay = 'DUSK', environment = 'OUTDOOR') {
-    this.currentWeather = weather;
-    this.currentTimeOfDay = timeOfDay;
-    this.currentEnvironment = environment || 'OUTDOOR';
-    if (!this._ensureContext() || !this.noiseFilter || !this.droneGain) return;
+    try {
+      this.currentWeather = weather;
+      this.currentTimeOfDay = timeOfDay;
+      this.currentEnvironment = environment || 'OUTDOOR';
+      if (!this._ensureContext() || !this.noiseFilter || !this.droneGain) return;
 
-    const now = this.ctx.currentTime;
+      const now = this.ctx.currentTime;
 
-    // Time-of-day pitch root for the subtle atmospheric undertone
-    const rootByTime = {
-      DAY: 98.0, // G2
-      DUSK: 73.42, // D2
-      NIGHT: 65.41, // C2
-      MIDNIGHT: 55.0, // A1 (Deep Eclipse drone)
-      'PRE-DAWN': 82.41 // E2
-    };
-    let baseFreq = rootByTime[timeOfDay] || 73.42;
-    if (this.currentEnvironment === 'CABIN') {
-      baseFreq = 110.0; // Warm wooden kubo resonance (A2)
-    } else if (this.currentEnvironment === 'CITY') {
-      baseFreq = 87.31; // Bustling settlement undertone (F2)
-    }
-    this.droneOsc1.frequency.setTargetAtTime(baseFreq, now, 2.2);
-    this.droneOsc2.frequency.setTargetAtTime(baseFreq * 1.5, now, 2.2);
+      // Time-of-day pitch root for the subtle atmospheric undertone
+      const rootByTime = {
+        DAY: 98.0, // G2
+        DUSK: 73.42, // D2
+        NIGHT: 65.41, // C2
+        MIDNIGHT: 55.0, // A1 (Deep Eclipse drone)
+        'PRE-DAWN': 82.41 // E2
+      };
+      let baseFreq = rootByTime[timeOfDay] || 73.42;
+      if (this.currentEnvironment === 'CABIN') {
+        baseFreq = 110.0; // Warm wooden kubo resonance (A2)
+      } else if (this.currentEnvironment === 'CITY') {
+        baseFreq = 87.31; // Bustling settlement undertone (F2)
+      }
+      this.droneOsc1.frequency.setTargetAtTime(baseFreq, now, 2.2);
+      this.droneOsc2.frequency.setTargetAtTime(baseFreq * 1.5, now, 2.2);
 
-    if (this.currentEnvironment === 'CABIN') {
-      // Muffled indoor kubo warmth with gentle hearth bed
-      this.noiseFilter.type = 'lowpass';
-      const muffledCutoff = weather === 'MONSOON' ? 390 : weather === 'DRIZZLE' ? 310 : 250;
-      this.noiseFilter.frequency.setTargetAtTime(muffledCutoff, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(1.25, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.055, now, 2.2);
-    } else if (this.currentEnvironment === 'TENT') {
-      // Windy canvas shelter resonance
-      this.noiseFilter.type = 'bandpass';
-      const windCenter = weather === 'MONSOON' ? 680 : weather === 'DRIZZLE' ? 560 : 470;
-      this.noiseFilter.frequency.setTargetAtTime(windCenter, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(1.65, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.05, now, 2.2);
-    } else if (this.currentEnvironment === 'CITY') {
-      // Warm settlement hubbub bed
-      this.noiseFilter.type = 'bandpass';
-      const cityCenter = weather === 'MONSOON' ? 620 : weather === 'DRIZZLE' ? 520 : 440;
-      this.noiseFilter.frequency.setTargetAtTime(cityCenter, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(0.85, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.045, now, 2.2);
-    } else if (weather === 'MONSOON') {
-      // Heavy driving rain + strong wind resonance (gradually builds up)
-      this.noiseFilter.type = 'bandpass';
-      this.noiseFilter.frequency.setTargetAtTime(880, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(0.55, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.06, now, 2.2);
-    } else if (weather === 'DRIZZLE') {
-      // Gentle rain patter on foliage (gradually builds up or calms down)
-      this.noiseFilter.type = 'bandpass';
-      this.noiseFilter.frequency.setTargetAtTime(1150, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(1.4, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.04, now, 2.2);
-    } else if (weather === 'SPIRIT FOG') {
-      // Hollow, eerie low wind + prominent spirit drone
-      this.noiseFilter.type = 'lowpass';
-      this.noiseFilter.frequency.setTargetAtTime(340, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(3.2, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.11, now, 2.2);
-    } else {
-      // CLEAR sky gentle breeze (gradually calms down)
-      this.noiseFilter.type = 'lowpass';
-      this.noiseFilter.frequency.setTargetAtTime(240, now, 2.2);
-      this.noiseFilter.Q.setTargetAtTime(1.1, now, 2.2);
-      this.droneGain.gain.setTargetAtTime(0.03, now, 2.2);
+      if (this.currentEnvironment === 'CABIN') {
+        // Muffled indoor kubo warmth with gentle hearth bed
+        this.noiseFilter.type = 'lowpass';
+        const muffledCutoff = weather === 'MONSOON' ? 390 : weather === 'DRIZZLE' ? 310 : 250;
+        this.noiseFilter.frequency.setTargetAtTime(muffledCutoff, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(1.25, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.055, now, 2.2);
+      } else if (this.currentEnvironment === 'TENT') {
+        // Windy canvas shelter resonance
+        this.noiseFilter.type = 'bandpass';
+        const windCenter = weather === 'MONSOON' ? 680 : weather === 'DRIZZLE' ? 560 : 470;
+        this.noiseFilter.frequency.setTargetAtTime(windCenter, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(1.65, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.05, now, 2.2);
+      } else if (this.currentEnvironment === 'CITY') {
+        // Warm settlement hubbub bed
+        this.noiseFilter.type = 'bandpass';
+        const cityCenter = weather === 'MONSOON' ? 620 : weather === 'DRIZZLE' ? 520 : 440;
+        this.noiseFilter.frequency.setTargetAtTime(cityCenter, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(0.85, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.045, now, 2.2);
+      } else if (weather === 'MONSOON') {
+        // Heavy driving rain + strong wind resonance (gradually builds up)
+        this.noiseFilter.type = 'bandpass';
+        this.noiseFilter.frequency.setTargetAtTime(880, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(0.55, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.06, now, 2.2);
+      } else if (weather === 'DRIZZLE') {
+        // Gentle rain patter on foliage (gradually builds up or calms down)
+        this.noiseFilter.type = 'bandpass';
+        this.noiseFilter.frequency.setTargetAtTime(1150, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(1.4, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.04, now, 2.2);
+      } else if (weather === 'SPIRIT FOG') {
+        // Hollow, eerie low wind + prominent spirit drone
+        this.noiseFilter.type = 'lowpass';
+        this.noiseFilter.frequency.setTargetAtTime(340, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(3.2, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.11, now, 2.2);
+      } else {
+        // CLEAR sky gentle breeze (gradually calms down)
+        this.noiseFilter.type = 'lowpass';
+        this.noiseFilter.frequency.setTargetAtTime(240, now, 2.2);
+        this.noiseFilter.Q.setTargetAtTime(1.1, now, 2.2);
+        this.droneGain.gain.setTargetAtTime(0.03, now, 2.2);
+      }
+    } catch (_err) {
+      // Audio atmosphere adjustment should never crash execution
     }
   }
 
@@ -480,13 +497,15 @@ export class DarkReverbAudioEngine {
 
   toggleAmbient() {
     this.ambientEnabled = !this.ambientEnabled;
-    if (this._ensureContext() && this.ambientGain) {
-      this.ambientGain.gain.setTargetAtTime(
-        this.ambientEnabled ? 0.28 : 0.0001,
-        this.ctx.currentTime,
-        0.25
-      );
-    }
+    try {
+      if (this._ensureContext() && this.ambientGain && this.ctx) {
+        this.ambientGain.gain.setTargetAtTime(
+          this.ambientEnabled ? 0.28 : 0.0001,
+          this.ctx.currentTime,
+          0.25
+        );
+      }
+    } catch (_err) {}
     return this.ambientEnabled;
   }
 
@@ -505,107 +524,135 @@ export class DarkReverbAudioEngine {
     slideTo = null,
     isAmbient = false
   }) {
-    if (isAmbient && !this.ambientEnabled) return;
-    if (!isAmbient && !this.sfxEnabled) return;
-    if (!this._ensureContext()) return;
+    try {
+      if (isAmbient && !this.ambientEnabled) return;
+      if (!isAmbient && !this.sfxEnabled) return;
+      if (!this._ensureContext() || !this.ctx) return;
 
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const env = this.ctx.createGain();
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const env = this.ctx.createGain();
 
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, now);
-    if (slideTo) {
-      osc.frequency.exponentialRampToValueAtTime(slideTo, now + duration);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      if (typeof slideTo === 'number' && slideTo > 0) {
+        osc.frequency.exponentialRampToValueAtTime(slideTo, now + duration);
+      }
+
+      env.gain.setValueAtTime(0.001, now);
+      env.gain.linearRampToValueAtTime(gain, now + 0.015);
+      env.gain.exponentialRampToValueAtTime(0.0008, now + duration);
+
+      osc.connect(env);
+      env.connect(this.masterGain);
+      if (wet && this.convolver) {
+        env.connect(this.convolver);
+      }
+
+      osc.start(now);
+      osc.stop(now + duration + 0.04);
+    } catch (_err) {
+      // Audio tone generation should never throw or disrupt game logic
     }
-
-    env.gain.setValueAtTime(0.001, now);
-    env.gain.linearRampToValueAtTime(gain, now + 0.015);
-    env.gain.exponentialRampToValueAtTime(0.0008, now + duration);
-
-    osc.connect(env);
-    env.connect(this.masterGain);
-    if (wet && this.convolver) {
-      env.connect(this.convolver);
-    }
-
-    osc.start(now);
-    osc.stop(now + duration + 0.04);
   }
 
   playClick() {
-    this.playTone({ freq: 165, slideTo: 82, type: 'square', duration: 0.14, gain: 0.15, wet: true });
+    try {
+      this.playTone({ freq: 165, slideTo: 82, type: 'square', duration: 0.14, gain: 0.15, wet: true });
+    } catch (_err) {}
   }
 
   playHover() {
-    this.playTone({ freq: 110, slideTo: 125, type: 'sine', duration: 0.09, gain: 0.06, wet: true });
+    try {
+      this.playTone({ freq: 110, slideTo: 125, type: 'sine', duration: 0.09, gain: 0.06, wet: true });
+    } catch (_err) {}
   }
 
   playTypeTick() {
-    this.playTone({ freq: 210 + Math.random() * 35, type: 'triangle', duration: 0.032, gain: 0.04, wet: false });
+    try {
+      this.playTone({ freq: 210 + Math.random() * 35, type: 'triangle', duration: 0.032, gain: 0.04, wet: false });
+    } catch (_err) {}
   }
 
   playStartGong() {
-    this.playTone({ freq: 73.42, slideTo: 55.0, type: 'sawtooth', duration: 1.4, gain: 0.22, wet: true });
-    this.playTone({ freq: 110.0, type: 'triangle', duration: 1.8, gain: 0.16, wet: true });
-    this.playTone({ freq: 164.81, type: 'sine', duration: 2.1, gain: 0.11, wet: true });
+    try {
+      this.playTone({ freq: 73.42, slideTo: 55.0, type: 'sawtooth', duration: 1.4, gain: 0.22, wet: true });
+      this.playTone({ freq: 110.0, type: 'triangle', duration: 1.8, gain: 0.16, wet: true });
+      this.playTone({ freq: 164.81, type: 'sine', duration: 2.1, gain: 0.11, wet: true });
+    } catch (_err) {}
   }
 
   playSceneTransition() {
-    this.playTone({ freq: 98.0, slideTo: 73.42, type: 'triangle', duration: 0.9, gain: 0.16, wet: true });
+    try {
+      this.playTone({ freq: 98.0, slideTo: 73.42, type: 'triangle', duration: 0.9, gain: 0.16, wet: true });
+    } catch (_err) {}
   }
 
   playCheckOutcome(success) {
-    if (success) {
-      this.playTone({ freq: 196.0, type: 'triangle', duration: 0.55, gain: 0.2, wet: true });
-      setTimeout(() => {
-        this.playTone({ freq: 293.66, type: 'sine', duration: 0.85, gain: 0.2, wet: true });
-      }, 90);
-    } else {
-      this.playTone({ freq: 116.54, slideTo: 65.41, type: 'sawtooth', duration: 0.85, gain: 0.2, wet: true });
-    }
+    try {
+      if (success) {
+        this.playTone({ freq: 196.0, type: 'triangle', duration: 0.55, gain: 0.2, wet: true });
+        setTimeout(() => {
+          try {
+            this.playTone({ freq: 293.66, type: 'sine', duration: 0.85, gain: 0.2, wet: true });
+          } catch (_err) {}
+        }, 90);
+      } else {
+        this.playTone({ freq: 116.54, slideTo: 65.41, type: 'sawtooth', duration: 0.85, gain: 0.2, wet: true });
+      }
+    } catch (_err) {}
   }
 
   playDiceRoll() {
-    // Rapid rhythmic tumble clicks mimicking ivory or bone dice against stone
-    const clackTones = [280, 320, 240, 310, 190];
-    clackTones.forEach((freq, idx) => {
-      setTimeout(() => {
-        this.playTone({
-          freq: freq + Math.random() * 30,
-          slideTo: freq * 0.7,
-          type: 'triangle',
-          duration: 0.05,
-          gain: 0.12 - idx * 0.015,
-          wet: true
-        });
-      }, idx * 105);
-    });
-    setTimeout(() => {
-      this.playTone({
-        freq: 95,
-        slideTo: 60,
-        type: 'sawtooth',
-        duration: 0.22,
-        gain: 0.18,
-        wet: true
+    try {
+      // Rapid rhythmic tumble clicks mimicking ivory or bone dice against stone
+      const clackTones = [280, 320, 240, 310, 190];
+      clackTones.forEach((freq, idx) => {
+        setTimeout(() => {
+          try {
+            this.playTone({
+              freq: freq + Math.random() * 30,
+              slideTo: freq * 0.7,
+              type: 'triangle',
+              duration: 0.05,
+              gain: 0.12 - idx * 0.015,
+              wet: true
+            });
+          } catch (_err) {}
+        }, idx * 105);
       });
-    }, clackTones.length * 105);
+      setTimeout(() => {
+        try {
+          this.playTone({
+            freq: 95,
+            slideTo: 60,
+            type: 'sawtooth',
+            duration: 0.22,
+            gain: 0.18,
+            wet: true
+          });
+        } catch (_err) {}
+      }, clackTones.length * 105);
+    } catch (_err) {}
   }
 
   playLoreDiscovery() {
-    // Reverent pentatonic chime for codex and lore unlocks
-    const tones = [261.63, 329.63, 392.0, 523.25];
-    tones.forEach((freq, idx) => {
-      setTimeout(() => {
-        this.playTone({
-          freq,
-          type: 'sine',
-          duration: 0.65,
-          gain: 0.16,
-          wet: true
-        });
-      }, idx * 110);
-    });
+    try {
+      // Reverent pentatonic chime for codex and lore unlocks
+      const tones = [261.63, 329.63, 392.0, 523.25];
+      tones.forEach((freq, idx) => {
+        setTimeout(() => {
+          try {
+            this.playTone({
+              freq,
+              type: 'sine',
+              duration: 0.65,
+              gain: 0.16,
+              wet: true
+            });
+          } catch (_err) {}
+        }, idx * 110);
+      });
+    } catch (_err) {}
   }
 }

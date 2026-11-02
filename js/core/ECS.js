@@ -43,11 +43,28 @@ export class System {
   constructor(world, eventBus) {
     this.world = world;
     this.eventBus = eventBus;
+    this._unsubscribers = [];
   }
 
   init() {}
 
   update(_dt) {}
+
+  subscribe(eventName, callback) {
+    if (this.eventBus && typeof this.eventBus.on === 'function') {
+      const unsub = this.eventBus.on(eventName, callback);
+      this._unsubscribers.push(unsub);
+      return unsub;
+    }
+    return () => {};
+  }
+
+  destroy() {
+    for (const unsub of this._unsubscribers) {
+      try { unsub(); } catch (_) {}
+    }
+    this._unsubscribers = [];
+  }
 }
 
 export class World {
@@ -58,6 +75,19 @@ export class World {
     this.flags = new Set();
     this.knownCreatures = new Set();
     this.pendingCreatureTales = new Set();
+  }
+
+  destroy() {
+    for (const system of this.systems) {
+      if (typeof system.destroy === 'function') {
+        system.destroy();
+      }
+    }
+    this.systems = [];
+    this.entities.clear();
+    this.flags.clear();
+    this.knownCreatures.clear();
+    this.pendingCreatureTales.clear();
   }
 
   createEntity(id, name) {

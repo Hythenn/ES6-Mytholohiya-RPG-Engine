@@ -134,6 +134,12 @@ export class MythosRPGApp {
 
   launchCharacterIntoPrologue({ characterName, background, expertise, stats, socialStatus }) {
     this._enterFullscreen();
+    if (this.world && typeof this.world.destroy === 'function') {
+      this.world.destroy();
+    }
+    if (this.director && typeof this.director.destroy === 'function') {
+      this.director.destroy();
+    }
     this.world = new World(this.eventBus);
     if (this.typewriter) {
       this.typewriter.setIsKnownChecker((id) =>
@@ -275,6 +281,12 @@ export class MythosRPGApp {
   }
 
   restartGame() {
+    if (this.world && typeof this.world.destroy === 'function') {
+      this.world.destroy();
+    }
+    if (this.director && typeof this.director.destroy === 'function') {
+      this.director.destroy();
+    }
     if (this.ui) {
       this.ui.showBackgroundScreen();
     }
