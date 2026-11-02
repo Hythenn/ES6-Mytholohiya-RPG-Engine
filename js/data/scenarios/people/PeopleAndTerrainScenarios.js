@@ -568,7 +568,7 @@ NarrativeRegistry.registerMiscScenario({
       itemActionTag: 'Item // Coarse Salt Ward',
       check: null,
       successStory: [
-        'The moment the consecrated salt grains strike her skin, the sweet illusion melts away with a sickening hiss! Screeching in demonic agony, the weredog twists into a feral black canine form and flees howling into the bamboo thicket, leaving behind a dropped pouch of remnants!'
+        'The moment the consecrated salt grains strike her skin, the sweet illusion melts away with a sickening hiss! Screeching in demonic agony, the weredog twists into a feral black canine form and flees howling into the bamboo thicket, leaving behind a dropped pouch of 6 piloncitos!'
       ],
       onSuccess: {
         piloncitos: 6,
@@ -594,13 +594,40 @@ NarrativeRegistry.registerMiscScenario({
       }
     },
     {
-      text: 'Politely decline, murmur "Tabi-tabi po," and back away with your eyes locked on her hands',
-      check: null,
+      text: 'Lunge for the bundle of wild garlic and brandish the sharpened bamboo stake to ward off the mimic while backing away',
+      complexity: 'tactical',
+      check: { stat: 'DEX', dc: 12 },
       successStory: [
-        'Murmuring ancient respectful apologies, you keep your distance and back away step by step until the well is swallowed by the evening mist.'
+        'You feign moving toward the stool, then swiftly scoop up the wild garlic and level the sharpened bamboo stake at her throat! Sickened by the pungent garlic and wary of the puncturing bamboo, the creature hisses with a voice of tearing hide and retreats backward into the dark well-shadows, allowing you to withdraw safely.'
+      ],
+      failStory: [
+        'You dive for the garlic bundle, but your fingers slip on the mossy flagstones. Before you can recover, the creature swats your arm aside with sudden monstrous strength, claws drawing blood before you roll backward and scramble clear into the mist!'
       ],
       onSuccess: {
-        emitTags: ['cautious']
+        addItem: 'bagacay_bamboo_spear',
+        heatDelta: -10,
+        emitTags: ['steady_nerves', 'cautious']
+      },
+      onFail: {
+        hp: -3,
+        heatDelta: 15,
+        emitTags: ['wounded', 'fog_gathering']
+      }
+    },
+    {
+      text: 'Politely decline, murmur "Tabi-tabi po," and bow your head to the fragile-looking elder',
+      complexity: 'basic',
+      autoFail: true,
+      folkloreTag: 'Animist Etiquette // Tabi-tabi po',
+      failureTag: 'Misapplied Folklore',
+      failStory: [
+        'A raspy, guttural snicker curdles the evening air as the old woman\'s grin splits impossibly wide: "Tabi-tabi po? Do I look like a dirt-dwelling dwarf under a termite mound to you?!" Flesh-eating Aswang and cursed mimics feel only contempt for earth-spirit apologies. As you bow your head, razor talons slash across your chest, and the creature leaps into the mist with your blood on its claws!'
+      ],
+      onFail: {
+        hp: -4,
+        heatDelta: 15,
+        applyCondition: { id: 'infected_aswang_bite', bodyPart: 'Chest / Ribs' },
+        emitTags: ['wounded', 'careless', 'aswang_hunted']
       }
     }
   ]

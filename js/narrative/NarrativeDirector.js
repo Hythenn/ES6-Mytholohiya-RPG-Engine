@@ -1464,9 +1464,15 @@ export class HierarchicalProbabilisticNarrativeDirector {
       });
     }
 
-    if (typeof effects.heat === 'number' && effects.heat !== 0) {
+    const heatDelta =
+      typeof effects.heatDelta === 'number'
+        ? effects.heatDelta
+        : typeof effects.heat === 'number'
+          ? effects.heat
+          : null;
+    if (typeof heatDelta === 'number' && heatDelta !== 0) {
       this.eventBus.emit('danger:modifyHeat', {
-        delta: effects.heat,
+        delta: heatDelta,
         source: this.currentScenario
           ? this.currentScenario.locationLabel
           : 'Scenario Danger Heat'
