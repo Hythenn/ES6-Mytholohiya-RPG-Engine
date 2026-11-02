@@ -1149,6 +1149,7 @@ NarrativeRegistry.registerMiscScenario({
     },
     {
       text: 'Throw the demon off with sheer brute strength (Physical Struggle)',
+      abstractLabel: 'Attempt to force your pinned limbs and heave the crushing weight off',
       check: { stat: 'STR', dc: 16 },
       physical: true,
       successStory: [

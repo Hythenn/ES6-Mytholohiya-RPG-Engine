@@ -3999,6 +3999,12 @@ body:has(#game-workspace:not([hidden])) {
   pointer-events: auto;
 }
 
+.choice-btn.choice-btn-locked .choice-label {
+  font-style: italic;
+  color: #9c8a78;
+  opacity: 0.88;
+}
+
 .choice-btn:disabled:hover,
 .choice-btn.choice-btn-locked:hover {
   background-color: #180c07;

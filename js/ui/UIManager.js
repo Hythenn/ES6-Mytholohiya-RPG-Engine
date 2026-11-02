@@ -3400,7 +3400,11 @@ export class UIManager {
         tagsHtml += `<span class="choice-tag tag-prep">[${prepLabel}]</span>`;
       }
 
-      const cleanLabel = (choice.label || '').replace(/\[([^\]]+)\/\/([^\]]*)\]/g, (m, p1) => `[${p1.trim()}]`);
+      let displayLabel = choice.label || '';
+      if (!choice.allowed && choice.abstractLabel) {
+        displayLabel = choice.abstractLabel;
+      }
+      const cleanLabel = (displayLabel || '').replace(/\[([^\]]+)\/\/([^\]]*)\]/g, (m, p1) => `[${p1.trim()}]`);
       if (!choice.allowed) {
         btn.classList.add('choice-btn-locked');
         btn.setAttribute('aria-disabled', 'true');

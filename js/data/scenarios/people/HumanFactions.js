@@ -65,6 +65,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Present your Bagani alliance credentials to enter freely as an honored ally of the Rajahnate',
+      abstractLabel: 'Present official credentials or proof of alliance to the gate sentries',
       requiredTag: 'rep_rajahnate_ally',
       itemActionTag: 'Alliance // Kota Rajahnate',
       blockedByTag: 'rep_rajahnate_enemy',
@@ -80,6 +81,7 @@ NarrativeRegistry.registerMiscScenario({
     },
     {
       text: 'Pay the standard anchorage toll of 5 Piloncitos to the gate officer for peaceful trading entry',
+      abstractLabel: 'Pay the standard anchorage toll to the gate officer',
       requiredPiloncitos: 5,
       blockedByTag: 'rep_rajahnate_enemy',
       lockReason: 'Barred from entry: The Rajahnate has declared you an enemy',
@@ -179,6 +181,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Request free alloy maintenance and weapon honing as an ally of Datu Dula',
+      abstractLabel: 'Request privileged maintenance and honing under formal alliance',
       requiredTag: 'rep_rajahnate_ally',
       itemActionTag: 'Ally Privilege // Kota Blacksmith',
       blockedByTag: 'rep_rajahnate_enemy',
@@ -194,6 +197,7 @@ NarrativeRegistry.registerMiscScenario({
     },
     {
       text: 'Pay 8 Piloncitos to purchase a tempered steel weapon and sturdy armor reinforcement',
+      abstractLabel: 'Pay standard smithing fees for tempered steel weapon and armor reinforcement',
       requiredPiloncitos: 8,
       blockedByTag: 'rep_rajahnate_enemy',
       check: null,
@@ -379,6 +383,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Kneel reverently before Baliana Alunsina and request the sacred Santigwar cleansing ritual',
+      abstractLabel: 'Request the sacred cleansing ritual from the elder priestess',
       blockedByTag: 'rep_babaylan_enemy',
       lockReason: 'The Sisterhood has branded you an enemy of the spirits and bars you from healing',
       check: null,
@@ -395,6 +400,7 @@ NarrativeRegistry.registerMiscScenario({
     },
     {
       text: 'Place 3 Piloncitos upon the anito altar and chant a respectful prayer to the ancestors',
+      abstractLabel: 'Place an offering of Piloncitos upon the altar and pray to ancestors',
       requiredPiloncitos: 3,
       blockedByTag: 'rep_babaylan_enemy',
       check: null,
@@ -558,6 +564,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Accept Datu Magat lucrative mercenary contract to smuggle contraband gunpowder past the coastal fort',
+      abstractLabel: 'Accept a lucrative mercenary contract from the raider chieftain',
       complexity: 'tactical',
       minInt: 10,
       blockedByTag: 'rep_karakoa_enemy',
@@ -752,6 +759,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Privately murmur the covert lineage password and offer 6 Piloncitos for forbidden alchemical secrets',
+      abstractLabel: 'Confer privately with Datu Lando and negotiate for rare alchemical concoctions',
       complexity: 'clever',
       minInt: 11,
       requiredPiloncitos: 6,
@@ -935,6 +943,7 @@ NarrativeRegistry.registerMiscScenario({
   choices: [
     {
       text: 'Perform the sacred Blood-Truce ritual by offering mountain salt and unsmoked tobacco',
+      abstractLabel: 'Perform the traditional territorial greeting and offer mountain gifts',
       complexity: 'tactical',
       minInt: 10,
       blockedByTag: 'rep_headhunters_enemy',

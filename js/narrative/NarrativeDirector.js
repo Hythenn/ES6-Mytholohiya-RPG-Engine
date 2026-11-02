@@ -1201,7 +1201,9 @@ export class HierarchicalProbabilisticNarrativeDirector {
       if (!cond.visible) return;
 
       let whisper = '';
-      if (choice.itemActionTag) {
+      if (!cond.allowed) {
+        whisper = choice.lockedWhisper || null;
+      } else if (choice.itemActionTag) {
         whisper = String(choice.itemActionTag).split('//')[0].trim();
       } else if (choice.whisperTag) {
         whisper = String(choice.whisperTag).split('//')[0].trim();
@@ -1215,12 +1217,17 @@ export class HierarchicalProbabilisticNarrativeDirector {
         );
       }
 
+      const rawLabel = cond.allowed
+        ? (choice.text || choice.label)
+        : (cond.abstractLabel || choice.abstractLabel || choice.abstractText || '[Locked Action] Requirements not met');
+
       evaluated.push({
         index,
-        label: this._sanitizeCreatureText(choice.text || choice.label),
+        label: this._sanitizeCreatureText(rawLabel),
+        abstractLabel: cond.abstractLabel || choice.abstractLabel || choice.abstractText || null,
         whisper,
         allowed: cond.allowed,
-        lockReason: cond.reason,
+        lockReason: this._sanitizeCreatureText(cond.reason),
         isPassiveRevealed: Boolean(cond.isPassiveRevealed),
         passiveStat: cond.passiveStat || null,
         isIntUnlocked: Boolean(cond.isIntUnlocked),
