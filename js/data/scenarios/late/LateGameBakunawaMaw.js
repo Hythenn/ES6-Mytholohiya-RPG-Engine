@@ -27,6 +27,16 @@ export const SubstoryLateBakunawa = {
         high_ground: 2.0
       },
       seamlessHooks: {
+        approaching_coastal_marsh:
+          'The earth slopes steeply down toward the churning black sea, where towering basalt columns shatter the titanic breakers.',
+        spirit_fog_rising:
+          'A cold sea-mist saturated with ash and salt sweeps inland, obscuring the jagged rocks and the frantic chanting of cultists.',
+        monsoon_break:
+          'The oceanic storm gathers into a cyclonic fury, turning the sky the color of bruised iron as the tide swells unnaturally.',
+        dusk_falling:
+          'The sun turns an ominous, sickly orange on the ocean horizon as the shadow of the Leviathan rises beneath the waves.',
+        midnight_darkness:
+          'Pitch blackness falls as the moon begins to disappear into the gaping jaws of the sky-serpent.',
         default:
           'You descend onto the jagged black basalt cliffs where the ocean boils under a total blood-red eclipse.'
       },
@@ -81,6 +91,12 @@ export const SubstoryLateBakunawa = {
         drums_secured: 5.0
       },
       seamlessHooks: {
+        eclipse_rising:
+          'A terrible shadow devours the silver face of the moon, plunging the islands into an icy, spectral twilight.',
+        monsoon_break:
+          'The sea roars in madness as tidal waves crash against the cliff face, spraying freezing brine across the ritual altar.',
+        spirit_fog_rising:
+          'The cosmic serpent breath chills the air to frost, wrapping the cliffs in billowing clouds of spectral vapor.',
         default:
           'Standing at the very edge of the abyssal altar, the shadow of the Bakunawa falls directly over you as the last crescent of moonlight flickers.'
       },

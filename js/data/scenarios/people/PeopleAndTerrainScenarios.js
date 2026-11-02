@@ -105,6 +105,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'The scent of brine and drying kelp thickens as you step out of the inland brush onto the glistening white crust of coastal salt-pans.',
+    dusk_falling:
+      'Sunset stains the shallow brine pools in shades of burning copper, reflecting the lonely silhouette of a solitary driftwood hovel.',
+    spirit_fog_rising:
+      'Cold tidal mist creeps over the low dikes, curling around wooden drying racks like searching fingers.',
     raining:
       'Wading past the salt pans, you see a lone woman frantically covering bamboo crystallization troughs with woven mats against the rain.',
     default:
@@ -185,6 +191,16 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'Descending from the open ridge into an overgrown ravine, the dense canopy blocks the sky as the smell of woodsmoke and bruised leaves fills the air.',
+    dusk_falling:
+      'Twilight cloaks the ravine in deep violet shadows, through which the faint clatter of iron and muffled whimpering drift from a raider camp.',
+    midnight_darkness:
+      'In the dead stillness of midnight, only the crackle of a dying campfire guides your silent steps between the fern-draped boulders.',
+    spirit_fog_rising:
+      'Heavy mountain mist settles into the bottom of the gorge, masking your stealthy approach toward the raiders camp.',
+    raining:
+      'Rain drums loudly against the broad wild banana leaves overhead, drowning out the sound of your boots in the damp earth.',
     default:
       'Following a faint trail of severed abaca threads, you stumble upon a concealed ravine camp where two bound captives kneel in the dirt.'
   },
@@ -262,6 +278,14 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Leaving the fortified gates behind, the packed river road leads toward a breezy trail crossing shaded by wide acacia boughs.',
+    approaching_coastal_marsh:
+      'The trail descends toward the tidal estuary where sea breeze rustles the broad leaves of a roadside umbrella tree.',
+    dusk_falling:
+      'Lantern light flickers awake beneath the umbrella tree as twilight settles over the dusty three-way trail junction.',
+    clear_sky:
+      'Under a pleasant afternoon sun, polished brass trinkets glint brightly from a velvet-lined display tray set beside the road.',
     default:
       'At a three-way trail crossing, a traveler with a polished smile and a velvet-lined wooden tray beckons from beneath an umbrella tree.'
   },
@@ -356,6 +380,14 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Approaching the outskirts of the settlement, the quiet of the wild gives way to the clamor of barking village dogs and shouting market vendors.',
+    dusk_falling:
+      'As the afternoon light wanes into twilight, travelers hasten their steps along the crossroads before the night gates close.',
+    raining:
+      'Warm rain turns the crowded crossroads into slippery clay as travelers and peddlers crowd beneath roadside fruit awnings.',
+    clear_sky:
+      'Bright sun beats down on the packed dirt crossroads where drying mangoes and woven baskets perfume the bustling air.',
     default:
       'Beside a carved milestone, a ragged youth in tattered abaca sits sobbing into his knees, holding an empty woven basket.'
   },
@@ -541,6 +573,14 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Passing between the leaning bamboo gates of an eerily quiet settlement, the trail ends before an ancient, moss-crusted stone well.',
+    dusk_falling:
+      'The last crimson streaks of twilight fade behind the empty huts, leaving the silent stone well bathed in creeping evening mist.',
+    spirit_fog_rising:
+      'A dense, unnaturally sweet-smelling fog wraps around the curb of the village well, obscuring the huddled figure resting there.',
+    raining:
+      'Cold rain drips from the decaying nipa eaves of the abandoned barrio, splashing rhythmically into the dark water of the well.',
     default:
       'At an abandoned stone water-well outside a cluster of deserted huts, a lone grandmother sits on a wooden stool peeling ginger roots.'
   },
@@ -727,6 +767,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    climbing_mountain_pass:
+      'Hauling yourself up the last rocky ledge, you emerge onto a razor-sharp limestone pinnacle that commands a dizzying view of the moonlit canopy below.',
+    dusk_falling:
+      'Sunset bleeds into deep indigo across the western horizon as the first evening stars pierce the cloudless mountain heavens.',
+    midnight_darkness:
+      'Under the velvety dome of midnight, the entire sweep of the cosmos burns with silver fire, mirroring the distant glow of coastal fires.',
     clear_sky:
       'The storm clouds sweep away out to sea, unveiling a dazzling blanket of tropical stars reflected in the calm ocean below.',
     default:
@@ -1143,6 +1189,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'The firm volcanic soil rapidly dissolves into black, sulfurous mud as the labyrinthine roots of the tidal mangrove close overhead.',
+    dusk_falling:
+      'Dusk turns the sluggish tidal waters to polished obsidian, masking the true depth of the sucking mire ahead.',
+    spirit_fog_rising:
+      'A gray marsh-mist hovers a hand-span above the water, carrying the pungent tang of rotting mangrove bark and salt.',
     raining:
       'Torrential rains swell the mangrove slough into a treacherous expanse of knee-deep black mud and tangled prop-roots.',
     default:
@@ -1225,6 +1277,14 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    climbing_mountain_pass:
+      'Ascending past the tree line, the soil disappears completely beneath an expanse of fractured, blade-sharp limestone karst needles.',
+    dusk_falling:
+      'Twilight turns the jagged rock spires the color of weathered bone, casting deep, bottomless crevices into absolute darkness.',
+    spirit_fog_rising:
+      'Freezing mountain mist swirls through the rock fissures, slicking the razor stone surfaces with dangerous moisture.',
+    clear_sky:
+      'Unforgiving mountain winds howl across the bare stone spine, where sharp karst needles glint under the clear sky.',
     default:
       'The trail climbs onto a treacherous spine of razor-sharp limestone karst needles weathered into blade-like edges by centuries of rain.'
   },

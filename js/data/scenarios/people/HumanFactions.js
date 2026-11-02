@@ -34,6 +34,10 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Approaching the grand river gate, armed Bagani sentries peer down from log battlements flanked by heavy brass Lantaka cannons.',
+    dusk_falling:
+      'Sunset ignites the watchtower braziers atop the palisade wall, casting long, sharp shadows across the cleared approach.',
     raining:
       'Torches hiss in the coastal downpour along the ironwood battlements of Kota Dula as water streams from heavy brass Lantaka cannons.',
     fog_gathering:
@@ -148,6 +152,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Following the rhythmic strike of heavy iron upon anvil, you navigate the sawdust-strewn lanes toward the settlement foundry.',
+    dusk_falling:
+      'As night settles over the kota, the foundry bellows roar with glowing orange heat, casting a volcano-like glare against the river.',
+    raining:
+      'Steam hisses violently from open quenching troughs as cool raindrops strike the blazing furnace of the iron foundry.',
     default:
       'The clang of hammer against anvil and the roar of charcoal bellows lead you to the open-air iron foundry of Kota Dula.'
   },
@@ -237,6 +247,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'Slogging through the brackish tidal mire, the heavy silence of the mangrove is shattered by the shrill blast of an ivory war-horn!',
+    spirit_fog_rising:
+      'Ghostly mist clings to the arching stilt-roots, through which armored bounty hunters emerge with poised hunting nets.',
+    dusk_falling:
+      'Twilight shadows stretch across the mudflats right as hardened mercenaries step out to cut off your path.',
     default:
       'A horn-blast echoes from the mangrove trees as armored figures leap out across the muddy tidal channel!'
   },
@@ -334,6 +350,10 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'The tangled forest path parts before a secluded limestone grotto, where sacred springwater ripples beneath giant blue lotus pads.',
+    dusk_falling:
+      'Amber lamplight illuminates the sacred water-lily pool as priestesses in saffron malongs begin their twilight healing chants.',
     fog_gathering:
       'The scent of smoldering bayabas leaves and beeswax candles cuts through the spirit fog, guiding you to a serene limestone grotto.',
     raining:
@@ -421,6 +441,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'The canopy overhead twists into grotesque grimaces as ancestral spirits howl their fury into the rustling leaves.',
+    midnight_darkness:
+      'Midnight descends like a suffocating shroud, through which the phantom voices of vengeful priestesses echo in your ears.',
+    spirit_fog_rising:
+      'Choking black mist coils up from the moss, carrying the sickening heat of an ancestral curse that chills your veins.',
     default:
       'The stolen gold in your pack burns like boiling pitch against your ribs as the trees around you begin to wail with ancestral sorrow.'
   },
@@ -505,6 +531,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'Wading through a hidden tidal grotto draped in hanging sea-vines, the smell of salted fish, gunpowder, and roasted pork reveals a secluded pirate cove.',
+    midnight_darkness:
+      'Lanterns veiled behind rattan screens cast faint red rings upon the dark sea cavern where outlaw war-boats lie anchored.',
+    spirit_fog_rising:
+      'Thick ocean fog hides the narrow mouth of the cave, through which the hushed laughter of smugglers floats across the black water.',
     default:
       'Tucked behind a curtain of hanging sea-vines, the smell of salted fish, gunpowder, and roasted pork reveals the pirate hideout.'
   },
@@ -604,6 +636,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'Rounding a muddy mangrove bend, the broad river is suddenly choked by a heavy timber barrier topped with iron caltrops.',
+    dusk_falling:
+      'Twilight settles over the river right as the carved black prow of a pirate Karakoa glides silently from the creek to intercept you.',
+    raining:
+      'Rain lashes the swollen river channel where heavily armed sea-raiders raise their rattan shields and block the crossing.',
     default:
       'A sleek black war-boat surges across the river bend, its outriggers slamming shut against your route!'
   },
@@ -687,6 +725,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Passing through the weathered gateway of Barrio Silim, the quiet village seems eerily peaceful beneath the darkening evening sky.',
+    dusk_falling:
+      'The dying crimson rays of dusk cast elongated shadows between the stilt-huts as silent villagers assemble around a long feast table.',
+    spirit_fog_rising:
+      'A cool, sweet-scented valley mist settles over the earthen streets of Barrio Silim, muting every footstep with unnatural quiet.',
     default:
       'Smoke curls from clay stoves in Barrio Silim as villagers gather around the communal rice-threshing floor at dusk.'
   },
@@ -780,6 +824,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    midnight_darkness:
+      'In the absolute black of midnight, yellow predator eyes ignite in the low scrub as the hunting pack surrounds you.',
+    spirit_fog_rising:
+      'The spirit-fog grows rank with the smell of wet fur and sour fermented coconut oil as monstrous silhouettes close in.',
+    raining:
+      'Cold rain drums on the leaves, punctuated by the wet thud of four-legged stalkers bounding through the brush alongside you.',
     default:
       'Leathery wingbeats and guttural canine snarls surround your night trail as the moon breaks through the clouds.'
   },
@@ -858,6 +908,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    climbing_mountain_pass:
+      'Ascending past the highland cloud-belt, the bare rock spires are watched by silent mountain braves holding fire-hardened spears.',
+    dusk_falling:
+      'Sunset paints the razor limestone heights in blood-red hues beside a tribal territorial boundary pole draped in woven cords.',
+    spirit_fog_rising:
+      'Freezing mountain fog sweeps over the karst pass, through which the rhythmic tapping of bamboo warning sticks vibrates.',
     default:
       'High above the clouds along the razor karst ridge stands a carved narra pole crowned with a boar skull painted in red ochre.'
   },
@@ -952,6 +1008,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    climbing_mountain_pass:
+      'Navigating a treacherous rock crevice along the ridge, the sudden snap of rattan rope warns of a deadly ambush!',
+    entering_deep_forest:
+      'Entering a grove of razor-leafed mountain bamboo, the unnatural stillness is broken by the sharp hiss of blowgun darts.',
+    spirit_fog_rising:
+      'Thick cloud-mist obscures the trail ahead, masking the deadly punji pits dug into the narrow limestone path.',
     default:
       'A concealed rattan tripwire twangs against your boot as poisoned blowdarts hiss from the bamboo canopy!'
   },

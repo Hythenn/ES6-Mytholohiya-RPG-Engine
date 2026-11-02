@@ -33,7 +33,22 @@ export const SubstoryKotaHub = {
         clear_sky: 1.5
       },
       seamlessHooks: {
-        default: 'Sunlight washes over the ironwood palisades of Kota Dula as the smells of roasting wild boar and coconut charcoal drift through the warm morning air.'
+        entering_village_gates:
+          'Passing beneath the towering ironwood palisade of Kota Dula, the smell of damp river mud yields to burning incense, roast pork, and bustling Kedatuan commerce.',
+        climbing_mountain_pass:
+          'Descending from the mist-covered foothills, the fortified river settlement of Kota Dula spreads before you along the wide delta.',
+        approaching_coastal_marsh:
+          'Following the broad estuary inland, the sound of crashing surf fades behind the sturdy timber bastions and watchtowers of the Rajahnate.',
+        dusk_falling:
+          'Amber torches flare to life atop the defensive earthworks as sunset paints the wide tidal river in shades of copper and gold.',
+        dawn_break:
+          'The morning sun glints off the brass lantaka cannons mounted along the river palisade as fisherfolk launch their outrigger bancas.',
+        clear_sky:
+          'Under a bright tropical sun, the vibrant banners and carved serpent prows of Kota Dula flutter proudly over the river landing.',
+        raining:
+          'A warm tropical shower pelts the broad nipa thatch of the storehouses, sending ripples across the packed clay plaza of Kota Dula.',
+        default:
+          'Sunlight washes over the ironwood palisades of Kota Dula as the smells of roasting wild boar and coconut charcoal drift through the warm morning air.'
       },
       passive: {
         stat: 'WIS',
@@ -113,7 +128,16 @@ export const SubstoryKotaHub = {
         at_kota_market: 100.0
       },
       seamlessHooks: {
-        default: 'You arrive at the river market stalls where foreign junk traders and local barters haggle over woven pandan mats and earthen fermentation jars.'
+        entering_village_gates:
+          'Stepping directly onto the bustling riverside boardwalks, the rich aroma of dried fish, mountain tobacco, and beeswax candles fills the air.',
+        raining:
+          'Merchants quickly roll down woven bamboo awnings as warm raindrops drum rhythmically against rows of earthen pottery and abaca bales.',
+        dusk_falling:
+          'Hanging clay lamps flicker awake along the piers as traders count their copper piloncitos under the cooling twilight breeze.',
+        clear_sky:
+          'Sunlight dances on the tidal river as merchants from distant islands haggle over porcelain jars and spun silk.',
+        default:
+          'You arrive at the river market stalls where foreign junk traders and local barters haggle over woven pandan mats and earthen fermentation jars.'
       },
       prompt: [
         'Merchants from across the sea and inland hills lay out their wares on freshly cut banana leaves: fragrant honeycomb, bundles of straight Bagacay bamboo, blocks of coarse sea salt, and jars of pungent bagoong.',
@@ -194,7 +218,14 @@ export const SubstoryKotaHub = {
         at_kota_tavern: 100.0
       },
       seamlessHooks: {
-        default: 'Inside the cool, elevated bamboo longhouse, warriors and riverfarers share bamboo tubes of sweet, effervescent Tuba palm wine.'
+        dusk_falling:
+          'As night rolls over the river, the welcoming amber warmth of torchlight spills from the open doors of the timawa longhouse.',
+        raining:
+          'Ducking inside from the rain-slicked boardwalk, the dry warmth of a crackling hearth and the sweet scent of fermenting tuba wine greet your senses.',
+        midnight_darkness:
+          'In the late hours of the night, the longhouse tavern murmurs with the low, secretive voices of seasoned river warriors trading tales of the wild.',
+        default:
+          'Inside the cool, elevated bamboo longhouse, warriors and riverfarers share bamboo tubes of sweet, effervescent Tuba palm wine.'
       },
       prompt: [
         'Elders sit in a relaxed circle chewing betel nut (nganga), their teeth stained an honorable reddish-black as they debate harvest moon cycles and river tides. A tavern maiden offers bamboo cups of freshly tapped palm wine.',
@@ -285,7 +316,16 @@ export const SubstoryKotaHub = {
         at_kota_shrine: 100.0
       },
       seamlessHooks: {
-        default: 'At the terrace crest, the sweet scent of burning almaciga copal resin drifts past hand-carved wooden Larawan idols, while sparks fly from the open charcoal forge nearby.'
+        entering_deep_forest:
+          'A tranquil bamboo grove at the edge of the kota opens onto a secluded stone clearing where brass bells chime in the river breeze.',
+        dusk_falling:
+          'Dusk casts long reverence across the carved anito figures as temple priestesses light bowls of fragrant almaciga resin.',
+        midnight_darkness:
+          'Under the velvet blanket of midnight, the embers of the lantaka forge glow cherry-red beside the silent guardian idols.',
+        clear_sky:
+          'Bright sunlight gleams upon the ceremonial brass gong stands and polished offering plates arrayed before the sacred altar.',
+        default:
+          'At the terrace crest, the sweet scent of burning almaciga copal resin drifts past hand-carved wooden Larawan idols, while sparks fly from the open charcoal forge nearby.'
       },
       prompt: [
         'Here stands the sacred heart and defensive armory of the Kota. Beneath an open-sided balete-wood dambana, carved ancestral figures (Larawan) look out over the settlement, draped with white cotton ribbons and fresh wild sampaguita garlands.',

@@ -581,6 +581,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'The overgrown path leads toward the roots of a colossal, gnarled acacia tree whose sprawling branches blot out the sky in twilight gloom.',
+    spirit_fog_rising:
+      'Thick, pungent tobacco smoke rolls down from the massive horizontal boughs of a centuries-old acacia tree, turning the air into blinding Hamog spirit fog.',
+    dusk_falling:
+      'As dusk darkens the forest trail, a glowing red ember flares rhythmically high within the shadow of a massive acacia bough.',
     default:
       'Thick, pungent tobacco smoke rolls down from the massive horizontal boughs of a centuries-old acacia tree, turning the air into blinding Hamog spirit fog.'
   },
@@ -732,6 +738,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    approaching_coastal_marsh:
+      'Following the dark edge of the marshland where old warriors fell, the damp air crackles with ozone and the faint smell of burning phosphorus.',
+    midnight_darkness:
+      'In the pitch black of midnight, a floating orb of blue-white spectral fire ignites above the tall grasses, hovering without a sound.',
+    raining:
+      'Rain hisses against an ethereal, floating sphere of electrical fire dancing lazily above the waterlogged stones.',
     default:
       'Above the rain-lashed stones where an ancient skirmish spilled blood, a blinding sphere of blue-white electrical fire dances across the air!'
   },
@@ -989,6 +1001,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'Ducking into an abandoned hardwood logging hut deep in the forest, the oppressive stillness inside weighs instantly upon your chest.',
+    midnight_darkness:
+      'At the dead hour of midnight, the central timber pillar of the shelter creaks with heavy, malevolent mass.',
+    spirit_fog_rising:
+      'Damp night fog slips beneath the floorboards as an icy, suffocating pressure settles over the room.',
     default:
       'Resting your back against the central molave support post of an old timber shelter, a sudden, unnatural leaden drowsiness pins your limbs to the bamboo floor.'
   },
@@ -1066,6 +1084,10 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'Seeking sanctuary within a deserted timber lodge, the scent of aged narra wood masks the ancient spirit slumbering inside the timbers.',
+    midnight_darkness:
+      'As midnight claims the cabin, your eyelids grow impossibly heavy, and the air turns stiflingly thick with the terror of Bangungot sleep paralysis.',
     default:
       'Seeking shelter from the night, you collapsed into an antique four-poster bedstead carved from a single massive Narra trunk.'
   },
@@ -1252,6 +1274,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'Passing an ancient burial hollow beneath the ferns, the sound of splintering bamboo and rigid, unbending footsteps echoes from the dark trail.',
+    dusk_falling:
+      'As twilight bleeds from the sky, a freshly turned mound of red earth breaks open beside the road with a sickening gasp.',
+    spirit_fog_rising:
+      'Cold graveyard mist rolls across the path, through which a stiff-legged silhouette hops with relentless, mechanical speed.',
     default:
       'Out of a disturbed shallow grave beside the trail rises a pale, stiff-limbed corpse that failed to pass on its dungan monster-curse before dying.'
   },
@@ -1345,6 +1373,12 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_deep_forest:
+      'The forest trail gives way to an eerie clearing surrounded by whispering reeds, where millions of emerald fireflies pulse in unsettling unison.',
+    midnight_darkness:
+      'In the eerie hush of midnight, a swarm of glowing green fireflies rises from the tall marsh reeds ahead, coalescing into a winged spectral silhouette!',
+    spirit_fog_rising:
+      'Phosphorescent green mist coils above the stagnant water as the astral projection of the ghoul detaches from its hidden shell.',
     default:
       'A swarm of eerie green fireflies rises from the tall marsh reeds ahead, coalescing into a winged, cat-eyed spectral silhouette!'
   },
@@ -1575,6 +1609,10 @@ NarrativeRegistry.registerMiscScenario({
   },
 
   seamlessHooks: {
+    entering_village_gates:
+      'Passing beneath the carved timber archways of the river settlement, the tranquil forest yields to hundreds of glowing lanterns and the bustling din of commerce.',
+    dusk_falling:
+      'Sunset paints the river settlement in copper hues as dockworkers haul cargo bales onto the packed boardwalks under the evening breeze.',
     raining:
       'Rounding the river bend, the dark wilderness gives way to hundreds of oiled-paper lanterns and the bustling murmur of a fortified port settlement.',
     fog_gathering:

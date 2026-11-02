@@ -31,7 +31,16 @@ export const SubstoryMerchantRescue = {
         raining: 1.5
       },
       seamlessHooks: {
-        default: 'Through the tangled stilt-roots of the brackish mangrove, frantic cries echo above the low growls of backward-walking shadow hounds.'
+        approaching_coastal_marsh:
+          'The firm forest trail gives way to black, sucking tidal mire as the dense prop-roots of the coastal mangrove knot overhead.',
+        spirit_fog_rising:
+          'Sulfurous yellow mist crawls across the mangrove mud, carrying the sharp, copper tang of freshly spilled blood.',
+        dusk_falling:
+          'Twilight deepens the gloom among the tangled stilt-roots, where shadows stretch and take on predatory hunger.',
+        raining:
+          'Rain drums mercilessly on the broad mangrove leaves, almost masking a desperate human cry for help echoing through the creek.',
+        default:
+          'Through the tangled stilt-roots of the brackish mangrove, frantic cries echo above the low growls of backward-walking shadow hounds.'
       },
       passive: {
         stat: 'WIS',
@@ -139,7 +148,14 @@ export const SubstoryMerchantRescue = {
         rescued_merchant_lito: 100.0
       },
       seamlessHooks: {
-        default: 'With the Sigbin hounds driven off into the murky depths, the merchant catches his breath on a dry limestone shelf and wrings out his embroidered tunic.'
+        spirit_fog_rising:
+          'The cold mist thins around the trampled mud as the whimpering merchant pulls himself up against the shattered cart wheel.',
+        monsoon_break:
+          'The downpour slackens into a gentle drip from the rain-soaked canopy, leaving only the ragged breathing of the surviving trader.',
+        dusk_falling:
+          'Shadows lengthen across the bloodied swamp trail as the merchant hurriedly collects his scattered trade bundles.',
+        default:
+          'With the Sigbin hounds driven off into the murky depths, the merchant catches his breath on a dry limestone shelf and wrings out his embroidered tunic.'
       },
       prompt: [
         'The merchant bows low, touching his forehead with open palms in reverent pre-colonial gratitude.',

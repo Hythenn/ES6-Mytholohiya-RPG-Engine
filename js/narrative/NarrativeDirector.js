@@ -634,39 +634,172 @@ export class HierarchicalProbabilisticNarrativeDirector {
    * - Scenarios with 'ANY' weather describe the present sky, so only hooks that
    *   match the current weather are allowed.
    */
-  _selectSeamlessHook(scenario, previousWeather, allowedWeathers) {
+  _deriveEnvironmentShiftKeys(prevEnv, currEnv) {
+    if (!prevEnv || !currEnv || prevEnv === currEnv) return [];
+    const p = String(prevEnv).toLowerCase();
+    const c = String(currEnv).toLowerCase();
+    const keys = [];
+
+    // Precise from-to
+    keys.push(`from_${p}`);
+    keys.push(`entering_${c}`);
+
+    // Semantic aliases by target environment
+    if (c === 'forest' || c === 'balete') {
+      keys.push('entering_deep_forest', 'entering_forest', 'into_forest');
+    } else if (c === 'mangrove' || c === 'coast') {
+      keys.push('approaching_coastal_marsh', 'entering_mangrove', 'approaching_coast');
+    } else if (c === 'terraces' || c === 'mountain') {
+      keys.push('climbing_mountain_pass', 'entering_terraces', 'climbing_terraces');
+    } else if (c === 'village' || c === 'city' || c === 'cabin') {
+      keys.push('entering_village_gates', 'entering_settlement', 'approaching_village_gates', 'entering_village');
+    } else if (c === 'ruins') {
+      keys.push('entering_ancient_ruins', 'approaching_ruins');
+    } else if (c === 'tent') {
+      keys.push('inside_tent', 'entering_tent');
+    }
+
+    // Semantic aliases by previous environment
+    if (p === 'mangrove' || p === 'coast') {
+      keys.push('from_coastal_marsh', 'from_marsh');
+    } else if (p === 'forest' || p === 'balete') {
+      keys.push('from_deep_forest', 'from_woods');
+    } else if (p === 'village' || p === 'city') {
+      keys.push('from_village', 'leaving_settlement');
+    } else if (p === 'terraces') {
+      keys.push('from_mountain_pass', 'descending_terraces');
+    }
+
+    keys.push('environment_shift', 'biome_shift');
+    return keys;
+  }
+
+  _deriveWeatherShiftKeys(prevWeather, currWeather) {
+    if (!currWeather) return [];
+    const c = String(currWeather).toUpperCase();
+    const p = String(prevWeather || '').toUpperCase();
+    const keys = [];
+
+    if (c === 'MONSOON') {
+      keys.push('monsoon_break', 'monsoon_rising', 'monsoon', 'storm_rising', 'raining');
+    } else if (c === 'DRIZZLE') {
+      keys.push('drizzle_starting', 'rain_starting', 'raining');
+    } else if (c === 'SPIRIT FOG' || c === 'SPIRIT_FOG') {
+      keys.push('spirit_fog_rising', 'fog_gathering', 'mist_rising', 'spirit_fog');
+    } else if (c === 'CLEAR') {
+      if (p === 'MONSOON' || p === 'DRIZZLE') {
+        keys.push('monsoon_break', 'rain_stopping');
+      }
+      keys.push('clear_sky', 'fog_clearing', 'weather_clearing');
+    }
+
+    keys.push('weather_shift');
+    return keys;
+  }
+
+  _deriveTimeShiftKeys(prevTime, currTime) {
+    if (!currTime) return [];
+    const c = String(currTime).toUpperCase();
+    const keys = [];
+
+    if (c === 'DUSK') {
+      keys.push('dusk_falling', 'dusk', 'sunset', 'twilight');
+    } else if (c === 'NIGHT') {
+      keys.push('midnight_darkness', 'night_falling', 'night', 'deep_night');
+    } else if (c === 'DAWN') {
+      keys.push('dawn_break', 'dawn', 'morning', 'first_light');
+    } else if (c === 'ECLIPSE') {
+      keys.push('eclipse_rising', 'eclipse', 'blood_moon');
+    }
+
+    keys.push('time_shift');
+    return keys;
+  }
+
+  /**
+   * Selects a dynamic transitional hook based on previous state shifts
+   * (weather, environment/biome, time of day progression, or emitted tags).
+   */
+  _selectSeamlessHook(scenario, previousStateOrWeather, allowedWeathers) {
     const hooks = scenario.seamlessHooks;
     if (!hooks) return null;
 
+    const transitionState = typeof previousStateOrWeather === 'object' && previousStateOrWeather !== null
+      ? previousStateOrWeather
+      : { previousWeather: previousStateOrWeather, allowedWeathers };
+
     const checkHook = (text) => {
-      if (!text) return null;
+      if (!text || typeof text !== 'string') return null;
       return isSeamlessHookCompatible(text, this.currentTimeOfDay, this.currentWeather) ? text : null;
     };
 
-    const currentCompatible = WEATHER_COMPATIBLE_TAGS[this.currentWeather] || [];
-    const previousCompatible = WEATHER_COMPATIBLE_TAGS[previousWeather] || [];
+    const prevEnv = transitionState.previousEnvironment || this.currentEnvironment;
+    const currEnv = this.currentEnvironment;
+    const prevWeather = transitionState.previousWeather || this.currentWeather;
+    const currWeather = this.currentWeather;
+    const prevTime = transitionState.previousTimeOfDay || this.currentTimeOfDay;
+    const currTime = this.currentTimeOfDay;
 
-    // Prioritize hook matching the active resolved weather on screen
+    // 1. Direct match on last emitted tags from the previous scenario choice
+    if (Array.isArray(this.lastEmittedTags)) {
+      for (const tag of this.lastEmittedTags) {
+        const match = checkHook(hooks[tag]);
+        if (match) return match;
+      }
+    }
+
+    // 2. Environment / Biome Shift Hooks
+    if (prevEnv !== currEnv) {
+      const envKeys = this._deriveEnvironmentShiftKeys(prevEnv, currEnv);
+      for (const key of envKeys) {
+        const match = checkHook(hooks[key]);
+        if (match) return match;
+      }
+    }
+
+    // 3. Weather Shift Hooks
+    if (prevWeather !== currWeather) {
+      const weatherKeys = this._deriveWeatherShiftKeys(prevWeather, currWeather);
+      for (const key of weatherKeys) {
+        const match = checkHook(hooks[key]);
+        if (match) return match;
+      }
+    }
+
+    // 4. Time of Day Progression Hooks
+    if (prevTime !== currTime) {
+      const timeKeys = this._deriveTimeShiftKeys(prevTime, currTime);
+      for (const key of timeKeys) {
+        const match = checkHook(hooks[key]);
+        if (match) return match;
+      }
+    }
+
+    // 5. Active weather compatibility tags
+    const currentCompatible = WEATHER_COMPATIBLE_TAGS[this.currentWeather] || [];
     for (const tag of currentCompatible) {
       const match = checkHook(hooks[tag]);
       if (match) return match;
     }
 
-    if (allowedWeathers && previousWeather && previousWeather !== this.currentWeather) {
+    // 6. Allowed weather transition fallback
+    const weathers = transitionState.allowedWeathers || allowedWeathers;
+    if (weathers && prevWeather && prevWeather !== this.currentWeather) {
+      const previousCompatible = WEATHER_COMPATIBLE_TAGS[prevWeather] || [];
       for (const tag of previousCompatible) {
         const match = checkHook(hooks[tag]);
         if (match) return match;
       }
     }
 
-    const nonWeatherTags = [...this.lastEmittedTags, ...this.activeTags].filter(
-      (t) => !WEATHER_TAGS.includes(t)
-    );
+    // 7. General non-weather active tags
+    const nonWeatherTags = [...this.activeTags].filter((t) => !WEATHER_TAGS.includes(t));
     for (const tag of nonWeatherTags) {
       const match = checkHook(hooks[tag]);
       if (match) return match;
     }
 
+    // 8. Fallback to default
     return checkHook(hooks.default) || null;
   }
 
@@ -749,6 +882,8 @@ export class HierarchicalProbabilisticNarrativeDirector {
     }
 
     const previousWeather = this.currentWeather;
+    const previousEnvironment = this.currentEnvironment;
+    const previousTimeOfDay = this.currentTimeOfDay;
 
     // 1. Resolve Unified Atmosphere (Weather, Time of Day, Environment) with 3-tier priority
     const atmosphere = resolveAtmosphere(scenario, {
@@ -820,7 +955,12 @@ export class HierarchicalProbabilisticNarrativeDirector {
     const paragraphs = [...prependResolutionParagraphs];
 
     const allowedWeathers = this._getAllowedValues(scenario.weather, VALID_WEATHERS);
-    const selectedHook = this._selectSeamlessHook(scenario, previousWeather, allowedWeathers);
+    const selectedHook = this._selectSeamlessHook(scenario, {
+      previousWeather,
+      previousEnvironment,
+      previousTimeOfDay,
+      allowedWeathers
+    });
     if (selectedHook) {
       paragraphs.push(this._sanitizeCreatureText(selectedHook));
     }

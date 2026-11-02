@@ -32,7 +32,16 @@ export const SubstoryPlayerCamping = {
         exhausted: 2.5
       },
       seamlessHooks: {
-        default: 'As dusk settles over the ridge, the cold drizzle makes your damp garments cling heavily to your shoulders.'
+        dusk_falling:
+          'As the sun dips below the jungle canopy and shadows swallow the trail, the exhaustion of the road begins to weigh heavy on your limbs.',
+        raining:
+          'Cold rain soaks through your garments as the trail turns to slippery red clay, making further night travel increasingly treacherous.',
+        spirit_fog_rising:
+          'Thick, unnatural mist rolls down from the mountain ridges, obscuring the path ahead and carrying distant, mournful howls.',
+        midnight_darkness:
+          'Pitch blackness claims the wilderness, leaving the rustle of unseen predators lurking just beyond your torchlight.',
+        default:
+          'As dusk settles over the ridge, the cold drizzle makes your damp garments cling heavily to your shoulders.'
       },
       passive: {
         stat: 'WIS',
@@ -89,7 +98,16 @@ export const SubstoryPlayerCamping = {
         pitched_camp_tent: 100.0
       },
       seamlessHooks: {
-        default: 'Rain patters softly against the tight rattan roof of your tent. Inside, a small resin lamp casts a warm, flickering glow across your dry woven mat.'
+        raining:
+          'Rain lashes against the waxed canvas flaps of your shelter, but inside the air is warm and dry with the faint scent of crushed bayabas leaves.',
+        monsoon_break:
+          'The violent roar of the storm outside calms to a gentle rhythm, offering a fleeting moment of peace beneath the dry palm thatch.',
+        midnight_darkness:
+          'In the absolute black of midnight, only the steady rhythm of your own breathing breaks the silence of the enclosed shelter.',
+        spirit_fog_rising:
+          'Ghostly white tendrils of mist brush against the outer fabric of the tent, kept at bay by your circle of protective ash.',
+        default:
+          'Rain patters softly against the tight rattan roof of your tent. Inside, a small resin lamp casts a warm, flickering glow across your dry woven mat.'
       },
       prompt: [
         'Safe inside your makeshift shelter, the damp chill of the mountain forest is kept at bay. Here, you have a private moment to breathe, tend to injuries, or sleep.',

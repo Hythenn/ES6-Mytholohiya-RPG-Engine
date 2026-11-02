@@ -27,12 +27,18 @@ export const SubstoryEarlyBalete = {
         cautious: 1.5
       },
       seamlessHooks: {
+        entering_deep_forest:
+          'The trail climbs steeply through creaking bamboo thickets until the monstrous silhouette of an ancient Balete swallows the twilight sky.',
+        from_coastal_marsh:
+          'Leaving the brackish mud and salt-pans behind, the ground beneath your sandals firms into volcanic loam as you ascend toward the mountain barrio.',
+        dusk_falling:
+          'The dying glow of dusk bleeds across the mountain spine, casting long, twisted shadows between the silent nipa huts of Sitio Malungkot.',
+        spirit_fog_rising:
+          'Cold spirit-mist rises from the mossy ditches, funnels between the barred stilt-huts, and gathers around the roots of the silent belfry.',
         raining:
-          'Leaving the coastal marsh behind, the rain thins into a cold evening mist as you climb the stone steps into Sitio Malungkot.',
+          'Leaving the coastal marsh behind, the steady rain thins into a cold evening drizzle as you climb the slick stone steps into Sitio Malungkot.',
         clear_sky:
           'As dusk settles, the open sky vanishes behind the sprawling canopy of an ancient strangler fig towering over a silent mountain barrio.',
-        fog_gathering:
-          'The spirit-mist funnels you directly between the barred nipa huts of Sitio Malungkot.',
         default:
           'You enter the central square of Sitio Malungkot at the hour of the evening Angelus, yet the stone belfry hangs mute.'
       },
@@ -206,10 +212,16 @@ export const SubstoryEarlyBalete = {
         cautious: 1.5
       },
       seamlessHooks: {
+        dusk_falling:
+          'The last violet rays of sunset fade behind the palm ridges, bathing the bamboo walls of the midwife house in eerie shadows.',
+        midnight_darkness:
+          'Deep night settles across the deserted mountain barrio, leaving only the faint, comforting scent of smoldering coconut husks beneath the stilt-posts.',
+        entering_deep_forest:
+          'Stepping into the heavy shadow of the colossal banyan tree, the air turns thick with the musky scent of bat droppings and fermented palm sap.',
+        spirit_fog_rising:
+          'A shutter cracks open through the swirling spirit-mist, revealing the pale, terrified face of the midwife apprentice.',
         raining:
           'Rain patters against the woven sawali walls as a frightened whisper calls to you from behind a shutter.',
-        fog_gathering:
-          'A shutter cracks open through the mist, revealing the pale face of the midwife young apprentice.',
         default:
           'You duck under the low eaves of the midwife stilt-house where braided garlic and marurugi thorns hang from every beam.'
       },
@@ -296,6 +308,14 @@ export const SubstoryEarlyBalete = {
         wounded_manananggal: 2.5
       },
       seamlessHooks: {
+        entering_deep_forest:
+          'Leaving the stilt-houses behind, the jungle floor plunges beneath the labyrinthine boughs of the colossal strangler fig, where the air turns damp with the scent of crushed wild ginger.',
+        midnight_darkness:
+          'The silence of midnight settles over Sitio Malungkot, shrouding the ancient Balete in ink-black shadows as nocturnal predators take wing.',
+        spirit_fog_rising:
+          'Phosphorescent spirit-mist pools knee-deep around the massive buttress roots, drifting like unquiet breath through the hollows.',
+        raining:
+          'Heavy raindrops patter against the waxy canopy high above, while down below among the knotted roots only a damp, sepulchral chill remains.',
         default:
           'At the stroke of midnight, the aerial roots of the giant Balete part like a ribcage, revealing the damp hollow beneath the plaza.'
       },
@@ -388,8 +408,16 @@ export const SubstoryEarlyBalete = {
         wounded_manananggal: 2.5
       },
       seamlessHooks: {
+        dawn_break:
+          'The indigo veil of night begins to crack over the eastern mountain spires, revealing the dew-soaked plaza as roosters crow in distant barrios.',
+        spirit_fog_rising:
+          'Cold spirit-mist swirls across the bloodied flagstones as the mountain chill deepens before the first rays of sunrise.',
+        raining:
+          'Drizzle slants across the courtyard tiles, washing away the foul stench of sulfur and burning tallow as morning nears.',
+        entering_deep_forest:
+          'Emerging from the strangler roots back into the open square, the damp earth beneath your sandals trembles with impending dawn.',
         default:
-          'A faint indigo line of pre-dawn light touches the eastern ridge as the winged Manananggal and a pack of feral Aswang ("Asuwang na Lakaw") make their final desperate lunge across the plaza.'
+          'A faint indigo line of pre-dawn light touches the eastern ridge as the winged Manananggal and a pack of feral Aswang make their final desperate lunge across the plaza.'
       },
       passive: {
         stat: 'CON',

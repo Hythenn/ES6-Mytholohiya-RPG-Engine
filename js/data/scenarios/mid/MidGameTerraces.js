@@ -26,6 +26,16 @@ export const SubstoryMidTerraces = {
         clear_sky: 1.5
       },
       seamlessHooks: {
+        climbing_mountain_pass:
+          'Ascending the dizzying stone terraces carved into the Cordillera peaks, the air grows crisp and thin, scented with wild mountain pine.',
+        entering_deep_forest:
+          'Emerging from the lowland jungle, emerald rice paddies climb toward the clouds like a giant staircase to the heavens.',
+        spirit_fog_rising:
+          'Dense cloud-mist billows through the terraced ravines, wrapping the ancient stone retaining walls in swirling white blankets.',
+        monsoon_break:
+          'The mountain gale calms, parting the clouds to reveal vertiginous stone stairways glistening with rain runoff.',
+        dusk_falling:
+          'Sunset bathes the flooded terraces in molten gold, casting the massive carved wooden Bulul idols into stark silhouette.',
         default:
           'Ascending from the lowlands into the Cordillera cloud-belt, you step onto ancient stone-walled rice terraces dusted with gray volcanic ash.'
       },
@@ -85,6 +95,14 @@ export const SubstoryMidTerraces = {
         raining: 2.0
       },
       seamlessHooks: {
+        climbing_mountain_pass:
+          'The path narrows into a jagged limestone gorge where cold mountain water roars between sheer cliffs.',
+        spirit_fog_rising:
+          'Sulfur-tainted mountain mist drifts through the rocky defile, clinging to moss-slick boulders and petrified trees.',
+        midnight_darkness:
+          'Night descends on the high gorge like an anvil, and the stone walls echo with the rasp of heavy reptilian scales.',
+        raining:
+          'Driving mountain rain slicks the treacherous ledge, making every step above the churning gorge a gamble against gravity.',
         default:
           'Beyond the upper terraces, the canyon walls are lined with statues of mountain scouts frozen in expressions of sudden terror.'
       },
@@ -152,6 +170,14 @@ export const SubstoryMidTerraces = {
         bulul_blessed: 2.0
       },
       seamlessHooks: {
+        entering_deep_forest:
+          'Leaving the barren cliffs, you cross a hidden threshold into an enchanted glade where silver-barked trees hum with intoxicating music.',
+        spirit_fog_rising:
+          'Iridescent, perfumed mist coils between the giant fern fronds, weaving illusions that confuse your direction.',
+        dusk_falling:
+          'Violet dusk settles over the sacred clearing, illuminated by thousands of synchronized emerald fireflies.',
+        clear_sky:
+          'Starlight filters through the woven canopy above the glade, sparkling on dew-covered lotus blossoms and winding serpent trails.',
         default:
           'Above the petrified gorge, a hauntingly melodic voice drifts from a bamboo terrace untouched by volcanic ash.'
       },
@@ -218,6 +244,12 @@ export const SubstoryMidTerraces = {
         bulul_blessed: 3.0
       },
       seamlessHooks: {
+        climbing_mountain_pass:
+          'At the highest summit ridge, the wind howls through ancient pine boughs surrounding a sacred upland sanctuary.',
+        spirit_fog_rising:
+          'Freezing spirit-fog curls around the ritual offering stones, through which the rhythmic clang of a sacred brass gong vibrates.',
+        dusk_falling:
+          'The crimson light of dusk reflects off sacrificial wooden bowls and polished headhunter axes laid before the ancestral altar.',
         default:
           'At the summit above the ash-terraces, a ring of pine torches burns around an ancient stone granary.'
       },
