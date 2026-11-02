@@ -154,10 +154,12 @@ export class MythosRPGApp {
       .registerSystem(new SurvivalStatusSystem(this.world, this.eventBus))
       .registerSystem(new ExperienceSystem(this.world, this.eventBus));
 
-    const maxHp =
+    const maxHp = Math.max(
+      1,
       background.maxVitality +
-      socialStatus.hpMod +
-      Math.max(0, StatResolver.getModifier(stats.CON) * 2);
+      (socialStatus ? socialStatus.hpMod : 0) +
+      Math.max(0, StatResolver.getModifier(stats.CON))
+    );
     const startRemnants = Math.max(0, background.startingRemnants + socialStatus.remnantsBonus);
 
     const emptySlots = {};

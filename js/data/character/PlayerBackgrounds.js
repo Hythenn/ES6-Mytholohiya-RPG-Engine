@@ -192,7 +192,7 @@ export const SOCIAL_STATUS_TIERS = [
     tag: 'status_powerful',
     wealthLabel: 'Commanding',
     remnantsBonus: 5,
-    hpMod: 3,
+    hpMod: 1,
     badgeColor: '#c9594e',
     bonusItems: ['kalasag_wooden_shield'],
     description:
@@ -246,7 +246,7 @@ export const PlayerBackgrounds = [
       WIS: 15,
       CHA: 14
     },
-    maxVitality: 16,
+    maxVitality: 8,
     startingRemnants: 2,
     startingEquipment: [
       'woven_bahag_loincloth',
@@ -270,7 +270,7 @@ export const PlayerBackgrounds = [
       WIS: 11,
       CHA: 10
     },
-    maxVitality: 21,
+    maxVitality: 10,
     startingRemnants: 1,
     startingEquipment: [
       'woven_bahag_loincloth',
@@ -294,7 +294,7 @@ export const PlayerBackgrounds = [
       WIS: 13,
       CHA: 12
     },
-    maxVitality: 17,
+    maxVitality: 9,
     startingRemnants: 2,
     startingEquipment: [
       'woven_bahag_loincloth',
@@ -318,7 +318,7 @@ export const PlayerBackgrounds = [
       WIS: 12,
       CHA: 10
     },
-    maxVitality: 19,
+    maxVitality: 9,
     startingRemnants: 2,
     startingEquipment: [
       'woven_bahag_loincloth',
@@ -342,7 +342,7 @@ export const PlayerBackgrounds = [
       WIS: 15,
       CHA: 11
     },
-    maxVitality: 20,
+    maxVitality: 9,
     startingRemnants: 2,
     startingEquipment: [
       'woven_bahag_loincloth',

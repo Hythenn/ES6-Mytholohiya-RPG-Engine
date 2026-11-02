@@ -1944,7 +1944,7 @@ export class UIManager {
       .join('');
 
     const baseHp =
-      bg.maxVitality + Math.max(0, StatResolver.getModifier(stats.CON) * 2);
+      bg.maxVitality + Math.max(0, StatResolver.getModifier(stats.CON));
 
     this.dom.randomShowcase.innerHTML = `
       <div class="creator-grid">
@@ -2167,7 +2167,7 @@ export class UIManager {
     }
 
     const baseHp =
-      bg.maxVitality + Math.max(0, StatResolver.getModifier(finalStats.CON) * 2);
+      bg.maxVitality + Math.max(0, StatResolver.getModifier(finalStats.CON));
 
     if (this.dom.customPreviewHp) this.dom.customPreviewHp.textContent = `${baseHp}`;
     if (this.dom.customPreviewRemnants) {
