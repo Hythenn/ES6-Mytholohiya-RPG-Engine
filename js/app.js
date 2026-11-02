@@ -27,10 +27,10 @@ import {
   NarrativeRegistry,
   HierarchicalProbabilisticNarrativeDirector
 } from './narrative/NarrativeDirector.js';
-import './data/scenarios/index.js?v=2.2';
+import './data/scenarios/index.js?v=2.4';
 import { DarkReverbAudioEngine } from './audio/DarkReverbAudioEngine.js';
 import { AtmosphereVisualizer } from './ui/AtmosphereVisualizer.js';
-import { UIManager } from './ui/UIManager.js';
+import { UIManager } from './ui/UIManager.js?v=2.4';
 import { resolveAtmosphere, isSeamlessHookCompatible } from './core/AtmosphereResolver.js';
 import { setGlobalCodexKnowledgeChecker } from './data/lore/MythologyCodex.js';
 
