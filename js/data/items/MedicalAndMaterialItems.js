@@ -4,7 +4,7 @@
  * and crafting materials for "Mytholohiya".
  */
 
-import { ItemRegistry } from './ItemRegistry.js';
+import { ItemRegistry } from '../../mechanics/ItemRegistry.js';
 
 ItemRegistry.registerItemPack([
   {

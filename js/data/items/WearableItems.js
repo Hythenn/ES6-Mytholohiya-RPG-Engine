@@ -6,7 +6,7 @@
  * "Baliktad" (wear inside-out) garment mechanics.
  */
 
-import { ItemRegistry } from './ItemRegistry.js';
+import { ItemRegistry } from '../../mechanics/ItemRegistry.js';
 
 ItemRegistry.registerItemPack([
   // 1. HELMET SLOT

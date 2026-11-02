@@ -9,7 +9,7 @@ import {
   ITEM_TEMPLATES,
   ItemRegistry,
   createItemInstance
-} from './ItemRegistry.js';
+} from '../../mechanics/ItemRegistry.js';
 
 import './WearableItems.js';
 import './WeaponAndToolItems.js';

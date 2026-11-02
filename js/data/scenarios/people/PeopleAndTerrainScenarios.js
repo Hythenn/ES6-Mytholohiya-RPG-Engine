@@ -1,20 +1,14 @@
 /**
- * PeopleAndTerrainScenarios.js
- * Additional global standalone encounters for "Mytholohiya".
- * Expands regular human encounters (good people, beggars in need of assistance,
- * slick scammers, captive victims in need of rescue, highway bandits, and cunning mimics)
- * alongside chill, storytelling campfire/shelter vignettes and perilous terrain navigations.
- *
- * Grounded in dark pre-colonial Philippine mythos and archipelagic folklore.
+ * js/data/scenarios/people/PeopleAndTerrainScenarios.js
+ * People, encounters, hearth tales, and hazardous terrain scenarios:
+ * - Skilled craftsmen, salt gatherers, and rescued weavers
+ * - Highway bandits, slick peddlers, and suspicious elders
+ * - Campfires, starlit lookouts, and hearth storytelling chill moments
+ * - Rattan chasm bridges, mangrove mires, and razor karst needles
  */
 
-import { NarrativeRegistry } from '../../narrative/NarrativeDirector.js';
+import { NarrativeRegistry } from '../../../narrative/NarrativeDirector.js';
 
-// ============================================================================
-// 1. REGULAR PEOPLE: GOOD PEOPLE / KIND SOULS
-// ============================================================================
-
-// 1.1 The Blind Potter of the Clay Kiln
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_blind_potter_01',
   locationLabel: 'Smoking Clay Kiln by the Bamboo Grove',
@@ -97,7 +91,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// 1.2 The Salt-Gatherer Widow on the Tide Bank
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_salt_widow_01',
   locationLabel: 'Brine Pools of the Coastal Marsh',
@@ -177,113 +170,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 2. PEOPLE IN NEED OF ASSISTANCE / RESCUE
-// ============================================================================
-
-// 2.1 The Overturned Carabao Cart and Injured Farmer
-NarrativeRegistry.registerMiscScenario({
-  id: 'misc_overturned_cart_01',
-  locationLabel: 'Muddy Gully at the Bamboo Bridge',
-  weather: 'ANY',
-  baseWeight: 0.22,
-  intrinsicTags: ['spice_of_life', 'people_in_need', 'muddy_ground'],
-
-  affinityWeights: {
-    raining: 0.35,
-    muddy_ground: 0.3,
-    status_poor: 0.2
-  },
-
-  seamlessHooks: {
-    raining:
-      'Through the downpour, a desperate shout and the pained snort of a beast echo from a washed-out ditch beside the collapsed culvert.',
-    fog_gathering:
-      'Out of the mist rises the silhouette of an overturned wooden cart tilted dangerously into a rushing mud creek.',
-    default:
-      'Beside a treacherous dip in the road, an axle-broken freight cart lies half-sunk in red clay mud.'
-  },
-
-  passive: {
-    stat: 'WIS',
-    dc: 13,
-    success:
-      'The farmer leg is pinned under the wooden cart-bed, and the harnessed water buffalo is panicking, threatening to roll the cart further into the creek.',
-    fail:
-      'Mud splashes in every direction as the trapped farmer groans beneath splintered timber.'
-  },
-
-  prompt: [
-    'A freight cart loaded with sacks of camote sweet potatoes and dried fish has slid into a gully, its left axle splintered against the rocks. The farmer, a young father named Danas, is pinned at the thigh under the heavy oak cart-rail.',
-    'His tethered carabao is stamping its hooves in terror at the edge of the swollen creek. If the beast lurches, the full weight of the freight will crush the man leg.'
-  ],
-
-  choices: [
-    {
-      text: 'Use your Iron Prybar as a lever to hoist the cart-rail off the farmer leg',
-      requiredTag: 'pry_tool',
-      itemActionTag: 'Tool // Iron Prybar Lever',
-      check: null,
-      successStory: [
-        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing 5 brass remnants and a bundle of dried herbs into your hands!'
-      ],
-      onSuccess: {
-        remnants: 5,
-        addItem: 'bayabas_herbs',
-        emitTags: ['kapwa_bond', 'steady_nerves', 'high_ground']
-      }
-    },
-    {
-      text: 'Brace your back beneath the cart-bed and heave the timber upward with raw Strength',
-      check: { stat: 'STR', dc: 14 },
-      successStory: [
-        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards you with 4 remnants and helps you back to the high road.'
-      ],
-      failStory: [
-        'The wet oak slips against your shoulder, bruising your collarbone deeply before Danas manages to wrench his boot free from the mud.'
-      ],
-      onSuccess: {
-        remnants: 4,
-        addItem: 'bayabas_herbs',
-        emitTags: ['kapwa_bond', 'steady_nerves']
-      },
-      onFail: {
-        hp: -4,
-        emitTags: ['wounded', 'muddy_ground']
-      }
-    },
-    {
-      text: 'Calm the panicked carabao first, whispering to soothe the beast before untying its harness',
-      check: { stat: 'WIS', dc: 13 },
-      successStory: [
-        'Gently stroking the great buffalo muzzle and murmuring ancient herder calls, you calm the beast until it stands rock-still. With the tension released from the traces, the cart settles gently, letting you pull the farmer free without resistance.'
-      ],
-      failStory: [
-        'The frightened beast thrashes its horns, clipping your arm and knocking you into the mud before you manage to slip the trace-ropes loose.'
-      ],
-      onSuccess: {
-        remnants: 4,
-        emitTags: ['kapwa_bond', 'cautious']
-      },
-      onFail: {
-        hp: -3,
-        emitTags: ['wounded', 'muddy_ground']
-      }
-    },
-    {
-      text: 'Ignore the ditch and hurry past before the rain worsens the road',
-      check: null,
-      successStory: [
-        'Hardening your heart to the farmer shouts, you keep your eyes locked on the road ahead and leave the gully behind.'
-      ],
-      onSuccess: {
-        emitTags: ['cautious']
-      }
-    }
-  ]
-});
-
-// 2.2 Captive Weavers Trapped in a Bandit Sled
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_captive_weavers_01',
   locationLabel: 'Overgrown Ravine Camp of the Forest Raiders',
@@ -364,11 +250,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 3. SCAMMERS AND SHADY TRAVELERS
-// ============================================================================
-
-// 3.1 The Slick "Anting-Anting" Peddler
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_slick_peddler_01',
   locationLabel: 'Crossroads of the Hanging Balete',
@@ -463,7 +344,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// 3.2 The Weeping "Orphan" on the Roadside
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_weeping_orphan_pickpocket_01',
   locationLabel: 'Dusty Roadside Milestone',
@@ -546,11 +426,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 4. BANDITS AND HIGHWAYMEN
-// ============================================================================
-
-// 4.1 The Toll-Log of the Ridge Outlaws
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_ridge_bandits_01',
   locationLabel: 'Felled Narra Trunk across the Mountain Pass',
@@ -654,11 +529,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 5. MIMICS AND DECEPTIVE CREATURES
-// ============================================================================
-
-// 5.1 The Kindly Elder by the Well (Aswang na Lakaw in Disguise)
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_aswang_elder_well_01',
   locationLabel: 'Mossy Village Well at Twilight',
@@ -736,11 +606,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 6. CHILL STORYTELLING SCENARIOS (CAMPFIRES, REST, ATMOSPHERE)
-// ============================================================================
-
-// 6.1 The Hunter Campfire under the Giant Dao Tree
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_hunter_campfire_01',
   locationLabel: 'Sheltered Fire-Circle of the Dao Tree',
@@ -823,7 +688,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// 6.2 The Stargazer Platform on the Coastal Bluff
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_stargazer_bluff_01',
   locationLabel: 'Bamboo Lookout Platform on the Coastal Bluff',
@@ -900,11 +764,202 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// ============================================================================
-// 7. TERRAIN NAVIGATION SCENARIOS
-// ============================================================================
+NarrativeRegistry.registerMiscScenario({
+  id: 'misc_overturned_cart_01',
+  locationLabel: 'Muddy Gully at the Bamboo Bridge',
+  weather: 'ANY',
+  baseWeight: 0.22,
+  intrinsicTags: ['spice_of_life', 'people_in_need', 'muddy_ground'],
 
-// 7.1 The Collapsed Rattan Suspension Bridge
+  affinityWeights: {
+    raining: 0.35,
+    muddy_ground: 0.3,
+    status_poor: 0.2
+  },
+
+  seamlessHooks: {
+    raining:
+      'Through the downpour, a desperate shout and the pained snort of a beast echo from a washed-out ditch beside the collapsed culvert.',
+    fog_gathering:
+      'Out of the mist rises the silhouette of an overturned wooden cart tilted dangerously into a rushing mud creek.',
+    default:
+      'Beside a treacherous dip in the road, an axle-broken freight cart lies half-sunk in red clay mud.'
+  },
+
+  passive: {
+    stat: 'WIS',
+    dc: 13,
+    success:
+      'The farmer leg is pinned under the wooden cart-bed, and the harnessed water buffalo is panicking, threatening to roll the cart further into the creek.',
+    fail:
+      'Mud splashes in every direction as the trapped farmer groans beneath splintered timber.'
+  },
+
+  prompt: [
+    'A freight cart loaded with sacks of camote sweet potatoes and dried fish has slid into a gully, its left axle splintered against the rocks. The farmer, a young father named Danas, is pinned at the thigh under the heavy oak cart-rail.',
+    'His tethered carabao is stamping its hooves in terror at the edge of the swollen creek. If the beast lurches, the full weight of the freight will crush the man leg.'
+  ],
+
+  choices: [
+    {
+      text: 'Use your Iron Prybar as a lever to hoist the cart-rail off the farmer leg',
+      requiredTag: 'pry_tool',
+      itemActionTag: 'Tool // Iron Prybar Lever',
+      check: null,
+      successStory: [
+        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing 5 brass remnants and a bundle of dried herbs into your hands!'
+      ],
+      onSuccess: {
+        remnants: 5,
+        addItem: 'bayabas_herbs',
+        emitTags: ['kapwa_bond', 'steady_nerves', 'high_ground']
+      }
+    },
+    {
+      text: 'Brace your back beneath the cart-bed and heave the timber upward with raw Strength',
+      check: { stat: 'STR', dc: 14 },
+      successStory: [
+        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards you with 4 remnants and helps you back to the high road.'
+      ],
+      failStory: [
+        'The wet oak slips against your shoulder, bruising your collarbone deeply before Danas manages to wrench his boot free from the mud.'
+      ],
+      onSuccess: {
+        remnants: 4,
+        addItem: 'bayabas_herbs',
+        emitTags: ['kapwa_bond', 'steady_nerves']
+      },
+      onFail: {
+        hp: -4,
+        emitTags: ['wounded', 'muddy_ground']
+      }
+    },
+    {
+      text: 'Calm the panicked carabao first, whispering to soothe the beast before untying its harness',
+      check: { stat: 'WIS', dc: 13 },
+      successStory: [
+        'Gently stroking the great buffalo muzzle and murmuring ancient herder calls, you calm the beast until it stands rock-still. With the tension released from the traces, the cart settles gently, letting you pull the farmer free without resistance.'
+      ],
+      failStory: [
+        'The frightened beast thrashes its horns, clipping your arm and knocking you into the mud before you manage to slip the trace-ropes loose.'
+      ],
+      onSuccess: {
+        remnants: 4,
+        emitTags: ['kapwa_bond', 'cautious']
+      },
+      onFail: {
+        hp: -3,
+        emitTags: ['wounded', 'muddy_ground']
+      }
+    },
+    {
+      text: 'Ignore the ditch and hurry past before the rain worsens the road',
+      check: null,
+      successStory: [
+        'Hardening your heart to the farmer shouts, you keep your eyes locked on the road ahead and leave the gully behind.'
+      ],
+      onSuccess: {
+        emitTags: ['cautious']
+      }
+    }
+  ]
+});
+
+NarrativeRegistry.registerMiscScenario({
+  id: 'misc_roadside_taboan_hearth_01',
+  locationLabel: 'Roadside Taboan Hearth of Barrio Silang',
+  environment: 'VILLAGE',
+  weather: 'ANY',
+  timeOfDay: ['DUSK', 'NIGHT', 'DAY'],
+  baseWeight: 0.28,
+  intrinsicTags: ['spice_of_life', 'chill_story', 'rest_hearth', 'social_encounter', 'village_hearth'],
+
+  affinityWeights: {
+    has_pending_creature_tales: 3.8,
+    raining: 0.35,
+    fog_gathering: 0.3,
+    wounded: 0.35
+  },
+
+  seamlessHooks: {
+    raining:
+      'Rain streams from the broad nipa eaves of a roadside Taboan rest-station, where a smoky hearth fire casts a welcoming amber glow.',
+    fog_gathering:
+      'Drifting mountain mist parts around the cheerful amber lanterns of a roadside rest-pavilion, where tired travelers huddle around hot coals.',
+    clear_sky:
+      'As the sun dips behind the western ridge, travelers gather beneath the palm thatch of the barrio Taboan to boil evening tea.',
+    default:
+      'A humble roadside rest-shelter (Taboan) stands beside the river crossing, filled with the comforting aroma of boiling ginger root.'
+  },
+
+  passive: {
+    stat: 'WIS',
+    dc: 11,
+    success:
+      'You note the peaceful, communal rhythm of the hearth: traders and weavers leaving their spears at the entrance post to honor the sacred peace of the Taboan.',
+    fail:
+      'The bubbling pot of ginger tea and the aroma of roasted sweet potatoes warm the evening breeze.'
+  },
+
+  prompt: [
+    'Beside the dusty provincial crossroads stands an open-sided bamboo Taboan pavilion. An elderly grandmother named Lola Elena stirs a bubbling black iron kettle of fragrant ginger tea (Salabat), sweetened with dark coconut molasses.',
+    'Tired salt-traders, basket-weavers, and wandering couriers sit shoulder-to-shoulder on woven pandan mats, unlacing their muddy sandals and sharing news of the lonely mountain passes. "Come in from the damp road, child," Lola Elena calls with a warm smile, pouring a steaming coconut-shell bowl of salabat. "Sit by the embers and rest your spirit."'
+  ],
+
+  choices: [
+    {
+      text: 'Kneel by the warm fire, accept a bowl of hot ginger salabat, and listen to the travelers trade road gossip',
+      check: null,
+      successStory: [
+        'You cradle the steaming coconut cup in both hands, savoring the spicy heat of fresh ginger and dark palm sugar. Resting on the clean pandan mats among gentle folk, the ache in your muscles fades, and the lingering dread of the road is washed clean by shared laughter and quiet hospitality.'
+      ],
+      onSuccess: {
+        hp: 4,
+        remnants: 4,
+        heatDelta: -25,
+        emitTags: ['well_rested', 'kapwa_bond', 'steady_nerves']
+      }
+    },
+    {
+      text: 'Offer to fetch dry river driftwood and split firewood to keep Lola Elena hearth burning bright',
+      complexity: 'basic',
+      check: { stat: 'STR', dc: 12 },
+      successStory: [
+        'With clean, rhythmic chops of a heavy bolo, you split a stack of dry ironwood logs and pile them neatly beneath the dry thatch. Touched by your helpful diligence, Lola Elena presses a cluster of piloncitos and a pouch of roasted camote into your pack: "May the ancestors walk before you, industrious one."'
+      ],
+      failStory: [
+        'A knot of tough kamagong wood jars your wrists, but you still manage to split enough kindling for the evening tea kettle. Lola Elena pats your forearm with grandmotherly warmth and refills your cup with sweet ginger broth.'
+      ],
+      onSuccess: {
+        hp: 2,
+        remnants: 6,
+        addItem: 'herbal_poultice',
+        heatDelta: -15,
+        emitTags: ['kapwa_bond', 'well_rested']
+      },
+      onFail: {
+        hp: 2,
+        remnants: 2,
+        heatDelta: -10,
+        emitTags: ['kapwa_bond']
+      }
+    },
+    {
+      text: 'Ask Lola Elena and the seasoned travelers about ancient barrio folklore regarding the strange phantoms of the wilderness',
+      complexity: 'folklore',
+      check: null,
+      successStory: [
+        'Lola Elena sets her ladle down, folding her hands over her cotton apron as the other travelers lean in close. "Listen well, wanderer," she speaks softly over the crackling embers. "The forests and rivers of our ancestors are alive with watchful spirits. When you face the unknown, never trust mere eyesight: remember the ancient etiquette of our people, and no shadow shall swallow your heart." Her seasoned counsel settles deep in your soul, granting great clarity.'
+      ],
+      onSuccess: {
+        remnants: 5,
+        heatDelta: -20,
+        emitTags: ['steady_nerves', 'lore_enriched']
+      }
+    }
+  ]
+});
+
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_rattan_bridge_chasm_01',
   locationLabel: 'Swaying Bridge of the Cloud Chasm',
@@ -990,7 +1045,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// 7.2 The Sucking Mire of the Mangrove Tidal Sluice
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_mangrove_mire_sluice_01',
   locationLabel: 'Sucking Mud of the Tidal Mangrove Channel',
@@ -1074,7 +1128,6 @@ NarrativeRegistry.registerMiscScenario({
   ]
 });
 
-// 7.3 The Limestone Needle Scree of the Karst Ridge
 NarrativeRegistry.registerMiscScenario({
   id: 'misc_karst_limestone_scree_01',
   locationLabel: 'Razor Karst Needles of the Ridge Crest',

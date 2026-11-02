@@ -9,38 +9,56 @@ export const STAT_DEFINITIONS = Object.freeze({
   STR: {
     name: 'Strength',
     code: 'STR',
+    icon: '⚔',
     subtitle: 'Physical Power & Might',
-    description: 'Measures bodily power, athletic training, and force with heavy weapons.'
+    description: 'Measures bodily power, athletic training, and leverage with heavy tools and blades.',
+    actionImpact: 'Unlocks brute-force physical choices: prying rusted iron lockboxes, breaking free from constricting roots, clearing heavy logs from obstructed roads, and forcing open ancient stone dolmens.',
+    scenarioImpact: 'Determines athletic check rolls when wrestling thrashing river creatures, swimming across swollen currents, escaping crushing grapples, and bearing heavy ancestral artifacts.'
   },
   DEX: {
     name: 'Dexterity',
     code: 'DEX',
+    icon: '⚡',
     subtitle: 'Agility & Reflexes',
-    description: 'Measures agility, balance, stealth, and precision with ranged or finesse weapons.'
+    description: 'Measures agility, balance, stealth, and precision with ranged or finesse tools.',
+    actionImpact: 'Unlocks rapid reactive choices during split-second encounters. High Dexterity allows you to catch thieves mid-swipe, disarm traps, evade lunging beasts, and safely traverse unstable bridges. Characters lacking sufficient Dexterity hesitate, knowing they are not agile enough.',
+    scenarioImpact: 'Critical for reaction tests during surprise ambushes, slipping away from predatory clutches, dodging falling terrain, and navigating slick salt marshes or muddy rice terraces.'
   },
   CON: {
     name: 'Constitution',
     code: 'CON',
+    icon: '♥',
     subtitle: 'Endurance & Vitality',
-    description: 'Measures health, stamina, and resistance to poison, disease, and exhaustion.'
+    description: 'Measures biological resilience, cardiovascular stamina, and resistance to environmental toxins.',
+    actionImpact: 'Directly scales your base Vitality (HP). Unlocks resilient physical actions: pushing through suffocating venomous mists, marching through freezing monsoon storms without hypothermia, and breaking free from sleep paralysis.',
+    scenarioImpact: 'Mitigates damage taken from failed environmental hazards, reduces the duration of venomous afflictions, and preserves stamina during extended forced marches across archipelago wilderness.'
   },
   INT: {
     name: 'Intelligence',
     code: 'INT',
-    subtitle: 'Memory & Arcane Lore',
-    description: 'Measures mental acuity, Baybayin scholarship, alchemy, and deductive reasoning.'
+    icon: '🧠',
+    subtitle: 'Memory & Tactical Lore',
+    description: 'Measures mental acuity, Baybayin scholarship, alchemy, and analytical deduction.',
+    actionImpact: 'Governs action conceptualization and tactical formulation. High Intelligence allows your character to conceive a much wider array of clever, tactical, and esoteric actions during encounters, regardless of whether you have the physical skill to perform them. Low Intelligence limits your mind to basic, impulsive maneuvers.',
+    scenarioImpact: 'Unlocks lateral thinking synergies (+1 at 13+ INT, +2 at 15+ INT to all passive perception checks). Directly impacts deciphering occult glyphs, identifying mythological entity traits, solving environmental puzzles, and exposing treacherous traps.'
   },
   WIS: {
     name: 'Wisdom',
     code: 'WIS',
+    icon: '👁',
     subtitle: 'Perception & Spirit Sight',
-    description: 'Measures attunement to the unseen Anito realm, willpower, and survival instinct.'
+    description: 'Measures attunement to the unseen Anito realm, willpower, sensory awareness, and survival instincts.',
+    actionImpact: 'Controls passive instinct perception. High Wisdom reveals hidden dangers, concealed paths, and supernatural omens via the [Instinct] badge before you act. Unlocks traditional folklore etiquette actions (such as offering respectful greetings to pacify territorial spirits).',
+    scenarioImpact: 'Affects detecting invisible or camouflaged entities (Nuno, Batibat, Tikbalang, Aswang), piercing illusions, recognizing disguised pickpockets and deceitful travelers, and resisting psychological dread.'
   },
   CHA: {
     name: 'Charisma',
     code: 'CHA',
+    icon: '👑',
     subtitle: 'Force of Personality',
-    description: 'Measures leadership, persuasion, and bargaining with mortal datus or Diwatas.'
+    description: 'Measures persuasive influence, emotional insight, bartering acumen, and ancestral dignity.',
+    actionImpact: 'Unlocks diplomatic, social, and psychological actions: consoling distraught orphans, calming panic-stricken villagers, bluffing highway bandits, and negotiating peaceful pacts with sacred Diwatas instead of fighting.',
+    scenarioImpact: 'Determines social check outcomes, establishes long-term Kapwa goodwill bonds that echo into future chapters, and secures discounts or bonus piloncitos from traveling peddlers and coastal merchants.'
   }
 });
 
@@ -95,7 +113,7 @@ export const EXPERTISE_OPTIONS = [
     description: 'Trained in whispered incantations that appease or bind restless Anito.',
     statBonus: { WIS: 2, CHA: 1 },
     tag: 'expertise_orasyon',
-    bonusItems: ['blessed_lana_vial', 'babaylan_sash']
+    bonusItems: ['babaylan_sash']
   },
   {
     id: 'exp_kali',
@@ -103,7 +121,7 @@ export const EXPERTISE_OPTIONS = [
     description: 'Deadly flow with twin rattan sticks, kris daggers, and heavy iron.',
     statBonus: { STR: 2, DEX: 1 },
     tag: 'expertise_kali',
-    bonusItems: ['brass_vambraces', 'abaca_hand_wraps']
+    bonusItems: ['abaca_hand_wraps']
   },
   {
     id: 'exp_albularyo',
@@ -111,7 +129,7 @@ export const EXPERTISE_OPTIONS = [
     description: 'Distills antidotes, glowing salves, and paralyzing blowpipe saps.',
     statBonus: { INT: 2, CON: 1 },
     tag: 'expertise_alchemy',
-    bonusItems: ['bayabas_herbs', 'ripped_sheets', 'coarse_salt_pouch']
+    bonusItems: ['coarse_salt_pouch']
   },
   {
     id: 'exp_baybayin',
@@ -119,7 +137,7 @@ export const EXPERTISE_OPTIONS = [
     description: 'Reads ancient bamboo chronicles, tidal charts, and eclipse omens.',
     statBonus: { INT: 2, WIS: 1 },
     tag: 'expertise_scholar',
-    bonusItems: ['black_coral_ring']
+    bonusItems: []
   },
   {
     id: 'exp_bantay',
@@ -127,7 +145,7 @@ export const EXPERTISE_OPTIONS = [
     description: 'Moves without sound across wet foliage and spots ambushes early.',
     statBonus: { DEX: 2, WIS: 1 },
     tag: 'expertise_tracker',
-    bonusItems: ['abaca_face_wrap', 'abaca_hand_wraps']
+    bonusItems: ['abaca_face_wrap']
   }
 ];
 
@@ -140,7 +158,7 @@ export const SOCIAL_STATUS_TIERS = [
     remnantsBonus: 1,
     hpMod: 0,
     badgeColor: '#8b7e74',
-    bonusItems: ['abaca_tunic', 'ripped_sheets', 'coarse_salt_pouch'],
+    bonusItems: ['ripped_sheets'],
     description:
       'Born at the muddy fringe of the barangay with patched abaca garments, calloused hands, and an empty belly.'
   },
@@ -149,10 +167,10 @@ export const SOCIAL_STATUS_TIERS = [
     label: 'Well-Known (Folk Champion)',
     tag: 'status_well_known',
     wealthLabel: 'Modest',
-    remnantsBonus: 5,
+    remnantsBonus: 3,
     hpMod: 1,
     badgeColor: '#529985',
-    bonusItems: ['abaca_tunic', 'salakot_hat', 'anahaw_rain_cape'],
+    bonusItems: ['abaca_tunic'],
     description:
       'Songs of your deeds travel from river-market to campfire; elders greet you by name and offer shelter.'
   },
@@ -161,22 +179,22 @@ export const SOCIAL_STATUS_TIERS = [
     label: 'Rich (Gold-Scale Merchant)',
     tag: 'status_rich',
     wealthLabel: 'Affluent',
-    remnantsBonus: 14,
+    remnantsBonus: 8,
     hpMod: -1,
     badgeColor: '#d4af63',
-    bonusItems: ['ceremonial_malong', 'anahaw_rain_cape', 'gold_calamansanay_band', 'herbal_poultice'],
+    bonusItems: ['gold_calamansanay_band'],
     description:
-      'Your belt-pouch clinks with barter remnants, Chinese celadon shards, and hammered piloncitos gold.'
+      'Your belt-pouch clinks with hammered gold piloncitos, Chinese celadon shards, and precious trade beads.'
   },
   {
     id: 'powerful',
     label: 'Powerful (Warlord Lineage)',
     tag: 'status_powerful',
     wealthLabel: 'Commanding',
-    remnantsBonus: 9,
+    remnantsBonus: 5,
     hpMod: 3,
     badgeColor: '#c9594e',
-    bonusItems: ['carabao_hide_cuirass', 'kalasag_wooden_shield', 'kris_blade'],
+    bonusItems: ['kalasag_wooden_shield'],
     description:
       'Feared in council and sworn by blood-compact to high chiefs; lesser warriors step aside when your shadow falls.'
   },
@@ -185,10 +203,10 @@ export const SOCIAL_STATUS_TIERS = [
     label: 'Royal (Heir of the Kedatuan)',
     tag: 'status_royal',
     wealthLabel: 'Dynastic Gold',
-    remnantsBonus: 18,
+    remnantsBonus: 10,
     hpMod: 1,
     badgeColor: '#e29547',
-    bonusItems: ['batuani_brass_breastplate', 'haliya_golden_mask', 'gold_calamansanay_band', 'herbal_poultice'],
+    bonusItems: ['ceremonial_malong'],
     description:
       'Raised inside the carved Torogan palace on woven silk mats, wearing the sacred golden mask and heirloom regalia of a paramount Datu.'
   }
@@ -229,12 +247,9 @@ export const PlayerBackgrounds = [
       CHA: 14
     },
     maxVitality: 16,
-    startingRemnants: 3,
+    startingRemnants: 2,
     startingEquipment: [
-      'anting_anting_brass_pendant',
-      'bagacay_bamboo_spear',
       'woven_bahag_loincloth',
-      'carabao_leather_sandals',
       'blessed_lana_vial'
     ],
     startingFlags: ['raining', 'spirit_sensitive']
@@ -256,13 +271,10 @@ export const PlayerBackgrounds = [
       CHA: 10
     },
     maxVitality: 21,
-    startingRemnants: 2,
+    startingRemnants: 1,
     startingEquipment: [
-      'kampilan_sword',
-      'brass_vambraces',
       'woven_bahag_loincloth',
-      'carabao_leather_sandals',
-      'ripped_sheets'
+      'bolo_machete'
     ],
     startingFlags: ['raining', 'bloodied_blade']
   },
@@ -283,13 +295,10 @@ export const PlayerBackgrounds = [
       CHA: 12
     },
     maxVitality: 17,
-    startingRemnants: 4,
+    startingRemnants: 2,
     startingEquipment: [
-      'kris_blade',
-      'bamboo_torch',
-      'babaylan_sash',
       'woven_bahag_loincloth',
-      'carabao_leather_sandals'
+      'bamboo_torch'
     ],
     startingFlags: ['clear_sky', 'lore_enriched']
   },
@@ -310,13 +319,10 @@ export const PlayerBackgrounds = [
       CHA: 10
     },
     maxVitality: 19,
-    startingRemnants: 3,
+    startingRemnants: 2,
     startingEquipment: [
-      'bagacay_bamboo_spear',
-      'kalasag_wooden_shield',
       'woven_bahag_loincloth',
-      'carabao_leather_sandals',
-      'coarse_salt_pouch'
+      'bagacay_bamboo_spear'
     ],
     startingFlags: ['fog_gathering', 'coastal_wind']
   },
@@ -337,12 +343,9 @@ export const PlayerBackgrounds = [
       CHA: 11
     },
     maxVitality: 20,
-    startingRemnants: 3,
+    startingRemnants: 2,
     startingEquipment: [
-      'bagacay_bamboo_spear',
-      'brass_agung_gong',
       'woven_bahag_loincloth',
-      'carabao_leather_sandals',
       'bayabas_herbs'
     ],
     startingFlags: ['high_ground', 'spirit_respect']
@@ -502,10 +505,10 @@ export function buildPrologueScenarios(identity) {
             }
           },
           {
-            text: 'Pay a harbor oarsman 3 Remnants to row you past the quarantined wharf',
+            text: 'Pay a harbor oarsman 3 Piloncitos to row you past the quarantined wharf',
             check: { stat: 'CHA', dc: 13 },
             successStory: [
-              'Parting with a share of your remnants, you convince the boatman to drop you dry-shod beyond the harbor chain.'
+              'Parting with a share of your piloncitos, you convince the boatman to drop you dry-shod beyond the harbor chain.'
             ],
             failStory: [
               'The nervous boatman shoves his skiff off too early in the dark, dumping you knee-deep into barnacle-encrusted pilings!'
@@ -514,7 +517,7 @@ export function buildPrologueScenarios(identity) {
             onFail: { remnants: -3, hp: -3, emitTags: ['status_rich', 'wounded', 'raining'] }
           },
           {
-            text: 'Keep your remnants tied tight and walk the upper cliff road around the harbor at your own pace',
+            text: 'Keep your piloncitos tied tight and walk the upper cliff road around the harbor at your own pace',
             check: null,
             successStory: [
               'You lock your cabin chest, bypass the crowded wharf altogether, and follow the quiet lantern-posts up the coastal bluff.'

@@ -4,7 +4,7 @@
  * supporting instant skip and emitting lifecycle events via EventBus.
  */
 
-import { annotateMythologyTerms } from '../data/MythologyCodex.js';
+import { annotateMythologyTerms } from '../data/lore/MythologyCodex.js';
 
 export class TypewriterEngine {
   /**
@@ -23,6 +23,24 @@ export class TypewriterEngine {
     this.currentFullText = '';
     this.charIndex = 0;
     this.onCompleteCallback = null;
+    this.isKnownFn = null;
+    this.instinctAnnotatorFn = null;
+  }
+
+  /**
+   * Set callback to verify if a mythology entity is known to the player.
+   * @param {Function} fn
+   */
+  setIsKnownChecker(fn) {
+    this.isKnownFn = fn;
+  }
+
+  /**
+   * Set callback to annotate instinct perception badges on paragraphs.
+   * @param {Function} fn
+   */
+  setInstinctAnnotator(fn) {
+    this.instinctAnnotatorFn = fn;
   }
 
   /**
@@ -85,8 +103,11 @@ export class TypewriterEngine {
       this.timerId = window.setTimeout(() => this._step(), this.charDelay);
     } else {
       this.currentParagraph.classList.remove('typing-active');
-      annotateMythologyTerms(this.currentParagraph);
-      this.timerId = window.setTimeout(() => this._nextParagraph(), 100);
+      annotateMythologyTerms(this.currentParagraph, this.isKnownFn);
+      if (typeof this.instinctAnnotatorFn === 'function') {
+        this.instinctAnnotatorFn(this.currentParagraph);
+      }
+      this.timerId = window.setTimeout(() => this._nextParagraph(), 200);
     }
   }
 
@@ -104,7 +125,10 @@ export class TypewriterEngine {
     if (this.currentParagraph) {
       this.currentParagraph.textContent = this.currentFullText;
       this.currentParagraph.classList.remove('typing-active');
-      annotateMythologyTerms(this.currentParagraph);
+      annotateMythologyTerms(this.currentParagraph, this.isKnownFn);
+      if (typeof this.instinctAnnotatorFn === 'function') {
+        this.instinctAnnotatorFn(this.currentParagraph);
+      }
     }
 
     while (this.fullTextQueue.length > 0) {
@@ -112,7 +136,10 @@ export class TypewriterEngine {
       const p = document.createElement('p');
       p.className = 'narrative-paragraph';
       p.textContent = text;
-      annotateMythologyTerms(p);
+      annotateMythologyTerms(p, this.isKnownFn);
+      if (typeof this.instinctAnnotatorFn === 'function') {
+        this.instinctAnnotatorFn(p);
+      }
       this.container.appendChild(p);
     }
 

@@ -1,4 +1,4 @@
-import { ItemRegistry } from './ItemRegistry.js';
+import { ItemRegistry } from '../../mechanics/ItemRegistry.js';
 
 /**
  * Pre-Colonial Philippine RPG - Equipment & Survival Item Registry

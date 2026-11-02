@@ -3,7 +3,7 @@
  * Registers MID_GAME Substory 01: "The Ash-Choked Terraces of Ifugao"
  */
 
-import { NarrativeRegistry } from '../../narrative/NarrativeDirector.js';
+import { NarrativeRegistry } from '../../../narrative/NarrativeDirector.js';
 
 export const SubstoryMidTerraces = {
   substoryId: 'sub_mid_01_ash_rice_terraces',
@@ -16,6 +16,7 @@ export const SubstoryMidTerraces = {
       id: 'scn_terrace_01',
       phase: 'MID_GAME',
       locationLabel: 'Stairway of the Cloud-Carvers',
+      environment: 'TERRACES',
       weather: 'SPIRIT FOG',
       timeOfDay: 'DAY',
       baseWeight: 1.5,
@@ -50,7 +51,8 @@ export const SubstoryMidTerraces = {
             'Recognizing the sacred kamagong visage over your face, the animated Bulul lowers its iron axe and steps aside on creaking wooden joints, revealing a cache of mountain offerings.'
           ],
           onSuccess: {
-            remnants: 6,
+            remnants: 8,
+            addItem: 'gold_linglingo',
             emitTags: ['bulul_blessed', 'high_ground']
           }
         },
@@ -63,7 +65,7 @@ export const SubstoryMidTerraces = {
           failStory: [
             'The guardian rejects your lowland accent, swinging its heavy iron head-axe in a glancing blow across your ribs before freezing back into wood!'
           ],
-          onSuccess: { emitTags: ['bulul_blessed', 'spirit_respect'] },
+          onSuccess: { remnants: 6, addItem: 'bayabas_herbs', emitTags: ['bulul_blessed', 'spirit_respect'] },
           onFail: { hp: -4, emitTags: ['wounded', 'fog_gathering'] }
         }
       ]
@@ -71,7 +73,9 @@ export const SubstoryMidTerraces = {
     {
       id: 'scn_terrace_02',
       phase: 'MID_GAME',
+      creatureId: 'rabot',
       locationLabel: 'Gorge of Rabot the Half-Lizard',
+      environment: 'TERRACES',
       weather: 'MONSOON',
       timeOfDay: 'DUSK',
       baseWeight: 1.3,
@@ -109,6 +113,7 @@ export const SubstoryMidTerraces = {
           onSuccess: {
             addItem: 'carabao_horn_helm',
             remnants: 6,
+            discoverCreature: 'rabot',
             emitTags: ['proven_in_duel', 'clear_sky']
           },
           onFail: { hp: -5, emitTags: ['wounded', 'raining'] }
@@ -123,8 +128,9 @@ export const SubstoryMidTerraces = {
             'Stone stiffness seizes your shoulder and ribs for a terrifying heartbeat before you wrench yourself free at the cost of torn muscle!'
           ],
           onSuccess: {
-            addItem: 'carabao_horn_helm',
-            remnants: 7,
+            addItem: ['carabao_horn_helm', 'kalasag_wooden_shield'],
+            remnants: 8,
+            discoverCreature: 'rabot',
             emitTags: ['proven_in_duel', 'clear_sky']
           },
           onFail: { hp: -6, emitTags: ['wounded', 'raining'] }
@@ -134,7 +140,9 @@ export const SubstoryMidTerraces = {
     {
       id: 'scn_terrace_03',
       phase: 'MID_GAME',
+      creatureId: 'oryol',
       locationLabel: 'The Glade of Oryol',
+      environment: 'TERRACES',
       weather: 'SPIRIT FOG',
       timeOfDay: 'NIGHT',
       baseWeight: 1.2,
@@ -170,7 +178,9 @@ export const SubstoryMidTerraces = {
             'Oryol laughs at your stumble in courtly rhetoric; her hypnotic song twists your path through briars before she slithers into the dark.'
           ],
           onSuccess: {
-            remnants: 6,
+            remnants: 8,
+            addItem: 'ceremonial_malong',
+            discoverCreature: 'oryol',
             emitTags: ['oryol_alliance', 'proven_in_duel', 'clear_sky']
           },
           onFail: { hp: -4, emitTags: ['wounded', 'fog_gathering'] }
@@ -185,7 +195,9 @@ export const SubstoryMidTerraces = {
             'You swing at a phantom image while the real serpent tail sweeps your legs hard against the terrace wall!'
           ],
           onSuccess: {
-            remnants: 5,
+            remnants: 8,
+            addItem: 'buntot_pagi',
+            discoverCreature: 'oryol',
             emitTags: ['oryol_alliance', 'high_ground']
           },
           onFail: { hp: -5, emitTags: ['wounded'] }
@@ -233,8 +245,9 @@ export const SubstoryMidTerraces = {
             'The psychic weight of the eclipse rebounds through the brass gong, leaving your ears ringing and your nose bleeding as the ritual concludes.'
           ],
           onSuccess: {
-            remnants: 7,
+            remnants: 12,
             hp: 3,
+            addItem: 'brass_agung_gong',
             emitTags: ['mumbaki_blessing', 'clear_sky']
           },
           onFail: { hp: -3, emitTags: ['mumbaki_blessing', 'fog_gathering'] }

@@ -50,7 +50,7 @@ export const MYTHOLOGY_CODEX = Object.freeze({
     shortSummary:
       'A towering horse-headed humanoid (known as Tayho in Bicol) that traps travelers in spatial loops while puffing acrid cigar smoke.',
     description:
-      'Documented across Tagalog and Bicolano (Tayho) traditions, the Tikbalang is a towering, bony humanoid beast with the head and hooves of an ironwood stallion and elongated limbs whose knees rise above its head when squatting. Puffing acrid tobacco smoke among bamboo thickets and balete groves, it manipulates forest geometry to trap travelers in endless circular trails. Turning a garment inside-out immediately shatters its spatial distortion, while grappling the beast to pluck a golden strand from its mane subjugates it into yielding remnants and offerings.',
+      'Documented across Tagalog and Bicolano (Tayho) traditions, the Tikbalang is a towering, bony humanoid beast with the head and hooves of an ironwood stallion and elongated limbs whose knees rise above its head when squatting. Puffing acrid tobacco smoke among bamboo thickets and balete groves, it manipulates forest geometry to trap travelers in endless circular trails. Turning a garment inside-out immediately shatters its spatial distortion, while grappling the beast to pluck a golden strand from its mane subjugates it into yielding piloncitos and offerings.',
     keywords: ['Tikbalang', 'tikbalang', 'Tayho', 'tayho']
   },
 
@@ -109,18 +109,25 @@ export const MYTHOLOGY_CODEX = Object.freeze({
     attitude: 'Predatory Spatial Trickster',
     attitudeTone: 'hostile',
     attributes: [
-      'Lanky Demon with Long Thin Legs & Protruding Lips',
-      'Wide Skinless Grin that Devours Disoriented Prey',
+      'Lanky Mangrove Demon (Named from the root "luslos")',
+      'Wide Skinless Grin & Prominent Oversized Phallus',
       'Traps Travelers in Mangrove Spatial Loops',
       'Checks: DEX (DC 13 Root Sprint) & WIS (DC 15 Panic Resistance)'
     ],
     wards:
-      'Garment Inversion Exploitation: Wearing clothes inside-out makes the Tambaluslos laugh so hard its floppy lips cover its eyes, blinding it.',
+      'Garment Inversion Exploitation: Wearing clothes inside-out (ItemConditionFlags.Inverted) makes the Tambaluslos laugh so hard its floppy lips flip upward over its eyes, blinding it.',
     shortSummary:
-      'A lanky Bicolano and Visayan mangrove demon with a wide skinless grin that blinds itself laughing when it sees an inside-out shirt.',
+      'A lanky Bicolano and Visayan mangrove demon (Tambaluslos / Tambalosos / Tambaluslus) with a wide skinless grin that blinds itself laughing when it sees an inside-out garment.',
     description:
-      'Native to Bicolano and Visayan mangrove thickets and coastal underbrush, the Tambaluslos is a dark, lanky humanoid demon with long legs and huge, ape-like protruding lips. It warps coastal trails to disorient travelers before opening its wide, skinless mouth to strike. However, if a traveler wears their garment inside-out (Baliktad), the Tambaluslos bursts into such uncontrollable laughter that its floppy upper lip folds over its eyes, blinding the creature and allowing immediate escape.',
-    keywords: ['Tambaluslos', 'tambaluslos']
+      'Native to Bicolano and Visayan mangrove swamps and coastal thickets, the Tambaluslos (also recorded as Tambalosos or Tambaluslus) is a tall, skinny dark demon named from the root luslos. Authentic archipelagic lore identifies its trademarks as a wide skinless grin, long crooked limbs, and an oversized phallus or scrotum. It warps coastal pathways into endless spatial loops to exhaust travelers. However, if a traveler inverts their clothing (wearing garments inside-out), the Tambaluslos bursts into such hysterical laughter that its floppy upper lip flips upward to completely cover its eyes, blinding the demon and breaking the spatial illusion.',
+    keywords: [
+      'Tambaluslos',
+      'tambaluslos',
+      'Tambalosos',
+      'tambalosos',
+      'Tambaluslus',
+      'tambaluslus'
+    ]
   },
 
   batibat: {
@@ -431,7 +438,7 @@ export const MYTHOLOGY_CODEX = Object.freeze({
       'Checks: WIS (DC 16 Pierce Disguise) & CHA (DC 15 Forge Alliance)'
     ],
     wards:
-      'Diplomatic Reciprocity: Matching her wits with high Charisma or offering rare gems, silver ornaments, or ancestral remnants to win her guidance.',
+      'Diplomatic Reciprocity: Matching her wits with high Charisma or offering rare gems, silver ornaments, or gold piloncitos to win her guidance.',
     shortSummary:
       'A cunning half-maiden, half-serpent demi-goddess from the Bicolano Ibalong epic whose hypnotic voice enchants the highland mists.',
     description:
@@ -1089,6 +1096,310 @@ const escapedPatterns = KEYWORD_MAP.map((k) =>
 const MYTH_REGEX = new RegExp(`\\b(${escapedPatterns.join('|')})\\b`, 'gi');
 
 /**
+ * Set of entity IDs that represent mythological creatures, cryptids, and spirits
+ * whose knowledge and weaknesses must be earned through encounters.
+ * Relics, cultural roles, and general lore (e.g. babaylan, agimat) are not creatures.
+ */
+export const CREATURE_IDS = new Set([
+  'bakunawa',
+  'tikbalang',
+  'kapre',
+  'engkanto',
+  'tambaluslos',
+  'batibat',
+  'aswang',
+  'manananggal',
+  'aswang_na_layog',
+  'sigbin',
+  'tiyanak',
+  'amalanhig',
+  'wakwak',
+  'sirena',
+  'angongolood',
+  'berbalang',
+  'rabot',
+  'oryol',
+  'santelmo',
+  'bungisngis',
+  'kumakatok',
+  'pugot',
+  'alan',
+  'akop',
+  'bannog',
+  'buso',
+  'minokawa',
+  'kurita',
+  'tarabusaw',
+  'biraddali',
+  'haliya',
+  'siyokoy',
+  'amomongo',
+  'tigmamanukan',
+  'nuno_sa_punso',
+  'diwata',
+  'anito',
+  'tamaraw'
+]);
+
+/**
+ * Check whether a codex entity ID represents an encounterable creature or spirit.
+ * @param {string} id
+ * @returns {boolean}
+ */
+export function isCreature(id) {
+  return CREATURE_IDS.has(id);
+}
+
+/**
+ * Mapping of creature IDs to atmospheric, descriptive terms used when
+ * the creature has not yet been discovered by the player.
+ */
+export const CREATURE_OBSCURATION_MAP = Object.freeze({
+  bakunawa: {
+    obscuredName: 'colossal sea serpent',
+    nameCapitalized: 'Colossal Sea Serpent',
+    keywords: ['Bakunawa', 'bakunawa']
+  },
+  tikbalang: {
+    obscuredName: 'horse-headed forest phantom',
+    nameCapitalized: 'Horse-Headed Forest Phantom',
+    keywords: ['Tikbalang', 'tikbalang', 'Tayho', 'tayho']
+  },
+  kapre: {
+    obscuredName: 'tree-dwelling giant',
+    nameCapitalized: 'Tree-Dwelling Giant',
+    keywords: ['Kapre', 'kapre', 'Agta', 'agta']
+  },
+  engkanto: {
+    obscuredName: 'pale otherworldly spirit',
+    nameCapitalized: 'Pale Otherworldly Spirit',
+    keywords: ['Engkanto', 'engkanto', 'Dalakitnon', 'dalakitnon']
+  },
+  tambaluslos: {
+    obscuredName: 'grinning mangrove demon',
+    nameCapitalized: 'Grinning Mangrove Demon',
+    keywords: ['Tambaluslos', 'tambaluslos']
+  },
+  angongolood: {
+    obscuredName: 'gorilla-like swamp beast',
+    nameCapitalized: 'Gorilla-Like Swamp Beast',
+    keywords: ['Angongolood', 'angongolood']
+  },
+  sirena: {
+    obscuredName: 'predatory sea siren',
+    nameCapitalized: 'Predatory Sea Siren',
+    keywords: ['Sirena', 'sirena', 'Magindara', 'magindara']
+  },
+  batibat: {
+    obscuredName: 'suffocating night hag',
+    nameCapitalized: 'Suffocating Night Hag',
+    keywords: ['Batibat', 'batibat', 'Bangungot', 'bangungot']
+  },
+  aswang: {
+    obscuredName: 'shapeshifting flesh stalker',
+    nameCapitalized: 'Shapeshifting Flesh Stalker',
+    keywords: ['Aswang', 'aswang']
+  },
+  manananggal: {
+    obscuredName: 'winged viscera hunter',
+    nameCapitalized: 'Winged Viscera Hunter',
+    keywords: ['Manananggal', 'manananggal', 'Anananggal', 'anananggal']
+  },
+  aswang_na_layog: {
+    obscuredName: 'flying nocturnal stalker',
+    nameCapitalized: 'Flying Nocturnal Stalker',
+    keywords: ['Aswang na Layog', 'aswang na layog']
+  },
+  sigbin: {
+    obscuredName: 'shadow-walking cryptid',
+    nameCapitalized: 'Shadow-Walking Cryptid',
+    keywords: ['Sigbin', 'sigbin']
+  },
+  tiyanak: {
+    obscuredName: 'wailing mud demon',
+    nameCapitalized: 'Wailing Mud Demon',
+    keywords: ['Tiyanak', 'tiyanak']
+  },
+  amalanhig: {
+    obscuredName: 'stiff-legged revenant',
+    nameCapitalized: 'Stiff-Legged Revenant',
+    keywords: ['Amalanhig', 'amalanhig']
+  },
+  wakwak: {
+    obscuredName: 'nocturnal clawed scavenger',
+    nameCapitalized: 'Nocturnal Clawed Scavenger',
+    keywords: ['Wakwak', 'wakwak', 'Wak-wak', 'wak-wak', 'Kikik', 'kikik']
+  },
+  berbalang: {
+    obscuredName: 'winged grave fiend',
+    nameCapitalized: 'Winged Grave Fiend',
+    keywords: ['Berbalang', 'berbalang']
+  },
+  rabot: {
+    obscuredName: 'half-lizard brute',
+    nameCapitalized: 'Half-Lizard Brute',
+    keywords: ['Rabot', 'rabot']
+  },
+  oryol: {
+    obscuredName: 'serpentine maiden',
+    nameCapitalized: 'Serpentine Maiden',
+    keywords: ['Oryol', 'oryol']
+  },
+  santelmo: {
+    obscuredName: 'wandering spirit fireball',
+    nameCapitalized: 'Wandering Spirit Fireball',
+    keywords: ['Santelmo', 'santelmo']
+  },
+  bungisngis: {
+    obscuredName: 'one-eyed laughing giant',
+    nameCapitalized: 'One-Eyed Laughing Giant',
+    keywords: ['Bungisngis', 'bungisngis']
+  },
+  kumakatok: {
+    obscuredName: 'hooded death omen',
+    nameCapitalized: 'Hooded Death Omen',
+    keywords: ['Kumakatok', 'kumakatok']
+  },
+  pugot: {
+    obscuredName: 'headless shadow giant',
+    nameCapitalized: 'Headless Shadow Giant',
+    keywords: ['Pugot', 'pugot']
+  },
+  alan: {
+    obscuredName: 'backward-footed forest ghoul',
+    nameCapitalized: 'Backward-Footed Forest Ghoul',
+    keywords: ['Alan', 'alan']
+  },
+  akop: {
+    obscuredName: 'shadowy head-snatching hag',
+    nameCapitalized: 'Shadowy Head-Snatching Hag',
+    keywords: ['Akop', 'akop']
+  },
+  bannog: {
+    obscuredName: 'giant raptor of the crags',
+    nameCapitalized: 'Giant Raptor of the Crags',
+    keywords: ['Bannog', 'bannog']
+  },
+  buso: {
+    obscuredName: 'grave-eating ghoul',
+    nameCapitalized: 'Grave-Eating Ghoul',
+    keywords: ['Buso', 'buso']
+  },
+  minokawa: {
+    obscuredName: 'sun-swallowing dragon-bird',
+    nameCapitalized: 'Sun-Swallowing Dragon-Bird',
+    keywords: ['Minokawa', 'minokawa']
+  },
+  kurita: {
+    obscuredName: 'multi-limbed amphibious horror',
+    nameCapitalized: 'Multi-Limbed Amphibious Horror',
+    keywords: ['Kurita', 'kurita']
+  },
+  tarabusaw: {
+    obscuredName: 'ape-man maneater of the mountains',
+    nameCapitalized: 'Ape-Man Maneater of the Mountains',
+    keywords: ['Tarabusaw', 'tarabusaw']
+  },
+  biraddali: {
+    obscuredName: 'winged water maiden',
+    nameCapitalized: 'Winged Water Maiden',
+    keywords: ['Biraddali', 'biraddali']
+  },
+  haliya: {
+    obscuredName: 'masked moon maiden',
+    nameCapitalized: 'Masked Moon Maiden',
+    keywords: ['Haliya', 'haliya']
+  },
+  siyokoy: {
+    obscuredName: 'gilled green water predator',
+    nameCapitalized: 'Gilled Green Water Predator',
+    keywords: ['Siyokoy', 'siyokoy']
+  },
+  amomongo: {
+    obscuredName: 'white-furred mountain ape',
+    nameCapitalized: 'White-Furred Mountain Ape',
+    keywords: ['Amomongo', 'amomongo']
+  },
+  tigmamanukan: {
+    obscuredName: 'blue-feathered omen bird',
+    nameCapitalized: 'Blue-Feathered Omen Bird',
+    keywords: ['Tigmamanukan', 'tigmamanukan']
+  },
+  nuno_sa_punso: {
+    obscuredName: 'tiny earth mound dweller',
+    nameCapitalized: 'Tiny Earth Mound Dweller',
+    keywords: ['Nuno sa Punso', 'nuno sa punso', 'Nuno', 'nuno']
+  },
+  diwata: {
+    obscuredName: 'radiant forest guardian',
+    nameCapitalized: 'Radiant Forest Guardian',
+    keywords: ['Diwata', 'diwata']
+  },
+  anito: {
+    obscuredName: 'ancient ancestral spirit',
+    nameCapitalized: 'Ancient Ancestral Spirit',
+    keywords: ['Anito', 'anito']
+  },
+  tamaraw: {
+    obscuredName: 'horn-crowned wild beast',
+    nameCapitalized: 'Horn-Crowned Wild Beast',
+    keywords: ['Tamaraw', 'tamaraw']
+  }
+});
+
+/**
+ * Replace occurrences of undiscovered creature names with generic, atmospheric descriptors.
+ * @param {string} text
+ * @param {Function} isKnownFn
+ * @returns {string}
+ */
+export function obscureCreatureReferences(text, isKnownFn) {
+  if (typeof text !== 'string' || !text) return text;
+  let result = text;
+  for (const [creatureId, info] of Object.entries(CREATURE_OBSCURATION_MAP)) {
+    if (typeof isKnownFn === 'function' && isKnownFn(creatureId)) {
+      continue;
+    }
+    for (const kw of info.keywords) {
+      // 1. Article + keyword (e.g. "a Tambaluslos", "the Tambaluslos", "an Angongolood")
+      const articlePattern = new RegExp(`\\b(a|an|the)\\s+${kw}\\b`, 'gi');
+      result = result.replace(articlePattern, (match, article) => {
+        const isCap = match[0] === match[0].toUpperCase();
+        const art = article.toLowerCase();
+        const obs = info.obscuredName;
+        let chosenArticle;
+        if (art === 'the') {
+          chosenArticle = isCap ? 'The' : 'the';
+        } else {
+          const startsVowel = /^[aeiou]/i.test(obs);
+          chosenArticle = startsVowel ? (isCap ? 'An' : 'an') : (isCap ? 'A' : 'a');
+        }
+        return `${chosenArticle} ${obs}`;
+      });
+
+      // 2. Standalone keyword (e.g. "Tambaluslos")
+      const kwPattern = new RegExp(`\\b${kw}\\b`, 'g');
+      result = result.replace(kwPattern, (match) => {
+        return match[0] === match[0].toUpperCase()
+          ? info.nameCapitalized
+          : info.obscuredName;
+      });
+    }
+  }
+  return result;
+}
+
+let globalCodexKnowledgeChecker = null;
+
+/**
+ * Register a global knowledge checking function for the codex.
+ * @param {Function} fn
+ */
+export function setGlobalCodexKnowledgeChecker(fn) {
+  globalCodexKnowledgeChecker = fn;
+}
+
+/**
  * Look up a Mythology Codex entry by id or matched keyword text.
  * @param {string} idOrText
  * @returns {Object|null}
@@ -1104,9 +1415,11 @@ export function getMythologyEntry(idOrText) {
 /**
  * Safely annotate a DOM element's text content by wrapping recognized
  * Philippine mythological terms in interactive `.myth-term` spans.
+ * Undiscovered creatures are rendered as plain text without interactive markup.
  * @param {HTMLElement} element
+ * @param {Function|null} isKnownFn
  */
-export function annotateMythologyTerms(element) {
+export function annotateMythologyTerms(element, isKnownFn = null) {
   if (!element) return;
   const rawText = element.textContent || '';
   if (!rawText) return;
@@ -1119,6 +1432,8 @@ export function annotateMythologyTerms(element) {
   let lastIndex = 0;
   let match;
 
+  const checker = typeof isKnownFn === 'function' ? isKnownFn : globalCodexKnowledgeChecker;
+
   while ((match = MYTH_REGEX.exec(rawText)) !== null) {
     const matchedText = match[0];
     const start = match.index;
@@ -1128,7 +1443,11 @@ export function annotateMythologyTerms(element) {
     }
 
     const entry = getMythologyEntry(matchedText);
-    if (entry) {
+    const isKnown = entry
+      ? (!isCreature(entry.id) || (typeof checker === 'function' ? checker(entry.id) : false))
+      : false;
+
+    if (entry && isKnown) {
       const span = document.createElement('span');
       span.className = 'myth-term';
       span.setAttribute('data-myth-id', entry.id);

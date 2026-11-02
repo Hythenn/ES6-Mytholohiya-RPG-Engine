@@ -4,7 +4,7 @@
  * that unlock unique scenario actions in "Mytholohiya".
  */
 
-import { ItemRegistry } from './ItemRegistry.js';
+import { ItemRegistry } from '../../mechanics/ItemRegistry.js';
 
 ItemRegistry.registerItemPack([
   // 13. PRIMARY WEAPON SLOT

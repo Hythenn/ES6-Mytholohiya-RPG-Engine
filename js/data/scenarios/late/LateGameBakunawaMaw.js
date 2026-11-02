@@ -3,7 +3,7 @@
  * Registers LATE_GAME Substory 01: "The Abyssal Altar of the Bakunawa"
  */
 
-import { NarrativeRegistry } from '../../narrative/NarrativeDirector.js';
+import { NarrativeRegistry } from '../../../narrative/NarrativeDirector.js';
 
 export const SubstoryLateBakunawa = {
   substoryId: 'sub_late_01_maw_of_bakunawa',
@@ -15,9 +15,11 @@ export const SubstoryLateBakunawa = {
     {
       id: 'scn_bakunawa_01',
       phase: 'LATE_GAME',
+      creatureId: 'bakunawa',
       locationLabel: 'Black Basalt Sea-Cliffs',
+      environment: 'MAW',
       weather: 'MONSOON',
-      timeOfDay: 'MIDNIGHT',
+      timeOfDay: 'NIGHT',
       baseWeight: 1.5,
       intrinsicTags: ['eclipse_peak', 'raining'],
       affinityWeights: {
@@ -50,7 +52,7 @@ export const SubstoryLateBakunawa = {
           failStory: [
             'A cultist kris dagger slices deep across your forearm before you hurl him into the boiling surf!'
           ],
-          onSuccess: { remnants: 6, emitTags: ['drums_secured'] },
+          onSuccess: { remnants: 10, addItem: 'kris_blade', emitTags: ['drums_secured'] },
           onFail: { hp: -5, emitTags: ['drums_secured', 'wounded'] }
         },
         {
@@ -61,16 +63,18 @@ export const SubstoryLateBakunawa = {
           successStory: [
             'Blind to your approach through the spirit-haze, the cult leader falls to a single decisive strike, leaving the ritual drums untouched!'
           ],
-          onSuccess: { remnants: 8, emitTags: ['drums_secured', 'clear_sky'] }
+          onSuccess: { remnants: 12, addItem: 'batuani_brass_breastplate', emitTags: ['drums_secured', 'clear_sky'] }
         }
       ]
     },
     {
       id: 'scn_bakunawa_02',
       phase: 'LATE_GAME',
+      creatureId: 'bakunawa',
       locationLabel: 'The Sovereign Reckoning',
+      environment: 'MAW',
       weather: 'SPIRIT FOG',
-      timeOfDay: 'PRE-DAWN',
+      timeOfDay: 'ECLIPSE',
       baseWeight: 1.0,
       intrinsicTags: ['final_stand'],
       affinityWeights: {
@@ -102,7 +106,7 @@ export const SubstoryLateBakunawa = {
           failStory: [
             'The bronze mallet cracks under the strain and the Leviathan roar nearly bursts your eardrums, yet your relentless striking of the gongs still forces the beast to spit out the moon before sinking back into the abyss!'
           ],
-          onSuccess: { remnants: 15, hp: 5, emitTags: ['eclipse_broken', 'clear_sky'] },
+          onSuccess: { remnants: 25, hp: 5, addItem: 'haliya_golden_mask', emitTags: ['eclipse_broken', 'clear_sky'] },
           onFail: { hp: -5, emitTags: ['eclipse_broken'] }
         },
         {
@@ -114,7 +118,7 @@ export const SubstoryLateBakunawa = {
           failStory: [
             'Though the psychic backlash of the eclipse timing scorches your nerves, your final chanted cadence resonates through the bronze gongs and compels the serpent to release the moon!'
           ],
-          onSuccess: { remnants: 15, hp: 5, emitTags: ['eclipse_broken', 'clear_sky'] },
+          onSuccess: { remnants: 25, hp: 5, addItem: ['gold_calamansanay_band', 'black_coral_ring'], emitTags: ['eclipse_broken', 'clear_sky'] },
           onFail: { hp: -5, emitTags: ['eclipse_broken'] }
         }
       ]

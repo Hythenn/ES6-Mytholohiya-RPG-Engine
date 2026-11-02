@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,18 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Press+Start+2P&family=VT323&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
   <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
-  <canvas
-    id="ambient-bleed-canvas"
-    class="ambient-bleed-canvas"
-    width="480"
-    height="270"
-    aria-hidden="true"
-  ></canvas>
+  <canvas id="ambient-bleed-canvas" class="ambient-bleed-canvas" width="480" height="270" aria-hidden="true"></canvas>
   <div class="crt-scanlines" aria-hidden="true"></div>
   <div id="screen-fade-overlay" class="screen-fade-overlay" aria-hidden="true"></div>
 
@@ -130,7 +125,8 @@
       <div id="restart-confirm-box" class="restart-confirm-box pixel-frame" hidden>
         <p class="restart-confirm-title">ARE YOU SURE?</p>
         <p class="restart-confirm-desc">
-          Are you sure you want to abandon your current chronicle and forge a new vessel? All current progress will be lost.
+          Are you sure you want to abandon your current chronicle and forge a new vessel? All current progress will be
+          lost.
         </p>
         <div class="restart-confirm-actions">
           <button type="button" id="btn-confirm-restart" class="pixel-btn option-danger-btn">
@@ -187,21 +183,13 @@
       </div>
 
       <div class="background-carousel-shell">
-        <button
-          type="button"
-          id="btn-bg-scroll-left"
-          class="pixel-btn carousel-nav-btn carousel-prev"
-          aria-label="Scroll Backgrounds Left"
-        >
+        <button type="button" id="btn-bg-scroll-left" class="pixel-btn carousel-nav-btn carousel-prev"
+          aria-label="Scroll Backgrounds Left">
           ◀
         </button>
         <div id="background-cards-grid" class="background-carousel-track"></div>
-        <button
-          type="button"
-          id="btn-bg-scroll-right"
-          class="pixel-btn carousel-nav-btn carousel-next"
-          aria-label="Scroll Backgrounds Right"
-        >
+        <button type="button" id="btn-bg-scroll-right" class="pixel-btn carousel-nav-btn carousel-next"
+          aria-label="Scroll Backgrounds Right">
           ▶
         </button>
       </div>
@@ -221,13 +209,8 @@
             <div class="field-group">
               <label for="custom-name-input" class="pixel-label">CHARACTER NAME</label>
               <div class="input-row">
-                <input
-                  type="text"
-                  id="custom-name-input"
-                  class="pixel-input"
-                  maxlength="32"
-                  placeholder="Enter your name..."
-                />
+                <input type="text" id="custom-name-input" class="pixel-input" maxlength="32"
+                  placeholder="Enter your name..." />
                 <button type="button" id="btn-random-custom-name" class="pixel-btn btn-small">
                   ↻ RANDOM
                 </button>
@@ -261,7 +244,7 @@
                 <strong id="custom-preview-hp">20</strong>
               </div>
               <div class="summary-row">
-                <span>STARTING REMNANTS:</span>
+                <span>STARTING PILONCITOS:</span>
                 <strong id="custom-preview-remnants">10</strong>
               </div>
             </div>
@@ -281,9 +264,21 @@
     <aside class="hud-sidebar hud-sidebar-left">
       <section class="hud-panel pixel-frame">
         <div class="char-header-block">
-          <h3 id="char-archetype-name">Traveler</h3>
+          <div class="char-title-row">
+            <h3 id="char-archetype-name">Traveler</h3>
+            <span id="char-level-badge" class="char-level-badge">LV 1</span>
+          </div>
           <p id="char-archetype-tag" class="archetype-subtitle"></p>
           <p id="char-status-badge" class="char-status-badge"></p>
+          <div class="xp-mini-meter">
+            <div class="xp-meter-header">
+              <span>EXP</span>
+              <strong id="xp-value">0 / 15 XP</strong>
+            </div>
+            <div class="meter-track xp-track">
+              <div id="xp-bar" class="meter-fill fill-xp" style="width: 0%;"></div>
+            </div>
+          </div>
         </div>
 
         <div class="meter-group">
@@ -296,26 +291,46 @@
           </div>
         </div>
 
+        <div class="piloncitos-display-row">
+          <span class="piloncitos-label">🪙 PILONCITOS</span>
+          <strong id="sanity-value" class="piloncitos-value">10</strong>
+        </div>
+
         <div class="meter-group">
           <div class="meter-header">
-            <span>◆ REMNANTS (WEALTH)</span>
-            <strong id="sanity-value">10</strong>
+            <span>🔥 SPIRIT SCENT</span>
+            <strong id="panganib-value">10 / 100</strong>
           </div>
           <div class="meter-track">
-            <div id="sanity-bar-fill" class="meter-fill sanity-fill" style="width: 40%;"></div>
+            <div id="panganib-bar-fill" class="meter-fill panganib-fill" style="width: 10%;"></div>
+          </div>
+          <div class="panganib-meta-flex">
+            <span class="panganib-tier-title">SPIRIT THREAT:</span>
+            <span id="panganib-tier-badge" class="panganib-tier-badge tier-calm">SERENE</span>
           </div>
         </div>
 
-        <button type="button" id="btn-open-char-info" class="pixel-btn full-width">
-          📜 CHARACTER INFO &amp; GEAR
-        </button>
+        <!-- Survival Conditions / Afflictions (Project Zomboid Style) -->
+        <div class="conditions-block">
+          <div class="panel-header-flex">
+            <span>🩹 CONDITIONS</span>
+            <span id="conditions-count-badge" class="conditions-badge">HEALTHY</span>
+          </div>
+          <ul id="survival-conditions-list" class="survival-conditions-list"></ul>
+        </div>
+
+        <div class="button-group-vertical">
+          <button type="button" id="btn-open-char-info" class="pixel-btn full-width">
+            📜 CHARACTER INFO &amp; GEAR
+          </button>
+        </div>
       </section>
 
-      <!-- Intuitive Categorized Character Inventory -->
+      <!-- Intuitive Categorized Character Inventory (RPG Grid System) -->
       <section class="hud-panel pixel-frame">
         <div class="panel-header-flex">
           <h3>🎒 PACK &amp; GEAR</h3>
-          <span id="inventory-count-badge" class="inv-count-badge">0 ITEMS</span>
+          <span id="inventory-count-badge" class="inv-count-badge">0 / 24 SLOTS</span>
         </div>
 
         <div class="inv-filter-tabs" role="tablist" aria-label="Inventory Category Filter">
@@ -325,7 +340,18 @@
           <button type="button" class="inv-tab" data-inv-filter="usable">USABLE</button>
         </div>
 
-        <ul id="player-inventory-list" class="pz-inventory-list"></ul>
+        <!-- Baldur's Gate / Minecraft Style Inventory Grid -->
+        <div id="player-inventory-grid" class="rpg-inventory-grid" role="grid" aria-label="Inventory Grid"></div>
+
+        <!-- Selected Item Inspector & Action Drawer -->
+        <div id="inventory-selected-details" class="inv-selected-details">
+          <div class="inv-empty-inspector">
+            <span class="inv-hint-glyph">✦</span>
+            <p>Select an item slot to inspect, equip, or use.</p>
+          </div>
+        </div>
+
+        <ul id="player-inventory-list" class="pz-inventory-list" style="display:none;" hidden></ul>
       </section>
     </aside>
 
@@ -335,12 +361,8 @@
         <!-- Expanded Ambient Weather & Time of Day Visualizer Banner -->
         <div id="atmosphere-visualizer-bar" class="atmosphere-visualizer-bar pixel-frame">
           <div class="vis-weather-wrap">
-            <canvas
-              id="weather-sky-canvas"
-              width="640"
-              height="124"
-              aria-label="Weather and Time of Day Visualizer"
-            ></canvas>
+            <canvas id="weather-sky-canvas" width="640" height="124"
+              aria-label="Weather and Time of Day Visualizer"></canvas>
             <div class="vis-overlay-labels">
               <span id="vis-time-label" class="vis-badge">DUSK</span>
               <span id="vis-weather-label" class="vis-badge">DRIZZLE</span>
@@ -353,9 +375,6 @@
           <div>
             <p id="scene-act" class="scene-act"></p>
             <h2 id="scene-title" class="scene-title"></h2>
-          </div>
-          <div>
-            <span id="scene-location" class="scene-location"></span>
           </div>
         </header>
 
@@ -370,6 +389,17 @@
             ⏭ SKIP TYPING
           </button>
         </div>
+        <!-- Ambush Reaction Pressure Bar -->
+        <div id="pressure-timer-container" class="pressure-timer-container" hidden>
+          <div class="pressure-timer-header">
+            <span class="pressure-label">⚠️ AMBUSH REACTION // HESITATION IS FATAL</span>
+            <span id="pressure-timer-text" class="pressure-timer-text">5.0s</span>
+          </div>
+          <div class="pressure-track">
+            <div id="pressure-fill" class="pressure-fill"></div>
+          </div>
+        </div>
+        <!-- Choices Container -->
         <div id="choices-container" class="choices-container"></div>
       </footer>
     </section>
@@ -417,6 +447,18 @@
         <div class="char-info-col">
           <h3 class="modal-section-title">14 EQUIPMENT SLOTS</h3>
           <ul id="equipment-slots-grid" class="equipment-slots-grid"></ul>
+        </div>
+      </div>
+
+      <!-- Faction Standings & Moral Alignment -->
+      <div class="char-info-factions-section">
+        <div class="char-info-col">
+          <h3 class="modal-section-title">FACTION STANDINGS &amp; REPUTATION</h3>
+          <div id="faction-standings-grid" class="faction-standings-grid"></div>
+        </div>
+        <div class="char-info-col">
+          <h3 class="modal-section-title">NOTABLE DEEDS &amp; MORAL MARKS</h3>
+          <div id="moral-marks-list" class="moral-marks-list"></div>
         </div>
       </div>
     </div>
@@ -489,6 +531,148 @@
     </div>
   </div>
 
+  <!-- DAMBANA (ANCESTRAL SHRINE & ATANG OFFERINGS) MODAL -->
+  <div id="dambana-modal" class="options-modal" hidden>
+    <div class="dambana-box pixel-frame-gold">
+      <div class="dambana-header">
+        <div>
+          <h2>🕯 DAMBANA NG MGA ANITO</h2>
+          <p class="field-hint">Ancestral Stone Altar // Perform Atang Offerings for Divine Boons</p>
+        </div>
+        <button type="button" id="btn-close-dambana" class="pixel-btn btn-small">✕ DEPART</button>
+      </div>
+
+      <div class="dambana-body">
+        <p class="dambana-intro">
+          Before you stands a moss-grown dolmen altar. Ancient woodcarvings with abalone-shell eyes peer through sweet
+          copal smoke. Present your offerings or piloncitos to secure the blessings of the sky, stars, and wilderness
+          before journeying further.
+        </p>
+
+        <div class="dambana-boons-grid">
+          <!-- 1. Haliya's Lunar Shield -->
+          <article class="boon-card pixel-frame" data-boon-id="boon_haliya_shield">
+            <div class="boon-card-header">
+              <span class="card-tag">LUNAR PROTECTION</span>
+              <h3>Haliya's Lunar Shield</h3>
+            </div>
+            <p class="boon-desc">The masked moon goddess wards your spirit. Negates the next source of lethal strike or
+              curse entirely, granting +2 WIS.</p>
+            <div class="boon-cost-row">
+              <span class="boon-cost">COST: 10 Piloncitos or 1 Lana Oil</span>
+              <button type="button" class="pixel-btn btn-small btn-claim-boon" data-boon="boon_haliya_shield">PRAY &amp;
+                OFFER</button>
+            </div>
+          </article>
+
+          <!-- 2. Kapre's Fog Stealth -->
+          <article class="boon-card pixel-frame" data-boon-id="boon_kapre_stealth">
+            <div class="boon-card-header">
+              <span class="card-tag">CANOPY SMOKE</span>
+              <h3>Kapre's Fog Stealth</h3>
+            </div>
+            <p class="boon-desc">Sweet, pungent cigar smoke cloaks your trail. Reduces Panganib Spirit Scent by -30 and
+              grants +2 DEX to evasion.</p>
+            <div class="boon-cost-row">
+              <span class="boon-cost">COST: 6 Piloncitos or Tobacco Leaf</span>
+              <button type="button" class="pixel-btn btn-small btn-claim-boon" data-boon="boon_kapre_stealth">PRAY &amp;
+                OFFER</button>
+            </div>
+          </article>
+
+          <!-- 3. Apo Anito's Vitality Grace -->
+          <article class="boon-card pixel-frame" data-boon-id="boon_apo_anito">
+            <div class="boon-card-header">
+              <span class="card-tag">ANCESTRAL REST</span>
+              <h3>Apo Anito's Vitality Grace</h3>
+            </div>
+            <p class="boon-desc">Ancestral blessings knit torn muscles. Restores +6 HP, immediately stopping bleeding
+              and purging rot.</p>
+            <div class="boon-cost-row">
+              <span class="boon-cost">COST: 7 Piloncitos or 1 Cloth Sheet</span>
+              <button type="button" class="pixel-btn btn-small btn-claim-boon" data-boon="boon_apo_anito">PRAY &amp;
+                OFFER</button>
+            </div>
+          </article>
+
+          <!-- 4. Tala's Star Guidance -->
+          <article class="boon-card pixel-frame" data-boon-id="boon_tala_guidance">
+            <div class="boon-card-header">
+              <span class="card-tag">ASTRAL CLUE</span>
+              <h3>Tala's Star Guidance</h3>
+            </div>
+            <p class="boon-desc">The morning and evening star lights hidden trails. Grants +2 to WIS and INT checks and
+              reveals perception clues.</p>
+            <div class="boon-cost-row">
+              <span class="boon-cost">COST: 8 Piloncitos or Coarse Salt</span>
+              <button type="button" class="pixel-btn btn-small btn-claim-boon" data-boon="boon_tala_guidance">PRAY &amp;
+                OFFER</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TACTILE D20 DICE ROLL MODAL -->
+  <div id="dice-roll-modal" class="options-modal" hidden>
+    <div class="dice-modal-box pixel-frame-gold">
+      <div class="dice-modal-header">
+        <div>
+          <span class="card-tag" id="dice-check-tag">SKILL CHECK</span>
+          <h2 id="dice-check-title">DETERMINING FATE</h2>
+        </div>
+        <div id="dice-dc-badge" class="dice-dc-badge">DC 14</div>
+      </div>
+
+      <div class="dice-arena">
+        <div id="d20-visual" class="d20-visual">
+          <div class="d20-inner">
+            <span id="d20-number" class="d20-number">20</span>
+          </div>
+        </div>
+        <p id="dice-status-label" class="dice-status-label">Tap to roll the twenty-sided bone...</p>
+      </div>
+
+      <!-- Explicit Math Breakdown -->
+      <div id="dice-math-container" class="dice-math-container" hidden>
+        <div class="math-formula-header">CALCULATED RESOLUTION</div>
+        <div id="dice-math-breakdown" class="dice-math-breakdown"></div>
+        <div id="dice-verdict-box" class="dice-verdict-box"></div>
+      </div>
+
+      <div class="dice-actions">
+        <button type="button" id="btn-roll-dice" class="pixel-btn pixel-btn-primary">
+          🎲 ROLL D20
+        </button>
+        <button type="button" id="btn-continue-roll" class="pixel-btn pixel-btn-primary" hidden>
+          PROCEED ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL CHRONICLE PARCHMENT MODAL -->
+  <div id="chronicle-modal" class="options-modal" hidden>
+    <div class="chronicle-modal-box pixel-frame-gold">
+      <div class="chronicle-modal-header">
+        <div>
+          <h2 id="chronicle-modal-title">THE ADVENTURE CHRONICLE</h2>
+          <p id="chronicle-modal-subtitle" class="field-hint">A complete recounting of your heroic journey</p>
+        </div>
+        <button type="button" id="btn-close-chronicle" class="pixel-btn btn-small">
+          ✕ CLOSE
+        </button>
+      </div>
+
+      <div class="chronicle-scroll-body">
+        <div id="chronicle-hero-banner" class="chronicle-hero-banner"></div>
+        <div id="chronicle-story-content" class="chronicle-story-content"></div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="./js/app.js"></script>
 </body>
+
 </html>
