@@ -3404,6 +3404,9 @@ export class UIManager {
       if (!choice.allowed && choice.abstractLabel) {
         displayLabel = choice.abstractLabel;
       }
+      displayLabel = displayLabel
+        .replace(/^(?:\[?(?:moral\s+choice|good\s+choice|evil\s+choice|immoral\s+choice|moral|immoral|good|evil)\]?[:\s-]+)/i, '')
+        .trim();
       const cleanLabel = (displayLabel || '').replace(/\[([^\]]+)\/\/([^\]]*)\]/g, (m, p1) => `[${p1.trim()}]`);
       if (!choice.allowed) {
         btn.classList.add('choice-btn-locked');

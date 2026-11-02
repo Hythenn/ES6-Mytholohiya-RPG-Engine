@@ -588,7 +588,7 @@ NarrativeRegistry.registerMiscScenario({
       }
     },
     {
-      text: 'Moral Choice: Sever the ropes of the captured slaves while the pirates are in a drunken stupor',
+      text: 'Sever the ropes of the captured slaves while the pirates are in a drunken stupor',
       complexity: 'clever',
       minInt: 11,
       check: { stat: 'DEX', dc: 14 },
@@ -788,7 +788,7 @@ NarrativeRegistry.registerMiscScenario({
       }
     },
     {
-      text: 'Moral Choice: Scatter coarse salt across the feast table and denounce the clan as nocturnal predators!',
+      text: 'Scatter coarse salt across the feast table and denounce the clan as nocturnal predators!',
       complexity: 'tactical',
       minInt: 10,
       check: { stat: 'WIS', dc: 13 },

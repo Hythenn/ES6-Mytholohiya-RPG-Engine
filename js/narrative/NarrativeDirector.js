@@ -872,6 +872,14 @@ export class HierarchicalProbabilisticNarrativeDirector {
     return obscureCreatureReferences(text, isKnown);
   }
 
+  _sanitizeActionLabel(text) {
+    if (!text || typeof text !== 'string') return text;
+    const stripped = text
+      .replace(/^(?:\[?(?:moral\s+choice|good\s+choice|evil\s+choice|immoral\s+choice|moral|immoral|good|evil)\]?[:\s-]+)/i, '')
+      .trim();
+    return this._sanitizeCreatureText(stripped);
+  }
+
   _getDefaultPassiveFailHint(statKey) {
     switch ((statKey || '').toUpperCase()) {
       case 'DEX':
@@ -1223,8 +1231,11 @@ export class HierarchicalProbabilisticNarrativeDirector {
 
       evaluated.push({
         index,
-        label: this._sanitizeCreatureText(rawLabel),
-        abstractLabel: cond.abstractLabel || choice.abstractLabel || choice.abstractText || null,
+        label: this._sanitizeActionLabel(rawLabel),
+        abstractLabel:
+          cond.abstractLabel || choice.abstractLabel || choice.abstractText
+            ? this._sanitizeActionLabel(cond.abstractLabel || choice.abstractLabel || choice.abstractText)
+            : null,
         whisper,
         allowed: cond.allowed,
         lockReason: this._sanitizeCreatureText(cond.reason),
