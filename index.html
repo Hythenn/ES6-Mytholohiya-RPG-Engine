@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Press+Start+2P&family=VT323&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="./css/style.css?v=2.4" />
+  <link rel="stylesheet" href="./css/style.css?v=2.5" />
 </head>
 
 <body>
@@ -240,7 +240,7 @@
 
             <div class="creator-summary pixel-frame">
               <div class="summary-row">
-                <span>STARTING HP (BUHAY):</span>
+                <span>STARTING HEALTH:</span>
                 <strong id="custom-preview-hp">20</strong>
               </div>
               <div class="summary-row">
@@ -270,20 +270,12 @@
           </div>
           <p id="char-archetype-tag" class="archetype-subtitle"></p>
           <p id="char-status-badge" class="char-status-badge"></p>
-          <div class="xp-mini-meter">
-            <div class="xp-meter-header">
-              <span>EXP</span>
-              <strong id="xp-value">0 / 15 XP</strong>
-            </div>
-            <div class="meter-track xp-track">
-              <div id="xp-bar" class="meter-fill fill-xp" style="width: 0%;"></div>
-            </div>
-          </div>
         </div>
 
-        <div class="meter-group">
+        <!-- 1. HEALTH -->
+        <div class="meter-group hud-health-group">
           <div class="meter-header">
-            <span>♥ HP (BUHAY)</span>
+            <span>♥ HEALTH</span>
             <strong id="vitality-value">20 / 20</strong>
           </div>
           <div class="meter-track">
@@ -291,14 +283,10 @@
           </div>
         </div>
 
-        <div class="piloncitos-display-row">
-          <span class="piloncitos-label">🪙 PILONCITOS</span>
-          <strong id="sanity-value" class="piloncitos-value">10</strong>
-        </div>
-
-        <div class="meter-group">
+        <!-- 2. SANITY -->
+        <div class="meter-group hud-sanity-group">
           <div class="meter-header">
-            <span>🔥 SPIRIT SCENT</span>
+            <span>🔥 SANITY</span>
             <strong id="panganib-value">10 / 100</strong>
           </div>
           <div class="meter-track">
@@ -308,6 +296,23 @@
             <span class="panganib-tier-title">SPIRIT THREAT:</span>
             <span id="panganib-tier-badge" class="panganib-tier-badge tier-calm">SERENE</span>
           </div>
+        </div>
+
+        <!-- 3. EXP -->
+        <div class="meter-group hud-exp-group xp-mini-meter">
+          <div class="meter-header xp-meter-header">
+            <span>⚡ EXP</span>
+            <strong id="xp-value">0 / 15 XP</strong>
+          </div>
+          <div class="meter-track xp-track">
+            <div id="xp-bar" class="meter-fill fill-xp" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 4. PILONCITOS -->
+        <div class="piloncitos-display-row hud-piloncitos-group">
+          <span class="piloncitos-label"><span class="piloncitos-coin-icon">🪙</span> PILONCITOS</span>
+          <strong id="sanity-value" class="piloncitos-value">10</strong>
         </div>
 
         <!-- Survival Conditions / Afflictions (Project Zomboid Style) -->
@@ -672,7 +677,7 @@
     </div>
   </div>
 
-  <script type="module" src="./js/app.js?v=2.4"></script>
+  <script type="module" src="./js/app.js?v=2.5"></script>
 </body>
 
 </html>
