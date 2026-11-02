@@ -911,11 +911,11 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Kneel by the warm fire, accept a bowl of hot ginger salabat, and listen to the travelers trade road gossip',
       check: null,
       successStory: [
-        'You cradle the steaming coconut cup in both hands, savoring the spicy heat of fresh ginger and dark palm sugar. Resting on the clean pandan mats among gentle folk, the ache in your muscles fades, and the lingering dread of the road is washed clean by shared laughter and quiet hospitality.'
+        'You kneel by the warm fire, accepting a steaming coconut bowl of hot ginger salabat from Lola Elena, and sit back to listen as the weary travelers trade road gossip.',
+        'You cradle the warm cup in both hands, savoring the spicy heat of fresh ginger and dark palm sugar. Resting on the clean pandan mats among gentle folk, the ache in your muscles fades, and the lingering dread of the road is washed clean by shared laughter and quiet hospitality.'
       ],
       onSuccess: {
         hp: 4,
-        remnants: 4,
         heatDelta: -25,
         emitTags: ['well_rested', 'kapwa_bond', 'steady_nerves']
       }
@@ -947,12 +947,76 @@ NarrativeRegistry.registerMiscScenario({
     {
       text: 'Ask Lola Elena and the seasoned travelers about ancient barrio folklore regarding the strange phantoms of the wilderness',
       complexity: 'folklore',
+      folkloreTag: 'Barrio Lore',
       check: null,
+      resolve: (world) => {
+        const isMythicalCreature = Math.random() < 0.5;
+
+        if (isMythicalCreature) {
+          // 50% Chance: Useful tactical information about a mythical creature
+          const creaturePool = [
+            {
+              id: 'tikbalang',
+              name: 'Tikbalang',
+              advice: 'Should the bamboo trails twist into repeating loops and the road folds back on itself, do not panic or sprint: pull off your tunic, invert its seams inside-out, and wear it reversed. The horse-headed trickster snorts in utter disorientation at inverted clothes, dissolving its spatial illusion like morning mist.'
+            },
+            {
+              id: 'manananggal',
+              name: 'Manananggal',
+              advice: 'When the night cry of the viscera bird sounds faint and far away, remember the acoustics of the night: the hunter is perched directly above your thatch roof. If you hunt one, track the trail of fermented coconut oil to find where she hid her severed lower waist, and cover the raw wound in coarse rock salt and crushed garlic before the pre-dawn cockcrows.'
+            },
+            {
+              id: 'sigbin',
+              name: 'Sigbin',
+              advice: 'The shadow-eating hound walks with its snout tucked low between its hind legs, sniffing out human shadows when the moon is new. A Sigbin cannot cross moving water without losing its track, and it recoils in dread from the fierce golden crackle of bamboo resin torches.'
+            },
+            {
+              id: 'nuno_sa_punso',
+              name: 'Nuno sa Punso',
+              advice: 'The ancient mound-dwellers are not ravenous fiends, but proud elder landlords of the deep soil. Whenever your sandals pass near an earthen termite punso, whisper "Tabi-tabi po, makikiraan lamang" with lowered eyes. Respect their ancestral domain, and the earth itself will keep your footing sure.'
+            }
+          ];
+
+          const unlearned = creaturePool.filter((c) => !world || !world.hasCreatureKnowledge(c.id));
+          const selected = unlearned.length > 0
+            ? unlearned[Math.floor(Math.random() * unlearned.length)]
+            : creaturePool[Math.floor(Math.random() * creaturePool.length)];
+
+          return {
+            story: [
+              'You lean in toward the crackling fire and ask Lola Elena and the seasoned travelers about ancient barrio folklore regarding the strange phantoms that haunt the wilderness paths.',
+              `Lola Elena sets her bamboo ladle down against the iron kettle, folding her calloused hands over her cotton apron as the other travelers quiet down to listen. "Listen well, wanderer," she speaks softly over the glowing coals. "The wild trails are alive with watchful eyes, especially the ${selected.name}."`,
+              `"${selected.advice}"`,
+              'Her seasoned counsel settles deep in your memory, granting sharp insight into the unseen perils of the archipelago.'
+            ],
+            effects: {
+              discoverCreature: selected.id,
+              heatDelta: -20,
+              emitTags: ['steady_nerves', 'lore_enriched', `folklore_${selected.id}`]
+            }
+          };
+        } else {
+          // 50% Chance: A simple, heartwarming story about her life
+          return {
+            story: [
+              'You sit closer to the warm embers and ask Lola Elena about ancient barrio folklore, hoping for eerie tales of monsters in the dark.',
+              'Lola Elena chuckles softly, her wrinkles crinkling with grandmotherly warmth as she refills your coconut cup with sweet ginger salabat. "Ah, you young travelers are always hunting for fangs and shadows in the woods," she muses, resting her chin in one hand as she gazes affectionately into the dancing coals.',
+              '"Fifty harvests ago, my late husband Datu Berto and I arrived at this crossing with only two woven baskets, an iron pot, and three young children to feed. There were no trading caravans or wooden palisades here then, only wild river reed and hungry mud. We cleared this corner with our bare hands, split bamboo for the rafters, and brewed hot ginger tea for every drenched traveler who wandered past. We never took more than we needed from the river or the soil, and in all those fifty years, the spirits never harmed a hair on our heads."',
+              'The salt-traders and weavers around the hearth smile softly, humming along to the crackle of the ironwood. The gentle warmth of her life story dispels the cold dread of the trail, leaving your soul profoundly peaceful.'
+            ],
+            effects: {
+              hp: 3,
+              heatDelta: -30,
+              emitTags: ['well_rested', 'kapwa_bond', 'hearth_comfort']
+            }
+          };
+        }
+      },
       successStory: [
+        'You lean in toward the crackling fire and ask Lola Elena and the seasoned travelers about ancient barrio folklore regarding the strange phantoms that haunt the wilderness paths.',
         'Lola Elena sets her ladle down, folding her hands over her cotton apron as the other travelers lean in close. "Listen well, wanderer," she speaks softly over the crackling embers. "The forests and rivers of our ancestors are alive with watchful spirits. When you face the unknown, never trust mere eyesight: remember the ancient etiquette of our people, and no shadow shall swallow your heart." Her seasoned counsel settles deep in your soul, granting great clarity.'
       ],
       onSuccess: {
-        remnants: 5,
         heatDelta: -20,
         emitTags: ['steady_nerves', 'lore_enriched']
       }

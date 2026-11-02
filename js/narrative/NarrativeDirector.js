@@ -1238,6 +1238,7 @@ export class HierarchicalProbabilisticNarrativeDirector {
       }
     }
 
+    let checkResult = null;
     if (choice.autoFail) {
       isSuccess = false;
       const failTag = choice.failureTag ? choice.failureTag.toUpperCase() : 'INEFFECTIVE FOLKLORE';
@@ -1246,7 +1247,7 @@ export class HierarchicalProbabilisticNarrativeDirector {
       isSuccess = true;
       checkSummaryText = ` // ${stagedPrep.itemName.toUpperCase()} AUTO-SUCCESS`;
     } else if (choice.check && choice.check.stat) {
-      const checkResult =
+      checkResult =
         checkResolutionOverride ||
         StatResolver.resolveCheck(
           player,
@@ -1279,13 +1280,34 @@ export class HierarchicalProbabilisticNarrativeDirector {
       });
     }
 
-    const resolutionStory = isSuccess
-      ? choice.successStory || []
-      : choice.failStory || choice.successStory || [];
+    let dynamicOutcome = null;
+    if (typeof choice.resolve === 'function') {
+      try {
+        dynamicOutcome = choice.resolve(this.world, player, this);
+      } catch (err) {
+        console.warn('[NarrativeDirector] choice.resolve error:', err);
+      }
+    }
 
-    const outcomeEffects = isSuccess
-      ? choice.onSuccess
-      : choice.onFail || choice.onSuccess;
+    let resolutionStory = dynamicOutcome && dynamicOutcome.story
+      ? dynamicOutcome.story
+      : (isSuccess
+        ? choice.successStory || []
+        : choice.failStory || choice.successStory || []);
+
+    if (typeof resolutionStory === 'function') {
+      resolutionStory = resolutionStory(this.world, player, this);
+    }
+
+    let outcomeEffects = dynamicOutcome && dynamicOutcome.effects
+      ? dynamicOutcome.effects
+      : (isSuccess
+        ? choice.onSuccess
+        : choice.onFail || choice.onSuccess);
+
+    if (typeof outcomeEffects === 'function') {
+      outcomeEffects = outcomeEffects(this.world, player, this);
+    }
 
     this.applyEffects(outcomeEffects);
     if (this.isGameOver) return;
@@ -1333,7 +1355,15 @@ export class HierarchicalProbabilisticNarrativeDirector {
     if (this.typewriter && this.typewriter.container) {
       const divider = document.createElement('div');
       divider.className = `narrative-outcome-header ${isSuccess ? 'outcome-pass' : 'outcome-fail'}`;
-      divider.textContent = `❖ OUTCOME${checkSummaryText}`;
+      if (checkResult) {
+        divider.textContent = `❖ OUTCOME${checkSummaryText}`;
+      } else if (choice.folkloreTag) {
+        divider.textContent = `❖ FOLKLORE // ${choice.folkloreTag.toUpperCase()}`;
+      } else if (choice.itemActionTag) {
+        divider.textContent = `❖ ACTION // ${choice.itemActionTag.toUpperCase()}`;
+      } else {
+        divider.textContent = `❖ ACTION TAKEN`;
+      }
       this.typewriter.container.appendChild(divider);
     }
 
