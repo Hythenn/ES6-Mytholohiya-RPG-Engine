@@ -103,7 +103,6 @@ NarrativeRegistry.registerMiscScenario({
         'The captain scoffs at your words, suspecting you of being a spy for coastal pirates: "Save your tall tales! Pay the toll or turn back before our archers take your pack!"'
       ],
       onSuccess: {
-        piloncitos: 3,
         emitTags: ['rep_rajahnate_ally', 'inside_kota', 'steady_nerves']
       },
       onFail: {
@@ -123,7 +122,6 @@ NarrativeRegistry.registerMiscScenario({
         'A loose river rock clatters beneath your boot! An iron crossbow bolt clangs off the stones inches from your ear, forcing you to dive into the river muck!'
       ],
       onSuccess: {
-        piloncitos: 4,
         emitTags: ['inside_kota', 'high_ground']
       },
       onFail: {
@@ -204,13 +202,12 @@ NarrativeRegistry.registerMiscScenario({
       minInt: 10,
       check: { stat: 'STR', dc: 13 },
       successStory: [
-        'Heaving the heavy double-piston bamboo bellows with tireless strength, you maintain the white-hot furnace heat! Impressed by your grit, Pandak rewards your sweat with an iron-rimmed Salakot Hat and 4 Piloncitos.'
+        'Heaving the heavy double-piston bamboo bellows with tireless strength, you maintain the white-hot furnace heat! Impressed by your grit, Pandak rewards your sweat with an iron-rimmed Salakot Hat.'
       ],
       failStory: [
         'The intense furnace blast scorches your forearms, causing you to lose your rhythm on the bellows and ruin the batch.'
       ],
       onSuccess: {
-        piloncitos: 4,
         addItem: 'salakot_hat',
         emitTags: ['steady_nerves']
       },

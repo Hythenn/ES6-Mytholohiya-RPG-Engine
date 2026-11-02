@@ -65,7 +65,7 @@ export const SubstoryMidTerraces = {
           failStory: [
             'The guardian rejects your lowland accent, swinging its heavy iron head-axe in a glancing blow across your ribs before freezing back into wood!'
           ],
-          onSuccess: { piloncitos: 6, addItem: 'bayabas_herbs', emitTags: ['bulul_blessed', 'spirit_respect'] },
+          onSuccess: { addItem: 'bayabas_herbs', emitTags: ['bulul_blessed', 'spirit_respect'] },
           onFail: { hp: -4, emitTags: ['wounded', 'fog_gathering'] }
         }
       ]
@@ -178,7 +178,6 @@ export const SubstoryMidTerraces = {
             'Oryol laughs at your stumble in courtly rhetoric; her hypnotic song twists your path through briars before she slithers into the dark.'
           ],
           onSuccess: {
-            piloncitos: 8,
             addItem: 'ceremonial_malong',
             discoverCreature: 'oryol',
             emitTags: ['oryol_alliance', 'proven_in_duel', 'clear_sky']

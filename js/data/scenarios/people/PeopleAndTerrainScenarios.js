@@ -214,7 +214,6 @@ NarrativeRegistry.registerMiscScenario({
       ],
       onSuccess: {
         addItem: 'abaca_tunic',
-        piloncitos: 4,
         emitTags: ['steady_nerves', 'high_ground', 'clear_sky']
       }
     },
@@ -229,7 +228,6 @@ NarrativeRegistry.registerMiscScenario({
       ],
       onSuccess: {
         addItem: 'ripped_sheets',
-        piloncitos: 3,
         emitTags: ['cautious', 'high_ground']
       },
       onFail: {
@@ -834,10 +832,9 @@ NarrativeRegistry.registerMiscScenario({
       itemActionTag: 'Tool // Iron Prybar Lever',
       check: null,
       successStory: [
-        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing 5 gold piloncitos and a bundle of dried herbs into your hands!'
+        'Wedging the cold iron prybar over a sturdy river stone, you lever the heavy cart-rail upward with clean mechanical force. Danas drags his leg free without further injury and weeps in gratitude, pressing a bundle of dried healing herbs into your hands!'
       ],
       onSuccess: {
-        piloncitos: 5,
         addItem: 'bayabas_herbs',
         emitTags: ['kapwa_bond', 'steady_nerves', 'high_ground']
       }
@@ -846,13 +843,12 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Brace your back beneath the cart-bed and heave the timber upward with raw Strength',
       check: { stat: 'STR', dc: 14 },
       successStory: [
-        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards you with 4 piloncitos and helps you back to the high road.'
+        'Muscles corded with straining effort, you lift the splintered cart frame just high enough for Danas to roll clear onto the grass! Relieved beyond words, the farmer rewards your courage with fresh healing herbs and helps you back to the high road.'
       ],
       failStory: [
         'The wet oak slips against your shoulder, bruising your collarbone deeply before Danas manages to wrench his boot free from the mud.'
       ],
       onSuccess: {
-        piloncitos: 4,
         addItem: 'bayabas_herbs',
         emitTags: ['kapwa_bond', 'steady_nerves']
       },
@@ -871,7 +867,7 @@ NarrativeRegistry.registerMiscScenario({
         'The frightened beast thrashes its horns, clipping your arm and knocking you into the mud before you manage to slip the trace-ropes loose.'
       ],
       onSuccess: {
-        piloncitos: 4,
+        addItem: 'bayabas_herbs',
         emitTags: ['kapwa_bond', 'cautious']
       },
       onFail: {
@@ -952,14 +948,13 @@ NarrativeRegistry.registerMiscScenario({
       complexity: 'basic',
       check: { stat: 'STR', dc: 12 },
       successStory: [
-        'With clean, rhythmic chops of a heavy bolo, you split a stack of dry ironwood logs and pile them neatly beneath the dry thatch. Touched by your helpful diligence, Lola Elena presses a cluster of piloncitos and a pouch of roasted camote into your pack: "May the ancestors walk before you, industrious one."'
+        'With clean, rhythmic chops of a heavy bolo, you split a stack of dry ironwood logs and pile them neatly beneath the dry thatch. Touched by your helpful diligence, Lola Elena smiles with grandmotherly gratitude and presses a bundle of healing herbs and warm roasted camote into your pack: "May the ancestors walk before you, industrious one."'
       ],
       failStory: [
         'A knot of tough kamagong wood jars your wrists, but you still manage to split enough kindling for the evening tea kettle. Lola Elena pats your forearm with grandmotherly warmth and refills your cup with sweet ginger broth.'
       ],
       onSuccess: {
         hp: 2,
-        piloncitos: 6,
         addItem: 'herbal_poultice',
         heatDelta: -15,
         emitTags: ['kapwa_bond', 'well_rested']
@@ -1173,13 +1168,12 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Wade straight through the sucking mire with raw physical power and stamina',
       check: { stat: 'CON', dc: 14 },
       successStory: [
-        'Heaving your boots out of the heavy mud with relentless determination, you power through the tidal channel without slowing down, recovering a lost brass bracelet snagged on a root!'
+        'Heaving your boots out of the heavy mud with relentless determination, you power through the tidal channel without slowing down, reaching the solid root-bank with stamina to spare!'
       ],
       failStory: [
         'The deep silt sucks off your footing; you take a hard tumble into the brackish sludge, scraping your knee on submerged barnacles before dragging yourself to firm ground.'
       ],
       onSuccess: {
-        piloncitos: 5,
         emitTags: ['steady_nerves', 'muddy_ground']
       },
       onFail: {

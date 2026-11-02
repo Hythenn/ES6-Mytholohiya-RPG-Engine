@@ -431,9 +431,9 @@ NarrativeRegistry.registerMiscScenario({
       text: 'Salute the great bull with your weapon and ascend the cleared ridge',
       check: null,
       successStory: [
-        'Spared a bloody battle in the ravine, you harvest the fallen beasts spirit-shards and climb safely to high ground.'
+        'Spared a bloody battle in the ravine, you salute the valiant horned guardian and climb safely to high ground.'
       ],
-      onSuccess: { piloncitos: 6, emitTags: ['high_ground', 'clear_sky'] }
+      onSuccess: { emitTags: ['high_ground', 'clear_sky'] }
     }
   ]
 });

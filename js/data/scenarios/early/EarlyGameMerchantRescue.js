@@ -201,19 +201,17 @@ export const SubstoryMerchantRescue = {
           check: { stat: 'CHA', dc: 11 },
           successStory: [
             'Overcome with gratitude, Mang Tasyo opens a woven cedar case nestled inside his pack. "You risked your life for a stranger. Take these gifts of our artisans."',
-            'He presents a bundle of crushed Bayabas leaves to soothe septic wounds and a consecrated vial of Blessed Lana Oil to repel nocturnal curses, along with a purse of polished Piloncitos.'
+            'He presents a bundle of crushed Bayabas leaves to soothe septic wounds and a consecrated vial of Blessed Lana Oil to repel nocturnal curses.'
           ],
           failStory: [
-            'Mang Tasyo bows apologetically. "My rarest porcelain broke in the scramble, but please take this pouch of medicinal herbs and what modest coins I can spare."'
+            'Mang Tasyo bows apologetically. "My rarest porcelain broke in the scramble, but please take this pouch of medicinal herbs to soothe your road wounds."'
           ],
           onSuccess: {
             addItem: ['bayabas_herbs', 'blessed_lana_vial'],
-            piloncitos: 8,
             emitTags: ['rep_rajahnate_trusted', 'tasyo_trade_ally']
           },
           onFail: {
             addItem: 'bayabas_herbs',
-            piloncitos: 4,
             emitTags: ['rep_rajahnate_trusted']
           }
         },

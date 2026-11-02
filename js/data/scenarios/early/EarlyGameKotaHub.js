@@ -244,13 +244,12 @@ export const SubstoryKotaHub = {
           check: { stat: 'INT', dc: 11 },
           successStory: [
             'Scooping polished cowrie shells into the carved hollows of the wooden boat-board, your sharp mental arithmetic outmaneuvers your opponent!',
-            'Laughing heartily, the traveler congratulates your tactical skill and hands over a modest purse of 3 Piloncitos as the winner\'s share.'
+            'Laughing heartily, the traveler congratulates your tactical skill and toasts your sharp mind with fresh palm wine.'
           ],
           failStory: [
             'The river traveler traps your shells in a clever pit sequence, taking the game with a good-natured grin. Still, the mental exercise sharpens your focus.'
           ],
           onSuccess: {
-            piloncitos: 3,
             emitTags: ['at_kota_tavern', 'quick_wits']
           },
           onFail: {
