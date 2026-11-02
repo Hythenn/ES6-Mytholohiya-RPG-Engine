@@ -304,9 +304,36 @@ export class HierarchicalProbabilisticNarrativeDirector {
     return false;
   }
 
+  _isChainedSpecialScenario(scenario) {
+    if (!scenario) return false;
+    const isSpecial =
+      scenario.isSpecialStory === true ||
+      (scenario.substoryId &&
+        (scenario.substoryId.startsWith('sub_special_') || scenario.substoryId.includes('special'))) ||
+      (this.activeSubstory &&
+        (this.activeSubstory.isSpecialStory === true ||
+          (this.activeSubstory.substoryId && this.activeSubstory.substoryId.startsWith('sub_special_'))));
+
+    if (!isSpecial) return false;
+    if (!scenario.affinityWeights || typeof scenario.affinityWeights !== 'object') return false;
+
+    for (const [tag, bonus] of Object.entries(scenario.affinityWeights)) {
+      if (Number(bonus) >= 100.0 && (this.activeTags.has(tag) || (this.world && this.world.hasFlag(tag)))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   isScenarioEligible(scenario) {
-    if (scenario.phase && scenario.phase !== 'ANY' && scenario.phase !== this.currentPhase) {
-      return false;
+    // Cross-Phase Spanning (Special Stories Only):
+    // Ignore global phase checks for Special Story nodes chained via affinityWeights (>= 100.0)
+    const isChainedSpecial = this._isChainedSpecialScenario(scenario);
+
+    if (!isChainedSpecial) {
+      if (scenario.phase && scenario.phase !== 'ANY' && scenario.phase !== this.currentPhase) {
+        return false;
+      }
     }
 
     if (typeof scenario.minLevel === 'number' && scenario.minLevel > 1) {
@@ -526,6 +553,32 @@ export class HierarchicalProbabilisticNarrativeDirector {
   drawNextScenario() {
     if (this.prologueQueue.length > 0) {
       return this.prologueQueue.shift();
+    }
+
+    // 1. Cross-Phase Special Story Priority:
+    // Check if any registered Special Story has an active chained node (affinityWeights >= 100.0)
+    for (const sub of this.registry.getAllSubstories()) {
+      if (sub.isSpecialStory || (sub.substoryId && sub.substoryId.startsWith('sub_special_'))) {
+        if (Array.isArray(sub.scenarios)) {
+          for (const s of sub.scenarios) {
+            if (!this.visitedScenarioIds.has(s.id) && this.isScenarioEligible(s)) {
+              if (this._isChainedSpecialScenario(s)) {
+                this.activeSubstory = sub;
+                return s;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Check misc scenarios for chained special nodes
+    for (const m of this.registry.getMiscScenarios()) {
+      if (!this.visitedMiscIds.has(m.id) && this.isScenarioEligible(m)) {
+        if (this._isChainedSpecialScenario(m)) {
+          return m;
+        }
+      }
     }
 
     let substoryCandidates =
@@ -1733,6 +1786,10 @@ export class HierarchicalProbabilisticNarrativeDirector {
       }
     }
 
+    if (effects.resetPhase || effects.triggerTimeLoop) {
+      this.executeTemporalRewind(effects);
+    }
+
     if (Array.isArray(effects.emitTags) && effects.emitTags.length > 0) {
       const weatherTags = ['raining', 'clear_sky', 'fog_gathering', 'rain_stopping'];
       if (effects.emitTags.some((t) => weatherTags.includes(t))) {
@@ -1752,6 +1809,125 @@ export class HierarchicalProbabilisticNarrativeDirector {
         activeTags: [...this.activeTags]
       });
     }
+  }
+
+  /**
+   * Executes a Temporal Rewind / Time Travel Loop (Path C).
+   * Resets the world timeline, quests, and faction standings while retaining player inventory,
+   * gold piloncitos, level progression, and discovered creature bestiary lore.
+   * @param {Object} effects
+   */
+  executeTemporalRewind(effects) {
+    const targetPhase = effects.resetPhase || 'EARLY_GAME';
+    this.currentPhase = targetPhase;
+    this.turnCount = 0;
+    this.timeCycleIndex = 0;
+    this.currentTimeOfDay = 'DAWN';
+    this.currentWeather = 'CLEAR';
+    this.scenariosInCurrentTime = 0;
+    this.scenariosUntilNextTime = this._rollStepDuration(2, 4);
+    this.scenariosInCurrentWeather = 0;
+    this.scenariosUntilNextWeather = this._rollStepDuration(3, 5);
+
+    // 1. Reset Quests: Clear scenario history and failure/success locks
+    if (effects.resetQuests) {
+      this.visitedScenarioIds.clear();
+      this.visitedMiscIds.clear();
+      this.completedSubstoryIds.clear();
+
+      // Preserve bestiary, equipment, and time loop knowledge tags
+      const preservedTagPrefixes = [
+        'known_creature_',
+        'time_loop_',
+        'temporal_',
+        'knows_future_',
+        'loop_',
+        'identity_',
+        'status_powerful',
+        'status_freeborn',
+        'status_bound'
+      ];
+      const tagsToPreserve = new Set();
+      for (const t of this.activeTags) {
+        if (preservedTagPrefixes.some((p) => t.startsWith(p))) {
+          tagsToPreserve.add(t);
+        }
+      }
+      if (this.world && this.world.flags) {
+        for (const f of this.world.flags) {
+          if (preservedTagPrefixes.some((p) => f.startsWith(p))) {
+            tagsToPreserve.add(f);
+          }
+        }
+      }
+
+      this.activeTags.clear();
+      if (this.world && this.world.flags) {
+        this.world.flags.clear();
+      }
+
+      for (const t of tagsToPreserve) {
+        this.activeTags.add(t);
+        if (this.world) this.world.setFlag(t);
+      }
+    }
+
+    // 2. Reset Factions: Restore regional reputations and moral marks to neutral
+    if (effects.resetFactions) {
+      const factionTags = [
+        'rep_rajahnate_ally', 'rep_rajahnate_enemy',
+        'rep_babaylan_ally', 'rep_babaylan_enemy',
+        'rep_karakoa_ally', 'rep_karakoa_enemy',
+        'rep_aswang_cult_ally', 'rep_aswang_cult_enemy',
+        'rep_headhunters_ally', 'rep_headhunters_enemy',
+        'bounty_on_head', 'cursed_by_anito', 'stole_shrine_gold',
+        'mountain_truce', 'defied_sea_raiders', 'merc_contract_fulfilled',
+        'night_lineage_initiate', 'kota_dula_hero', 'cleansed'
+      ];
+      for (const ft of factionTags) {
+        this.activeTags.delete(ft);
+        if (this.world) this.world.removeFlag(ft);
+      }
+    }
+
+    // 3. Retain Bestiary: Re-assert known creature lore tags
+    if (effects.retainBestiary && this.world && this.world.knownCreatures) {
+      for (const cid of this.world.knownCreatures) {
+        this.world.setFlag(`known_creature_${cid}`);
+        this.activeTags.add(`known_creature_${cid}`);
+      }
+    }
+
+    // 4. Retain Inventory: Handled by preserving player Inventory and Remnants components
+
+    // 5. Emit Time Loop Tags
+    const timeLoopTags = Array.isArray(effects.emitTags)
+      ? effects.emitTags
+      : ['time_loop_rewind', 'temporal_traveler', 'knows_future_events'];
+    for (const tlt of timeLoopTags) {
+      this.activeTags.add(tlt);
+      if (this.world) this.world.setFlag(tlt);
+    }
+
+    // Reset starting substory for the reset phase
+    const resetPool = this.registry.getSubstoriesByPhase(this.currentPhase);
+    this.activeSubstory = resetPool[0] || this.registry.getAllSubstories()[0] || null;
+
+    // Emit event notifications
+    this.eventBus.emit('world:temporalRewind', {
+      phase: this.currentPhase,
+      retainInventory: !!effects.retainInventory,
+      retainBestiary: !!effects.retainBestiary
+    });
+
+    this.eventBus.emit('log:mechanical', {
+      type: 'status_apply',
+      text: '🌀 TEMPORAL REWIND: The timeline fractures and folds back upon itself! You awaken at the dawn of your journey, carrying all your battle-honed strength, gear, piloncitos, and bestiary memories of things yet to come.'
+    });
+
+    this.eventBus.emit('world:tagsUpdated', {
+      activeTags: [...this.activeTags]
+    });
   }
 
   _recordChronicleEntry(scenario, choice, isSuccess, isAvoided, specialType = null) {

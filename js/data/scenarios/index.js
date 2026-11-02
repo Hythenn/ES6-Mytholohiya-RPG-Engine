@@ -15,6 +15,7 @@ import { SubstoryKotaHub } from './early/EarlyGameKotaHub.js';
 import { SubstoryPlayerCamping } from './early/EarlyGamePlayerCamping.js';
 import { SubstoryMidTerraces } from './mid/MidGameTerraces.js';
 import { SubstoryLateBakunawa } from './late/LateGameBakunawaMaw.js';
+import { SubstorySpecialGilPerez } from './early/SpecialStory_GilPerez.js';
 import './misc/MiscScenarios.js';
 import './people/PeopleAndTerrainScenarios.js';
 import './people/HumanFactions.js';
@@ -25,6 +26,7 @@ export {
   SubstoryMerchantRescue,
   SubstoryKotaHub,
   SubstoryPlayerCamping,
+  SubstorySpecialGilPerez,
   SubstoryMidTerraces,
   SubstoryLateBakunawa
 };

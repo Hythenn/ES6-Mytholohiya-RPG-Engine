@@ -237,6 +237,28 @@ ItemRegistry.registerItemPack([
     tags: ['wearing_agimat', 'royal_garb'],
     description:
       'Ancient penannular gold pendant of dynastic blood.'
+  },
+
+  // 13. TEMPORAL RELICS
+  {
+    id: 'spanish_morion_helmet',
+    name: 'Spanish Morion Steel Helmet',
+    category: 'wearable',
+    slot: 'head',
+    statBonuses: { CON: 1, CHA: 1 },
+    tags: ['armor_heavy', 'steel_forged', 'temporal_relic'],
+    description:
+      'A high-crested comb morion forged of 16th-century Toledo steel, gifted by the displaced guard Gil Perez.'
+  },
+  {
+    id: 'spanish_steel_cuirass',
+    name: 'Spanish Steel Breastplate',
+    category: 'wearable',
+    slot: 'body',
+    statBonuses: { CON: 2, STR: 1 },
+    tags: ['armor_heavy', 'steel_forged', 'temporal_relic'],
+    description:
+      'Polished steel cuirass of the Manila Governor Palace Guard, impenetrable to primitive arrows and animal claws.'
   }
 ]);
 
