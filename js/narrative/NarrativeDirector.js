@@ -181,6 +181,16 @@ export class HierarchicalProbabilisticNarrativeDirector {
       }
     });
 
+    this.eventBus.on('player:modifyVitality', ({ amount }) => {
+      if (this.currentScenario && this.trackingDeltas && typeof amount === 'number' && amount !== 0) {
+        this.currentScenarioDeltas.push({
+          type: 'health',
+          change: amount,
+          name: 'HP'
+        });
+      }
+    });
+
     this.eventBus.on('player:defeated', () => {
       this.isGameOver = true;
       this.awaitingContinue = false;
@@ -1068,7 +1078,23 @@ export class HierarchicalProbabilisticNarrativeDirector {
         map.get(key).change += d.change;
       }
     }
-    return Array.from(map.values()).filter((d) => d.change !== 0);
+    const consolidated = Array.from(map.values()).filter((d) => d.change !== 0);
+
+    const typePriority = {
+      xp: 1,
+      health: 2,
+      currency: 3,
+      item: 4,
+      lore: 5
+    };
+
+    consolidated.sort((a, b) => {
+      const pA = typePriority[a.type] || 99;
+      const pB = typePriority[b.type] || 99;
+      return pA - pB;
+    });
+
+    return consolidated;
   }
 
   _renderScenarioDeltas() {
@@ -1077,6 +1103,8 @@ export class HierarchicalProbabilisticNarrativeDirector {
 
     const deltas = this._consolidateDeltas(this.currentScenarioDeltas);
     if (deltas.length === 0) return;
+
+    this.trackingDeltas = false;
 
     const container = document.createElement('div');
     container.className = 'scenario-rewards-container';
@@ -1405,9 +1433,15 @@ export class HierarchicalProbabilisticNarrativeDirector {
       }
     }
 
-    if (typeof effects.hp === 'number' && effects.hp !== 0) {
+    const hpChange =
+      typeof effects.hp === 'number'
+        ? effects.hp
+        : typeof effects.health === 'number'
+          ? effects.health
+          : null;
+    if (typeof hpChange === 'number' && hpChange !== 0) {
       this.eventBus.emit('player:modifyVitality', {
-        amount: effects.hp,
+        amount: hpChange,
         source: this.currentScenario ? this.currentScenario.locationLabel : 'Encounter'
       });
     }
