@@ -1454,7 +1454,13 @@ export class HierarchicalProbabilisticNarrativeDirector {
     const cond = StatResolver.checkChoiceCondition(choice, player, this.world, {
       passiveResult: this.currentPassiveResult
     });
-    if (!cond.allowed) return;
+    if (!cond.allowed) {
+      this.eventBus.emit('log:mechanical', {
+        type: 'status_loss',
+        text: `Action locked: ${cond.reason || 'Prerequisite conditions not met'}.`
+      });
+      return;
+    }
 
     let isSuccess = true;
     let checkSummaryText = '';

@@ -4028,3 +4028,25 @@ body:has(#game-workspace:not([hidden])) {
   animation: lockedShake 0.35s ease-in-out;
   border-color: #c0392b !important;
 }
+
+.action-blocked-toast {
+  background: rgba(35, 12, 10, 0.95);
+  border: 1px solid #a92020;
+  color: #ff9999;
+  font-family: var(--font-pixel, monospace);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 0.45rem 0.85rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  animation: toastFade 2.4s forwards;
+  pointer-events: none;
+}
+
+@keyframes toastFade {
+  0% { opacity: 0; transform: translateY(-4px); }
+  12% { opacity: 1; transform: translateY(0); }
+  78% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}

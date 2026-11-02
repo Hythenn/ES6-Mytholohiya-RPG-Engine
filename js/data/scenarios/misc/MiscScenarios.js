@@ -845,7 +845,15 @@ NarrativeRegistry.registerMiscScenario({
       openModal: 'dambana',
       complexity: 'basic',
       itemActionTag: 'Ancestral Rite // Atang Offering',
-      check: null
+      check: null,
+      successStory: [
+        'You approach the tiered stone altar, bowing your head in reverence as you lay your offering before the molave carvings.',
+        'A soothing warmth spreads across the clearing; the ancient Anito guardians recognize your respect and open their sanctuary blessings to your journey.'
+      ],
+      onSuccess: {
+        heatDelta: -25,
+        emitTags: ['spirit_respect', 'ancestral_communion']
+      }
     },
     {
       text: 'Perform a reverent Atang offering of betel chew or dried tobacco at the altar',
@@ -948,7 +956,15 @@ NarrativeRegistry.registerMiscScenario({
       openModal: 'dambana',
       complexity: 'basic',
       itemActionTag: 'Ancestral Rite // Atang Offering',
-      check: null
+      check: null,
+      successStory: [
+        'You kneel before the moss-grown dolmen altar, placing your hands upon the cool stone as you recite the ancient names of your ancestors.',
+        'The air grows fragrant with wild honey and mountain copal; the spirits accept your devotion, granting peace and clarity to your mind.'
+      ],
+      onSuccess: {
+        heatDelta: -20,
+        emitTags: ['spirit_respect', 'ancestral_communion']
+      }
     },
     {
       text: 'Conclude your prayers with a reverent bow and step back onto the winding trail',

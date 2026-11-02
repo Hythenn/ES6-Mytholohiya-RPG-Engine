@@ -3427,6 +3427,7 @@ export class UIManager {
           try { this.audio.playHover(); } catch (_err) {}
           btn.classList.add('btn-locked-shake');
           setTimeout(() => btn.classList.remove('btn-locked-shake'), 400);
+          this._showActionBlockedNotification(choice.lockReason || 'Prerequisite conditions not met');
           this._appendMechanicalLog({
             type: 'status_loss',
             text: `Action locked: ${choice.lockReason || 'Prerequisite conditions not met'}.`
@@ -3458,6 +3459,7 @@ export class UIManager {
 
         if (isOpenDambana) {
           this.openDambanaModal();
+          this.director.selectChoice(choice.index, prepToApply);
           return;
         }
 
@@ -3508,6 +3510,24 @@ export class UIManager {
     }
     this.dom.diceLogList.prepend(li);
     this._updateScrollFade(this.dom.diceLogList, 'y');
+  }
+
+  _showActionBlockedNotification(reasonText) {
+    if (!this.dom.choicesContainer) return;
+    const parent = this.dom.choicesContainer.parentElement;
+    if (!parent) return;
+
+    const existing = parent.querySelector('.action-blocked-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'action-blocked-toast';
+    toast.textContent = `[Action Locked] ${reasonText}`;
+    parent.insertBefore(toast, this.dom.choicesContainer);
+
+    setTimeout(() => {
+      if (toast.parentElement) toast.remove();
+    }, 2400);
   }
 
 }

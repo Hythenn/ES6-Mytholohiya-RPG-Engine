@@ -317,7 +317,7 @@ export class StatResolver {
 
       if (score < pDc) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           isPassiveRevealed: false,
           reason: choice.lockReason || 'Requires keener instinct or senses to perceive',
@@ -335,7 +335,7 @@ export class StatResolver {
     if (typeof choice.minInt === 'number') {
       if (playerInt < choice.minInt) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           reason:
             choice.lockReason ||
@@ -359,7 +359,7 @@ export class StatResolver {
           : 10;
       if (playerInt < reqThreshold) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           reason: choice.lockReason || 'Mind cannot formulate this complex plan',
           abstractLabel: choice.abstractLabel || '[Complex Maneuver] Mind cannot formulate this complex plan'
@@ -378,7 +378,7 @@ export class StatResolver {
       const inferredMinInt = Math.max(10, (choice.check.dc || 12) - 3);
       if (playerInt < inferredMinInt) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           reason: 'Mind cannot formulate this complex intellectual deduction',
           abstractLabel: choice.abstractLabel || '[Complex Deduction] Requires keener intellectual perception'
@@ -390,7 +390,7 @@ export class StatResolver {
     // If a choice is flagged as tactical or clever, it requires at least average INT (10)
     if ((choice.tactical || choice.clever) && playerInt < 10) {
       return {
-        visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+        visible: Boolean(choice.showWhenLocked),
         allowed: false,
         reason: 'Requires keener tactical focus to conceive this plan',
         abstractLabel: choice.abstractLabel || '[Tactical Focus] Requires keener tactical focus to conceive'
@@ -405,7 +405,7 @@ export class StatResolver {
         const hasInverted = world && world.hasFlag('clothing_inside_out');
         if (!hasInverted) {
           return {
-            visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+            visible: Boolean(choice.showWhenLocked),
             allowed: false,
             reason:
               choice.lockReason ||
@@ -421,7 +421,7 @@ export class StatResolver {
             world.hasFlag('boon_haliya_shield'));
         if (!hasBlessed) {
           return {
-            visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+            visible: Boolean(choice.showWhenLocked),
             allowed: false,
             reason: choice.lockReason || 'Requires a consecrated or blessed item',
             abstractLabel: choice.abstractLabel || '[Consecrated Gear] Action requires consecrated or blessed item'
@@ -431,7 +431,7 @@ export class StatResolver {
         const hasBloodied = world && (world.hasFlag('bloodied_blade') || world.hasFlag('bloodied'));
         if (!hasBloodied) {
           return {
-            visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+            visible: Boolean(choice.showWhenLocked),
             allowed: false,
             reason: choice.lockReason || 'Requires gear bloodied from combat',
             abstractLabel: choice.abstractLabel || '[Bloodied Gear] Action requires gear bloodied in battle'
@@ -443,7 +443,7 @@ export class StatResolver {
           (world.hasFlag('condition_soaked_hypothermia') || world.hasFlag('soaked_gear'));
         if (!hasSoaked) {
           return {
-            visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+            visible: Boolean(choice.showWhenLocked),
             allowed: false,
             reason: choice.lockReason || 'Requires soaked garments or gear',
             abstractLabel: choice.abstractLabel || '[Soaked Attire] Action requires water-soaked gear'
@@ -457,7 +457,7 @@ export class StatResolver {
       const hasAnyAllowed = inv && inv.items.some((i) => choice.allowedConsumables.includes(i.id));
       if (!hasAnyAllowed) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           reason: choice.lockReason || 'Requires consumable preparation',
           abstractLabel: choice.abstractLabel || '[Consumable Ward] Action requires specific consumable preparation'
@@ -466,7 +466,7 @@ export class StatResolver {
     }
 
     if (choice.blockedByTag && world && world.hasFlag(choice.blockedByTag)) {
-      const show = Boolean(choice.showWhenLocked || choice.abstractLabel);
+      const show = Boolean(choice.showWhenLocked);
       return {
         visible: show,
         allowed: false,
@@ -476,7 +476,7 @@ export class StatResolver {
     }
 
     if (Array.isArray(choice.blockedByTags) && choice.blockedByTags.some((t) => world && world.hasFlag(t))) {
-      const show = Boolean(choice.showWhenLocked || choice.abstractLabel);
+      const show = Boolean(choice.showWhenLocked);
       return {
         visible: show,
         allowed: false,
@@ -491,7 +491,7 @@ export class StatResolver {
         (world && world.hasFlag(choice.requiredTag)) ||
         (inv && Array.isArray(inv.items) && inv.items.some((i) => i.tags && i.tags.includes(choice.requiredTag)));
       if (!hasTag) {
-        const show = Boolean(choice.showWhenLocked || choice.abstractLabel);
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
@@ -508,7 +508,7 @@ export class StatResolver {
         (inv && Array.isArray(inv.items) && inv.items.some((i) => i.tags && i.tags.includes(t)))
       );
       if (!hasAll) {
-        const show = Boolean(choice.showWhenLocked || choice.abstractLabel);
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
@@ -523,7 +523,7 @@ export class StatResolver {
       const pouch = playerEntity ? playerEntity.getComponent('Remnants') : null;
       const count = pouch ? pouch.count : 0;
       if (count < requiredAmount) {
-        const show = Boolean(choice.showWhenLocked || choice.abstractLabel);
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
@@ -542,7 +542,7 @@ export class StatResolver {
         );
       if (!hasItem) {
         return {
-          visible: Boolean(choice.showWhenLocked || choice.abstractLabel),
+          visible: Boolean(choice.showWhenLocked),
           allowed: false,
           reason: choice.lockReason || 'Missing required tool or item',
           abstractLabel: choice.abstractLabel || '[Requires Equipment] Missing required tool or item'
