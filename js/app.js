@@ -27,7 +27,7 @@ import {
   NarrativeRegistry,
   HierarchicalProbabilisticNarrativeDirector
 } from './narrative/NarrativeDirector.js';
-import './data/scenarios/index.js';
+import './data/scenarios/index.js?v=2.2';
 import { DarkReverbAudioEngine } from './audio/DarkReverbAudioEngine.js';
 import { AtmosphereVisualizer } from './ui/AtmosphereVisualizer.js';
 import { UIManager } from './ui/UIManager.js';
