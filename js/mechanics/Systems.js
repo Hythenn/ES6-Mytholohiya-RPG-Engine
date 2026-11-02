@@ -846,6 +846,15 @@ export class InventorySystem extends System {
         }
       }
 
+      // Propagate utility flags from inventory items to satisfy scenario tag requirements
+      if (Array.isArray(item.tags)) {
+        for (const t of item.tags) {
+          if (trackedItemFlags.includes(t)) {
+            this.world.setFlag(t);
+          }
+        }
+      }
+
       if (item.equippedSlot) {
         if (item.insideOut) {
           // Inside-out armor/garment stat suppression mechanic:

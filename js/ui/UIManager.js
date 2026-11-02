@@ -3401,8 +3401,13 @@ export class UIManager {
       }
 
       const cleanLabel = (choice.label || '').replace(/\[([^\]]+)\/\/([^\]]*)\]/g, (m, p1) => `[${p1.trim()}]`);
+      if (!choice.allowed) {
+        btn.classList.add('choice-btn-locked');
+        btn.setAttribute('aria-disabled', 'true');
+        const reasonText = choice.lockReason || 'Prerequisite not met';
+        tagsHtml = `<span class="choice-tag tag-locked">[LOCKED: ${reasonText}]</span>` + tagsHtml;
+      }
       btn.innerHTML = `${tagsHtml}<span class="choice-label">${cleanLabel}</span>`;
-      btn.disabled = !choice.allowed;
       if (!choice.allowed && choice.lockReason) {
         btn.title = choice.lockReason;
       }
@@ -3411,7 +3416,16 @@ export class UIManager {
         try { this.audio.playHover(); } catch (_err) {}
       });
       btn.addEventListener('click', () => {
-        if (!choice.allowed) return;
+        if (!choice.allowed) {
+          try { this.audio.playHover(); } catch (_err) {}
+          btn.classList.add('btn-locked-shake');
+          setTimeout(() => btn.classList.remove('btn-locked-shake'), 400);
+          this._appendMechanicalLog({
+            type: 'status_loss',
+            text: `Action locked: ${choice.lockReason || 'Prerequisite conditions not met'}.`
+          });
+          return;
+        }
         try { this.audio.playClick(); } catch (_err) {}
         this._clearAmbushTimer();
 

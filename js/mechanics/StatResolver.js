@@ -455,7 +455,7 @@ export class StatResolver {
     }
 
     if (choice.blockedByTag && world && world.hasFlag(choice.blockedByTag)) {
-      const show = choice.showWhenLocked !== undefined ? Boolean(choice.showWhenLocked) : true;
+      const show = Boolean(choice.showWhenLocked);
       return {
         visible: show,
         allowed: false,
@@ -464,7 +464,7 @@ export class StatResolver {
     }
 
     if (Array.isArray(choice.blockedByTags) && choice.blockedByTags.some((t) => world && world.hasFlag(t))) {
-      const show = choice.showWhenLocked !== undefined ? Boolean(choice.showWhenLocked) : true;
+      const show = Boolean(choice.showWhenLocked);
       return {
         visible: show,
         allowed: false,
@@ -473,9 +473,12 @@ export class StatResolver {
     }
 
     if (choice.requiredTag) {
-      const hasTag = world && world.hasFlag(choice.requiredTag);
+      const inv = playerEntity ? playerEntity.getComponent('Inventory') : null;
+      const hasTag =
+        (world && world.hasFlag(choice.requiredTag)) ||
+        (inv && Array.isArray(inv.items) && inv.items.some((i) => i.tags && i.tags.includes(choice.requiredTag)));
       if (!hasTag) {
-        const show = choice.showWhenLocked !== undefined ? Boolean(choice.showWhenLocked) : Boolean(choice.lockReason);
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
@@ -485,9 +488,13 @@ export class StatResolver {
     }
 
     if (Array.isArray(choice.requiredTags) && choice.requiredTags.length > 0) {
-      const hasAll = choice.requiredTags.every((t) => world && world.hasFlag(t));
+      const inv = playerEntity ? playerEntity.getComponent('Inventory') : null;
+      const hasAll = choice.requiredTags.every((t) =>
+        (world && world.hasFlag(t)) ||
+        (inv && Array.isArray(inv.items) && inv.items.some((i) => i.tags && i.tags.includes(t)))
+      );
       if (!hasAll) {
-        const show = choice.showWhenLocked !== undefined ? Boolean(choice.showWhenLocked) : Boolean(choice.lockReason);
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
@@ -501,7 +508,7 @@ export class StatResolver {
       const pouch = playerEntity ? playerEntity.getComponent('Remnants') : null;
       const count = pouch ? pouch.count : 0;
       if (count < requiredAmount) {
-        const show = choice.showWhenLocked !== undefined ? Boolean(choice.showWhenLocked) : true;
+        const show = Boolean(choice.showWhenLocked);
         return {
           visible: show,
           allowed: false,
