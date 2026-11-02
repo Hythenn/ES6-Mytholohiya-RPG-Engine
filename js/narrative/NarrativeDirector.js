@@ -1166,10 +1166,6 @@ export class HierarchicalProbabilisticNarrativeDirector {
     this.eventBus.emit('choices:clear');
 
     if (this.typewriter && this.typewriter.container) {
-      const divider = document.createElement('div');
-      divider.className = 'narrative-outcome-header outcome-fail';
-      divider.textContent = '❖ OUTCOME // HESITATED IN FEAR';
-      this.typewriter.container.appendChild(divider);
       this.typewriter.typeParagraphs(outcome.story, () => {
         this._renderScenarioDeltas();
         this._presentContinuePrompt();
@@ -1351,20 +1347,7 @@ export class HierarchicalProbabilisticNarrativeDirector {
     this.awaitingContinue = true;
     this.eventBus.emit('choices:clear');
 
-    if (this.typewriter && this.typewriter.container) {
-      const divider = document.createElement('div');
-      divider.className = `narrative-outcome-header ${isSuccess ? 'outcome-pass' : 'outcome-fail'}`;
-      if (checkResult) {
-        divider.textContent = `❖ OUTCOME${checkSummaryText}`;
-      } else if (choice.folkloreTag) {
-        divider.textContent = `❖ FOLKLORE // ${choice.folkloreTag.toUpperCase()}`;
-      } else if (choice.itemActionTag) {
-        divider.textContent = `❖ ACTION // ${choice.itemActionTag.toUpperCase()}`;
-      } else {
-        divider.textContent = `❖ ACTION TAKEN`;
-      }
-      this.typewriter.container.appendChild(divider);
-    }
+
 
     const rawStoryLines =
       Array.isArray(resolutionStory) && resolutionStory.length > 0
