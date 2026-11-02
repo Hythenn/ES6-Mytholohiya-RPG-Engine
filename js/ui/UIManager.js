@@ -1443,7 +1443,7 @@ export class UIManager {
       this.dom.btnBgScrollLeft.addEventListener('mouseenter', () => this.audio.playHover());
       this.dom.btnBgScrollLeft.addEventListener('click', () => {
         this.audio.playClick();
-        this.dom.backgroundGrid.scrollBy({ left: -360, behavior: 'smooth' });
+        this.dom.backgroundGrid.scrollBy({ left: -400, behavior: 'smooth' });
       });
     }
 
@@ -1451,7 +1451,7 @@ export class UIManager {
       this.dom.btnBgScrollRight.addEventListener('mouseenter', () => this.audio.playHover());
       this.dom.btnBgScrollRight.addEventListener('click', () => {
         this.audio.playClick();
-        this.dom.backgroundGrid.scrollBy({ left: 360, behavior: 'smooth' });
+        this.dom.backgroundGrid.scrollBy({ left: 400, behavior: 'smooth' });
       });
     }
 
@@ -1808,11 +1808,11 @@ export class UIManager {
       const card = document.createElement('article');
       card.className = 'background-card pixel-frame';
 
-      const statsBadges = Object.entries(bg.stats)
+      const statsRows = Object.entries(bg.stats)
         .map(([key, val]) => {
           const def = STAT_DEFINITIONS[key];
           const label = def ? def.name : key;
-          return `<span class="stat-pill" data-stat="${key}" data-val="${val}"><strong>${label}:</strong> ${val}</span>`;
+          return `<div class="card-stat-line" data-stat="${key}" data-val="${val}"><span class="stat-line-label">${label}</span><span class="stat-line-dots" aria-hidden="true"></span><span class="stat-line-val highlight-gold">${val}</span></div>`;
         })
         .join('');
 
@@ -1824,7 +1824,7 @@ export class UIManager {
         <p class="card-quote">${bg.quote}</p>
         <p class="card-desc">${bg.description}</p>
         <p class="field-hint"><strong>Expertise:</strong> ${exp.name}</p>
-        <div class="card-stats-row">${statsBadges}</div>
+        <div class="card-stats-list">${statsRows}</div>
         <div class="card-vitals-row">
           <span>VITALITY: <strong>${bg.maxVitality}</strong></span>
           <span>PILONCITOS: <strong>${bg.startingRemnants}</strong></span>
@@ -1886,11 +1886,11 @@ export class UIManager {
 
     if (!this.dom.randomShowcase) return;
 
-    const statsBadges = Object.entries(stats)
+    const statsRows = Object.entries(stats)
       .map(([key, val]) => {
         const def = STAT_DEFINITIONS[key];
         const label = def ? def.name : key;
-        return `<span class="stat-pill" data-stat="${key}" data-val="${val}"><strong>${label}:</strong> ${val}</span>`;
+        return `<div class="card-stat-line" data-stat="${key}" data-val="${val}"><span class="stat-line-label">${label}</span><span class="stat-line-dots" aria-hidden="true"></span><span class="stat-line-val highlight-gold">${val}</span></div>`;
       })
       .join('');
 
@@ -1918,8 +1918,8 @@ export class UIManager {
             <span>ATTRIBUTES</span>
             <span>FATE-SHAPED</span>
           </div>
-          <div class="card-stats-row" style="gap: 0.6rem; margin: 0.5rem 0;">
-            ${statsBadges}
+          <div class="card-stats-list" style="margin: 0.5rem 0;">
+            ${statsRows}
           </div>
           <div class="creator-summary pixel-frame">
             <span>BASE HP: <strong>${baseHp}</strong></span>
