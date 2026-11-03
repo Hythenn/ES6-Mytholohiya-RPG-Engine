@@ -3246,11 +3246,7 @@ export class UIManager {
       endBtn.type = 'button';
       endBtn.className = 'choice-btn ending-conclude-btn';
       endBtn.innerHTML = `
-        <span class="choice-tag tag-prep">CHRONICLE CONCLUSION</span>
-        <strong>✦ PROCEED TO CINEMATIC SUMMARY</strong>
-        <div class="field-hint" style="margin-top:0.35rem; color:#ebd1be;">
-          Commence the cinematic recollection of your vessel across the archipelago.
-        </div>
+        <strong>End adventure</strong>
       `;
       endBtn.addEventListener('mouseenter', () => {
         try { this.audio.playHover(); } catch (_err) { }
