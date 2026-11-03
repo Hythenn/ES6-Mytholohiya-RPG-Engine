@@ -569,22 +569,22 @@ export class UIManager {
       customConfig && typeof customConfig.fadeOutMs === 'number'
         ? customConfig.fadeOutMs
         : isCoreGameTransition
-        ? 1600
-        : 900;
+          ? 1600
+          : 900;
 
     const blackoutHoldMs =
       customConfig && typeof customConfig.blackoutHoldMs === 'number'
         ? customConfig.blackoutHoldMs
         : isCoreGameTransition
-        ? 600
-        : 300;
+          ? 600
+          : 300;
 
     const fadeInMs =
       customConfig && typeof customConfig.fadeInMs === 'number'
         ? customConfig.fadeInMs
         : isCoreGameTransition
-        ? 1600
-        : 900;
+          ? 1600
+          : 900;
 
     overlay.style.transition = `opacity ${fadeOutMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
 
@@ -676,7 +676,7 @@ export class UIManager {
           <span class="card-tag">${displayTag}</span>
         `;
         btn.addEventListener('click', () => {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this._renderCodexModal(item.id);
         });
         li.appendChild(btn);
@@ -1016,7 +1016,7 @@ export class UIManager {
   }
 
   openDambanaModal() {
-    try { this.audio.playClick(); } catch (_err) {}
+    try { this.audio.playClick(); } catch (_err) { }
     if (!this.dom.dambanaModal) return;
     this._updateDambanaModalState();
     this.dom.dambanaModal.hidden = false;
@@ -1024,7 +1024,7 @@ export class UIManager {
   }
 
   closeDambanaModal() {
-    try { this.audio.playClick(); } catch (_err) {}
+    try { this.audio.playClick(); } catch (_err) { }
     if (this.dom.dambanaModal) {
       this.dom.dambanaModal.hidden = true;
       this.dom.dambanaModal.style.display = 'none';
@@ -1032,7 +1032,7 @@ export class UIManager {
   }
 
   openChronicleModal() {
-    try { this.audio.playClick(); } catch (_err) {}
+    try { this.audio.playClick(); } catch (_err) { }
     if (!this.dom.chronicleModal) return;
 
     const player = this.world ? this.world.getEntity('player') : null;
@@ -1080,7 +1080,7 @@ export class UIManager {
     if (this.dom.chronicleModal && !this.dom.chronicleModal.hidden) {
       try {
         this.audio.playClick();
-      } catch (_err) {}
+      } catch (_err) { }
     }
     if (this.dom.chronicleModal) {
       this.dom.chronicleModal.hidden = true;
@@ -1180,36 +1180,36 @@ export class UIManager {
   _bindGlobalEvents() {
     if (this.dom.btnLaunchStart) {
       this.dom.btnLaunchStart.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnLaunchStart.addEventListener('click', () => {
         try {
           this._enterFullscreen();
-        } catch (_err) {}
+        } catch (_err) { }
         try {
           this.audio.playStartGong();
-          try { this.audio.setAmbientEnvironment('DRIZZLE', 'DUSK'); } catch (_err) {}
-        } catch (_err) {}
+          try { this.audio.setAmbientEnvironment('DRIZZLE', 'DUSK'); } catch (_err) { }
+        } catch (_err) { }
         this.showBackgroundScreen();
       });
     }
 
     if (this.dom.btnLaunchOptions) {
       this.dom.btnLaunchOptions.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnLaunchOptions.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.openOptionsModal();
       });
     }
 
     if (this.dom.btnHeaderCodex) {
       this.dom.btnHeaderCodex.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnHeaderCodex.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         if (this.dom.mythCodexModal && !this.dom.mythCodexModal.hidden) {
           this.closeCodexModal();
         } else {
@@ -1220,20 +1220,20 @@ export class UIManager {
 
     if (this.dom.btnCloseCodex) {
       this.dom.btnCloseCodex.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnCloseCodex.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.closeCodexModal();
       });
     }
 
     if (this.dom.btnHeaderOptions) {
       this.dom.btnHeaderOptions.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnHeaderOptions.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         if (this.dom.optionsModal && !this.dom.optionsModal.hidden) {
           this.closeOptionsModal();
         } else {
@@ -1244,20 +1244,20 @@ export class UIManager {
 
     if (this.dom.btnCloseOptions) {
       this.dom.btnCloseOptions.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnCloseOptions.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.closeOptionsModal();
       });
     }
 
     if (this.dom.btnOpenCharInfo) {
       this.dom.btnOpenCharInfo.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnOpenCharInfo.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         if (this.dom.charInfoModal && !this.dom.charInfoModal.hidden) {
           this.closeCharInfoModal();
         } else {
@@ -1268,10 +1268,10 @@ export class UIManager {
 
     if (this.dom.btnCloseCharInfo) {
       this.dom.btnCloseCharInfo.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnCloseCharInfo.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.closeCharInfoModal();
       });
     }
@@ -1279,7 +1279,7 @@ export class UIManager {
     if (this.dom.optionsModal) {
       this.dom.optionsModal.addEventListener('click', (e) => {
         if (e.target === this.dom.optionsModal) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.closeOptionsModal();
         }
       });
@@ -1288,7 +1288,7 @@ export class UIManager {
     if (this.dom.mythCodexModal) {
       this.dom.mythCodexModal.addEventListener('click', (e) => {
         if (e.target === this.dom.mythCodexModal) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.closeCodexModal();
         }
       });
@@ -1297,7 +1297,7 @@ export class UIManager {
     if (this.dom.charInfoModal) {
       this.dom.charInfoModal.addEventListener('click', (e) => {
         if (e.target === this.dom.charInfoModal) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.closeCharInfoModal();
         }
       });
@@ -1306,7 +1306,7 @@ export class UIManager {
     if (this.dom.chronicleModal) {
       this.dom.chronicleModal.addEventListener('click', (e) => {
         if (e.target === this.dom.chronicleModal) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.closeChronicleModal();
         }
       });
@@ -1315,7 +1315,7 @@ export class UIManager {
     if (this.dom.dambanaModal) {
       this.dom.dambanaModal.addEventListener('click', (e) => {
         if (e.target === this.dom.dambanaModal) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.closeDambanaModal();
         }
       });
@@ -1326,7 +1326,7 @@ export class UIManager {
         const on = this.audio.toggleSfx();
         this.dom.btnToggleSfx.textContent = on ? 'ENABLED' : 'DISABLED';
         this.dom.btnToggleSfx.classList.toggle('is-off', !on);
-        if (on) { try { this.audio.playClick(); } catch (_err) {} }
+        if (on) { try { this.audio.playClick(); } catch (_err) { } }
       });
     }
 
@@ -1335,14 +1335,14 @@ export class UIManager {
         const on = this.audio.toggleAmbient();
         this.dom.btnToggleAmbient.textContent = on ? 'ENABLED' : 'DISABLED';
         this.dom.btnToggleAmbient.classList.toggle('is-off', !on);
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
       });
     }
 
     if (this.dom.invFilterTabs) {
       for (const tab of this.dom.invFilterTabs) {
         tab.addEventListener('click', () => {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           this.inventoryFilter = tab.getAttribute('data-inv-filter') || 'all';
           for (const t of this.dom.invFilterTabs) {
             t.classList.toggle('active', t === tab);
@@ -1362,7 +1362,7 @@ export class UIManager {
         const mythId = termEl.getAttribute('data-myth-id');
         const entry = getMythologyEntry(mythId);
         if (entry) {
-          try { this.audio.playHover(); } catch (_err) {}
+          try { this.audio.playHover(); } catch (_err) { }
           this._showMythTooltip(entry, e.clientX, e.clientY);
         }
         return;
@@ -1370,14 +1370,14 @@ export class UIManager {
 
       const instinctEl = e.target.closest('.instinct-badge');
       if (instinctEl) {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
         this._showInstinctTooltip(instinctEl, e.clientX, e.clientY);
         return;
       }
 
       const statEl = e.target.closest('[data-stat]:not(button)');
       if (statEl) {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
         const statKey = statEl.getAttribute('data-stat');
         const statVal = statEl.getAttribute('data-val');
         this._showStatTooltip(statKey, statVal, e.clientX, e.clientY, statEl);
@@ -1429,7 +1429,7 @@ export class UIManager {
       e.stopPropagation();
       const mythId = termEl.getAttribute('data-myth-id');
       if (mythId) {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.openCodexModal(mythId);
       }
     });
@@ -1441,7 +1441,7 @@ export class UIManager {
           e.preventDefault();
           const mythId = termEl.getAttribute('data-myth-id');
           if (mythId) {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.openCodexModal(mythId);
           }
         }
@@ -1458,14 +1458,14 @@ export class UIManager {
       tab.addEventListener('click', () => {
         const mode = tab.getAttribute('data-mode');
         if (this.currentCreationMode === mode) return;
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this._switchCreationMode(mode);
       });
     }
 
     if (this.dom.btnRerollPresetName) {
       this.dom.btnRerollPresetName.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.presetState.name = generateRandomName();
         this.presetState.socialStatus = rollRandomSocialStatus();
         this._updatePresetBanner();
@@ -1474,20 +1474,20 @@ export class UIManager {
 
     if (this.dom.btnBgScrollLeft && this.dom.backgroundGrid) {
       this.dom.btnBgScrollLeft.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnBgScrollLeft.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.dom.backgroundGrid.scrollBy({ left: -400, behavior: 'smooth' });
       });
     }
 
     if (this.dom.btnBgScrollRight && this.dom.backgroundGrid) {
       this.dom.btnBgScrollRight.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnBgScrollRight.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.dom.backgroundGrid.scrollBy({ left: 400, behavior: 'smooth' });
       });
     }
@@ -1527,7 +1527,7 @@ export class UIManager {
 
     if (this.dom.skipButton) {
       this.dom.skipButton.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         if (this.typewriter && typeof this.typewriter.skipToEnd === 'function') {
           this.typewriter.skipToEnd();
         }
@@ -1538,7 +1538,7 @@ export class UIManager {
       this.dom.narrativeContainer.addEventListener('click', (e) => {
         if (e.target.closest('.myth-term')) return;
         if (this.typewriter && this.typewriter.isTyping) {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           if (typeof this.typewriter.skipToEnd === 'function') {
             this.typewriter.skipToEnd();
           }
@@ -1548,20 +1548,20 @@ export class UIManager {
 
     if (this.dom.restartButton) {
       this.dom.restartButton.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.restartButton.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this._showRestartConfirm();
       });
     }
 
     if (this.dom.btnConfirmRestart) {
       this.dom.btnConfirmRestart.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnConfirmRestart.addEventListener('click', () => {
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         this._hideRestartConfirm();
         this.closeOptionsModal();
         this.showBackgroundScreen();
@@ -1570,10 +1570,10 @@ export class UIManager {
 
     if (this.dom.btnCancelRestart) {
       this.dom.btnCancelRestart.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       this.dom.btnCancelRestart.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this._hideRestartConfirm();
       });
     }
@@ -1585,7 +1585,7 @@ export class UIManager {
     });
 
     this.eventBus.on('typewriter:tick', () => {
-      try { this.audio.playTypeTick(); } catch (_err) {}
+      try { this.audio.playTypeTick(); } catch (_err) { }
     });
 
     this.eventBus.on('typewriter:complete', () => {
@@ -1610,8 +1610,8 @@ export class UIManager {
 
         this._hideInstinctTooltip();
         this._hideMythTooltip();
-        try { this.audio.playSceneTransition(); } catch (_err) {}
-        try { this.audio.setAmbientEnvironment(normWeather, timeOfDay, environment); } catch (_err) {}
+        try { this.audio.playSceneTransition(); } catch (_err) { }
+        try { this.audio.setAmbientEnvironment(normWeather, timeOfDay, environment); } catch (_err) { }
         if (this.visualizer) {
           this.visualizer.setEnvironment(normWeather, timeOfDay, environment);
         }
@@ -1686,7 +1686,7 @@ export class UIManager {
     });
 
     this.eventBus.on('world:eclipseStarted', () => {
-      try { this.audio.playStartGong(); } catch (_err) {}
+      try { this.audio.playStartGong(); } catch (_err) { }
       if (this.visualizer) {
         this.visualizer.timeOfDay = 'ECLIPSE';
       }
@@ -1706,7 +1706,7 @@ export class UIManager {
 
     if (this.dom.btnCloseChronicle) {
       this.dom.btnCloseChronicle.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.closeChronicleModal();
       });
     }
@@ -1742,7 +1742,7 @@ export class UIManager {
           }
         }
 
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         this.eventBus.emit('dambana:offerAtang', {
           boonId,
           costType,
@@ -1774,7 +1774,7 @@ export class UIManager {
 
     this.eventBus.on('check:resolved', (result) => {
       if (!result.isPassive) {
-        try { this.audio.playCheckOutcome(result.success); } catch (_err) {}
+        try { this.audio.playCheckOutcome(result.success); } catch (_err) { }
       }
       this._appendCheckLog(result);
     });
@@ -1785,9 +1785,9 @@ export class UIManager {
 
     this.eventBus.on('codex:creatureDiscovered', (data) => {
       if (this.audio && typeof this.audio.playLoreDiscovery === 'function') {
-        try { this.audio.playLoreDiscovery(); } catch (_err) {}
+        try { this.audio.playLoreDiscovery(); } catch (_err) { }
       } else if (this.audio && typeof this.audio.playCheckOutcome === 'function') {
-        try { this.audio.playCheckOutcome(true); } catch (_err) {}
+        try { this.audio.playCheckOutcome(true); } catch (_err) { }
       }
       if (this.dom.mythCodexModal && !this.dom.mythCodexModal.hidden) {
         this._renderCodexModal(data.creatureId);
@@ -1888,10 +1888,10 @@ export class UIManager {
 
       const btn = card.querySelector('button');
       btn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       btn.addEventListener('click', () => {
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         this.launchCharacterIntoPrologue({
           characterName: this.presetState.name,
           background: bg,
@@ -1994,7 +1994,7 @@ export class UIManager {
     const rerollBtn = document.getElementById('btn-reroll-random-vessel');
     if (rerollBtn) {
       rerollBtn.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this._rollRandomizedUniqueCharacter();
       });
     }
@@ -2002,7 +2002,7 @@ export class UIManager {
     const startBtn = document.getElementById('btn-start-random-vessel');
     if (startBtn) {
       startBtn.addEventListener('click', () => {
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         this.launchCharacterIntoPrologue(this.randomCharState);
       });
     }
@@ -2015,7 +2015,7 @@ export class UIManager {
       ).join('');
 
       this.dom.customBgSelect.addEventListener('change', (e) => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.customState.backgroundId = e.target.value;
         this._renderCustomCreator();
       });
@@ -2027,7 +2027,7 @@ export class UIManager {
       ).join('');
 
       this.dom.customExpSelect.addEventListener('change', (e) => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.customState.expertiseId = e.target.value;
         this._renderCustomCreator();
       });
@@ -2042,7 +2042,7 @@ export class UIManager {
 
     if (this.dom.btnRandomCustomName) {
       this.dom.btnRandomCustomName.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this.customState.name = generateRandomName();
         if (this.dom.customNameInput) {
           this.dom.customNameInput.value = this.customState.name;
@@ -2052,7 +2052,7 @@ export class UIManager {
 
     if (this.dom.btnStartCustomChar) {
       this.dom.btnStartCustomChar.addEventListener('click', () => {
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         const bg =
           PlayerBackgrounds.find((b) => b.id === this.customState.backgroundId) ||
           PlayerBackgrounds[0];
@@ -2151,7 +2151,7 @@ export class UIManager {
 
         decBtn.addEventListener('click', () => {
           if (this.customState.allocated[key] > -2) {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.customState.allocated[key] -= 1;
             this.customState.pointsRemaining += 1;
             this._renderCustomCreator();
@@ -2160,7 +2160,7 @@ export class UIManager {
 
         incBtn.addEventListener('click', () => {
           if (this.customState.pointsRemaining > 0 && this.customState.allocated[key] < 6) {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.customState.allocated[key] += 1;
             this.customState.pointsRemaining -= 1;
             this._renderCustomCreator();
@@ -2416,7 +2416,7 @@ export class UIManager {
           `;
 
           slotEl.addEventListener('mouseenter', () => {
-            try { this.audio.playHover(); } catch (_err) {}
+            try { this.audio.playHover(); } catch (_err) { }
             this._showItemTooltip(item, slotEl);
           });
           slotEl.addEventListener('mouseleave', () => {
@@ -2424,13 +2424,13 @@ export class UIManager {
           });
 
           slotEl.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.selectedItemUid = item.uid;
             this._renderInventoryPanel(player);
           });
 
           slotEl.addEventListener('dblclick', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this._hideItemTooltip();
             if (item.slot) {
               this.eventBus.emit('inventory:equipToggle', { uid: item.uid });
@@ -2499,7 +2499,7 @@ export class UIManager {
           equipBtn.className = `inv-action-btn ${selectedItem.equippedSlot ? 'btn-equipped-active' : ''}`;
           equipBtn.textContent = selectedItem.equippedSlot ? 'UNEQUIP' : 'EQUIP';
           equipBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:equipToggle', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(equipBtn);
@@ -2511,7 +2511,7 @@ export class UIManager {
           flipBtn.className = 'inv-action-btn';
           flipBtn.textContent = selectedItem.insideOut ? 'WEAR NORMALLY' : 'WEAR INSIDE-OUT';
           flipBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:flipInsideOut', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(flipBtn);
@@ -2523,7 +2523,7 @@ export class UIManager {
           ripBtn.className = 'inv-action-btn';
           ripBtn.textContent = `RIP INTO ${selectedItem.ripYield || 2} SHEETS`;
           ripBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:ripItem', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(ripBtn);
@@ -2540,7 +2540,7 @@ export class UIManager {
           wringBtn.className = 'inv-action-btn';
           wringBtn.textContent = 'WRING DRY';
           wringBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:wringItem', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(wringBtn);
@@ -2552,7 +2552,7 @@ export class UIManager {
           useBtn.className = 'inv-action-btn';
           useBtn.textContent = (selectedItem.useActionLabel || 'USE').toUpperCase();
           useBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:useItem', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(useBtn);
@@ -2564,7 +2564,7 @@ export class UIManager {
           craftBtn.className = 'inv-action-btn';
           craftBtn.textContent = 'CRAFT POULTICE (W/ SHEET)';
           craftBtn.addEventListener('click', () => {
-            try { this.audio.playClick(); } catch (_err) {}
+            try { this.audio.playClick(); } catch (_err) { }
             this.eventBus.emit('inventory:combineWithSheet', { uid: selectedItem.uid });
           });
           actionsBar.appendChild(craftBtn);
@@ -2659,7 +2659,7 @@ export class UIManager {
 
         li.addEventListener('click', (e) => {
           if (e.target.closest('.slot-action-buttons')) return;
-          try { this.audio.playHover(); } catch (_err) {}
+          try { this.audio.playHover(); } catch (_err) { }
           this.selectedEquipSlotId = this.selectedEquipSlotId === slotDef.id ? null : slotDef.id;
           this._renderEquipmentSlotsModal(player);
         });
@@ -2669,7 +2669,7 @@ export class UIManager {
           if (unequipBtn) {
             unequipBtn.addEventListener('click', (e) => {
               e.stopPropagation();
-              try { this.audio.playClick(); } catch (_err) {}
+              try { this.audio.playClick(); } catch (_err) { }
               this.selectedEquipSlotId = null;
               this.eventBus.emit('inventory:equipToggle', { uid: equippedItem.uid });
             });
@@ -2679,7 +2679,7 @@ export class UIManager {
             if (flipBtn) {
               flipBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                try { this.audio.playClick(); } catch (_err) {}
+                try { this.audio.playClick(); } catch (_err) { }
                 this.eventBus.emit('inventory:flipInsideOut', { uid: equippedItem.uid });
               });
             }
@@ -2689,7 +2689,7 @@ export class UIManager {
             if (ripBtn) {
               ripBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                try { this.audio.playClick(); } catch (_err) {}
+                try { this.audio.playClick(); } catch (_err) { }
                 this.selectedEquipSlotId = null;
                 this.eventBus.emit('inventory:ripItem', { uid: equippedItem.uid });
               });
@@ -2699,7 +2699,7 @@ export class UIManager {
           if (wringBtn) {
             wringBtn.addEventListener('click', (e) => {
               e.stopPropagation();
-              try { this.audio.playClick(); } catch (_err) {}
+              try { this.audio.playClick(); } catch (_err) { }
               this.eventBus.emit('inventory:wringItem', { uid: equippedItem.uid });
             });
           }
@@ -2775,7 +2775,7 @@ export class UIManager {
       const btn = li.querySelector('.condition-remedy-btn');
       if (btn) {
         btn.addEventListener('click', () => {
-          try { this.audio.playClick(); } catch (_err) {}
+          try { this.audio.playClick(); } catch (_err) { }
           const rType = btn.getAttribute('data-remedy');
           if (rType === 'bandage') {
             const inv = player.getComponent('Inventory');
@@ -3050,7 +3050,7 @@ export class UIManager {
       this.dom.btnRollDice.disabled = true;
     }
 
-    try { this.audio.playDiceRoll(); } catch (_err) {}
+    try { this.audio.playDiceRoll(); } catch (_err) { }
 
     if (this.dom.d20Visual) {
       this.dom.d20Visual.classList.add('d20-rolling');
@@ -3239,7 +3239,7 @@ export class UIManager {
       this.stagedPrep = null;
       const isVictory = Boolean(
         options.isVictory ||
-          (this.latestEndingData && this.latestEndingData.isVictory)
+        (this.latestEndingData && this.latestEndingData.isVictory)
       );
 
       const endBtn = document.createElement('button');
@@ -3253,11 +3253,11 @@ export class UIManager {
         </div>
       `;
       endBtn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       endBtn.addEventListener('click', () => {
         this._clearCinematicTimer();
-        try { this.audio.playStartGong(); } catch (_err) {}
+        try { this.audio.playStartGong(); } catch (_err) { }
         this.startCinematicSummary(isVictory);
       });
       this.dom.choicesContainer.appendChild(endBtn);
@@ -3341,11 +3341,11 @@ export class UIManager {
       }
 
       btn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
+        try { this.audio.playHover(); } catch (_err) { }
       });
       btn.addEventListener('click', () => {
         if (!choice.allowed) {
-          try { this.audio.playHover(); } catch (_err) {}
+          try { this.audio.playHover(); } catch (_err) { }
           btn.classList.add('btn-locked-shake');
           setTimeout(() => btn.classList.remove('btn-locked-shake'), 400);
           this._showActionBlockedNotification(choice.lockReason || 'Prerequisite conditions not met');
@@ -3355,7 +3355,7 @@ export class UIManager {
           });
           return;
         }
-        try { this.audio.playClick(); } catch (_err) {}
+        try { this.audio.playClick(); } catch (_err) { }
         this._clearAmbushTimer();
 
         const prepToApply = this.stagedPrep;
@@ -3491,9 +3491,8 @@ export class UIManager {
       if (this.dom.choicesContainer) {
         this.dom.choicesContainer.innerHTML = '';
       }
-      if (this.dom.narrativeOutput) {
-        this.dom.narrativeOutput.innerHTML = '';
-      }
+      const outputEl = this.dom.narrativeOutput || this.dom.narrativeContainer || document.getElementById('narrative-output');
+      if (outputEl) outputEl.innerHTML = '';
 
       // Fade in from black into the summary
       if (overlay) {
@@ -3544,7 +3543,7 @@ export class UIManager {
       this.dom.choicesContainer.innerHTML = '';
     }
 
-    const outputEl = this.dom.narrativeOutput;
+    const outputEl = this.dom.narrativeOutput || this.dom.narrativeContainer || document.getElementById('narrative-output');
     if (!outputEl) return;
 
     outputEl.classList.remove('text-fade-out');
@@ -3620,8 +3619,9 @@ export class UIManager {
     // Slowly fade to black (2000ms fade-out, 500ms blackout hold, 1400ms fade-in)
     this.transitionScreenState('CHARACTER_SELECT', () => {
       document.body.classList.remove('is-cinematic-mode');
-      if (this.typewriter && this.dom.narrativeOutput) {
-        this.typewriter.container = this.dom.narrativeOutput;
+      const outputEl = this.dom.narrativeOutput || this.dom.narrativeContainer || document.getElementById('narrative-output');
+      if (this.typewriter && outputEl) {
+        this.typewriter.container = outputEl;
         this.typewriter.clear();
       }
       this.presetState.name = generateRandomName();
