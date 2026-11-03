@@ -2229,69 +2229,11 @@ export class HierarchicalProbabilisticNarrativeDirector {
   }
 
   playCinematicSummary(isVictory) {
-    const acts = this.buildCinematicActs(isVictory);
-    let currentActIndex = 0;
-
-    const presentAct = () => {
-      if (currentActIndex >= acts.length) {
-        this.eventBus.emit('choices:render', {
-          nodeId: 'cinematic_finished',
-          isEnding: false,
-          isCinematicFinished: true,
-          isVictory,
-          choices: []
-        });
-        return;
-      }
-
-      const act = acts[currentActIndex];
-      const actNumber = currentActIndex + 1;
-      const isLastAct = actNumber === acts.length;
-
-      this.eventBus.emit('narrative:nodeEntered', {
-        nodeId: `cinematic_act_${actNumber}`,
-        title: act.title,
-        act: act.actLabel,
-        location: act.atmosphere.envLabel,
-        weather: act.atmosphere.weather,
-        timeOfDay: act.atmosphere.timeOfDay,
-        environment: act.atmosphere.environment
-      });
-
-      this.eventBus.emit('choices:clear');
-      this.typewriter.clear();
-      this.typewriter.typeParagraphs(act.paragraphs, () => {
-        this.eventBus.emit('choices:render', {
-          nodeId: `cinematic_act_${actNumber}`,
-          isEnding: false,
-          isCinematicAct: true,
-          actIndex: actNumber,
-          totalActs: acts.length,
-          isVictory,
-          choices: [
-            {
-              index: 'NEXT_CINEMATIC_ACT',
-              action: 'next_cinematic_act',
-              title: isLastAct ? '✦ CONCLUDE CHRONICLE ❯' : '✦ CONTINUE RECOLLECTION ❯',
-              desc: isLastAct
-                ? "Seal your vessel's eternal legacy in the archipelago."
-                : 'Reflect upon the next chapter of your journey.'
-            }
-          ]
-        });
-      });
-
-      currentActIndex += 1;
-    };
-
-    this._nextCinematicActHandler = presentAct;
-    presentAct();
+    this.eventBus.emit('cinematic:start', { isVictory });
   }
 
   advanceCinematicAct() {
-    if (typeof this._nextCinematicActHandler === 'function') {
-      this._nextCinematicActHandler();
-    }
+    this.eventBus.emit('cinematic:advance');
   }
 }
 

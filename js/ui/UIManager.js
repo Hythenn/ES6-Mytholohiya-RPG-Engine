@@ -271,6 +271,7 @@ export class UIManager {
       actBanner: document.getElementById('scene-act'),
       sceneTitle: document.getElementById('scene-title'),
       narrativeContainer: document.getElementById('narrative-output'),
+      narrativeOutput: document.getElementById('narrative-output'),
       choicesContainer: document.getElementById('choices-container'),
       skipButton: document.getElementById('btn-skip-text'),
       restartButton: document.getElementById('btn-restart'),
@@ -1792,6 +1793,10 @@ export class UIManager {
         this._renderCodexModal(data.creatureId);
       }
     });
+
+    this.eventBus.on('cinematic:start', ({ isVictory }) => {
+      this.startCinematicSummary(Boolean(isVictory));
+    });
   }
 
   showBackgroundScreen() {
@@ -3242,110 +3247,25 @@ export class UIManager {
       endBtn.className = 'choice-btn ending-conclude-btn';
       endBtn.innerHTML = `
         <span class="choice-tag tag-prep">CHRONICLE CONCLUSION</span>
-        <strong>✦ END THE ADVENTURE</strong>
+        <strong>✦ PROCEED TO CINEMATIC SUMMARY</strong>
         <div class="field-hint" style="margin-top:0.35rem; color:#ebd1be;">
-          Proceed with the cinematic recollection of your vessel's journey across the archipelago.
+          Commence the cinematic recollection of your vessel across the archipelago.
         </div>
       `;
       endBtn.addEventListener('mouseenter', () => {
         try { this.audio.playHover(); } catch (_err) {}
       });
       endBtn.addEventListener('click', () => {
+        this._clearCinematicTimer();
         try { this.audio.playStartGong(); } catch (_err) {}
-        if (
-          this.director &&
-          typeof this.director.playCinematicSummary === 'function'
-        ) {
-          this.director.playCinematicSummary(isVictory);
-        }
+        this.startCinematicSummary(isVictory);
       });
       this.dom.choicesContainer.appendChild(endBtn);
-      return;
-    }
 
-    if (options.isCinematicAct) {
-      const c = (choices && choices[0]) || {
-        title: '✦ CONTINUE RECOLLECTION ❯',
-        desc: 'Reflect upon the next chapter of your journey.'
-      };
-
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'choice-btn cinematic-next-btn';
-      btn.innerHTML = `
-        <span class="choice-tag tag-passive">CHAPTER ${options.actIndex || 1} OF ${options.totalActs || 4}</span>
-        <strong>${c.title}</strong>
-        <div class="field-hint" style="margin-top:0.35rem; color:#cbe3f2;">${c.desc}</div>
-      `;
-      btn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
-      });
-      btn.addEventListener('click', () => {
-        this._clearCinematicTimer();
-        try { this.audio.playClick(); } catch (_err) {}
-        if (
-          this.director &&
-          typeof this.director.advanceCinematicAct === 'function'
-        ) {
-          this.director.advanceCinematicAct();
-        }
-      });
-      this.dom.choicesContainer.appendChild(btn);
-
+      // Automatically transition to the cinematic summary after 3.5 seconds
       this._cinematicTimerId = window.setTimeout(() => {
-        if (
-          this.director &&
-          typeof this.director.advanceCinematicAct === 'function'
-        ) {
-          this.director.advanceCinematicAct();
-        }
-      }, 7000);
-      return;
-    }
-
-    if (options.isCinematicFinished) {
-      const restartBtn = document.createElement('button');
-      restartBtn.type = 'button';
-      restartBtn.className = 'choice-btn ending-restart-btn';
-      restartBtn.innerHTML = `
-        <span class="choice-tag tag-prep">A NEW BEGINNING</span>
-        <strong>✦ FORGE A NEW CHRONICLE</strong>
-        <div class="field-hint" style="margin-top:0.35rem; color:#ebd1be;">
-          Return to character creation and guide a new vessel into the archipelago.
-        </div>
-      `;
-      restartBtn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
-      });
-      restartBtn.addEventListener('click', () => {
-        try { this.audio.playStartGong(); } catch (_err) {}
-        this.showBackgroundScreen();
-      });
-      this.dom.choicesContainer.appendChild(restartBtn);
-
-      const replayBtn = document.createElement('button');
-      replayBtn.type = 'button';
-      replayBtn.className = 'choice-btn';
-      replayBtn.innerHTML = `
-        <span class="choice-tag tag-passive">REVISIT TALE</span>
-        <strong>↻ REPLAY CINEMATIC SUMMARY</strong>
-        <div class="field-hint" style="margin-top:0.35rem; color:#cbe3f2;">
-          Experience the cinematic recollection of this vessel once more.
-        </div>
-      `;
-      replayBtn.addEventListener('mouseenter', () => {
-        try { this.audio.playHover(); } catch (_err) {}
-      });
-      replayBtn.addEventListener('click', () => {
-        try { this.audio.playClick(); } catch (_err) {}
-        if (
-          this.director &&
-          typeof this.director.playCinematicSummary === 'function'
-        ) {
-          this.director.playCinematicSummary(Boolean(options.isVictory));
-        }
-      });
-      this.dom.choicesContainer.appendChild(replayBtn);
+        this.startCinematicSummary(isVictory);
+      }, 3500);
       return;
     }
 
@@ -3529,6 +3449,193 @@ export class UIManager {
     setTimeout(() => {
       if (toast.parentElement) toast.remove();
     }, 2400);
+  }
+
+  startCinematicSummary(isVictory) {
+    this._clearCinematicTimer();
+    if (this._fadeTimeoutId) {
+      window.clearTimeout(this._fadeTimeoutId);
+      this._fadeTimeoutId = null;
+    }
+    if (this._fadePointerTimeoutId) {
+      window.clearTimeout(this._fadePointerTimeoutId);
+      this._fadePointerTimeoutId = null;
+    }
+    if (this.typewriter) {
+      this.typewriter.stop();
+    }
+    if (this._cinematicClickHandler) {
+      document.removeEventListener('click', this._cinematicClickHandler);
+      this._cinematicClickHandler = null;
+    }
+
+    const overlay = this.dom.screenFadeOverlay;
+    const fadeOutMs = 1200;
+    const blackoutHoldMs = 400;
+    const fadeInMs = 1400;
+
+    if (overlay) {
+      overlay.style.transition = `opacity ${fadeOutMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+      void overlay.offsetHeight;
+      overlay.classList.add('is-active');
+      overlay.style.pointerEvents = 'all';
+    }
+
+    this._fadeTimeoutId = window.setTimeout(() => {
+      if (this.typewriter) {
+        this.typewriter.stop();
+      }
+      // While pitch black: enter cinematic mode
+      document.body.classList.add('is-cinematic-mode');
+
+      if (this.dom.choicesContainer) {
+        this.dom.choicesContainer.innerHTML = '';
+      }
+      if (this.dom.narrativeOutput) {
+        this.dom.narrativeOutput.innerHTML = '';
+      }
+
+      // Fade in from black into the summary
+      if (overlay) {
+        overlay.style.transition = `opacity ${fadeInMs}ms cubic-bezier(0.2, 0, 0.2, 1)`;
+        overlay.classList.remove('is-active');
+        overlay.style.pointerEvents = 'none';
+
+        this._fadePointerTimeoutId = window.setTimeout(() => {
+          overlay.classList.remove('is-active');
+          overlay.style.pointerEvents = 'none';
+          this._fadePointerTimeoutId = null;
+        }, fadeInMs + 50);
+      }
+
+      this._fadeTimeoutId = null;
+
+      const acts =
+        this.director && typeof this.director.buildCinematicActs === 'function'
+          ? this.director.buildCinematicActs(isVictory)
+          : [];
+
+      this._presentCinematicAct(acts, 0, isVictory);
+    }, fadeOutMs + blackoutHoldMs);
+  }
+
+  _presentCinematicAct(acts, actIndex, isVictory) {
+    this._clearCinematicTimer();
+    if (this._cinematicClickHandler) {
+      document.removeEventListener('click', this._cinematicClickHandler);
+      this._cinematicClickHandler = null;
+    }
+
+    if (!Array.isArray(acts) || actIndex >= acts.length) {
+      this._concludeCinematicSummary();
+      return;
+    }
+
+    const act = acts[actIndex];
+
+    // Update visualizer atmosphere for dynamic ambient bleed canvas
+    if (this.visualizer && act.atmosphere) {
+      if (act.atmosphere.weather) this.visualizer.weather = act.atmosphere.weather;
+      if (act.atmosphere.timeOfDay) this.visualizer.timeOfDay = act.atmosphere.timeOfDay;
+      if (act.atmosphere.environment) this.visualizer.environment = act.atmosphere.environment;
+    }
+
+    if (this.dom.choicesContainer) {
+      this.dom.choicesContainer.innerHTML = '';
+    }
+
+    const outputEl = this.dom.narrativeOutput;
+    if (!outputEl) return;
+
+    outputEl.classList.remove('text-fade-out');
+    outputEl.innerHTML = '';
+
+    const heading = document.createElement('div');
+    heading.className = 'cinematic-act-heading';
+    heading.textContent = (act.actLabel || `ACT ${actIndex + 1}`).replace(/^✦\s*/, '');
+    outputEl.appendChild(heading);
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'cinematic-text-content';
+    outputEl.appendChild(textContainer);
+
+    let isActTyping = true;
+    let actAdvanced = false;
+
+    const advanceToNext = () => {
+      if (actAdvanced) return;
+      actAdvanced = true;
+      this._clearCinematicTimer();
+      if (this._cinematicClickHandler) {
+        document.removeEventListener('click', this._cinematicClickHandler);
+        this._cinematicClickHandler = null;
+      }
+
+      outputEl.classList.add('text-fade-out');
+      window.setTimeout(() => {
+        this._presentCinematicAct(acts, actIndex + 1, isVictory);
+      }, 600);
+    };
+
+    this._cinematicClickHandler = () => {
+      if (isActTyping && this.typewriter && this.typewriter.isTyping) {
+        this.typewriter.skipToEnd();
+      } else {
+        advanceToNext();
+      }
+    };
+    document.addEventListener('click', this._cinematicClickHandler);
+
+    if (this.typewriter) {
+      this.typewriter.container = textContainer;
+      this.typewriter.clear();
+      this.typewriter.typeParagraphs(act.paragraphs, () => {
+        isActTyping = false;
+        // Hold for reading duration, then automatically advance
+        this._cinematicTimerId = window.setTimeout(() => {
+          advanceToNext();
+        }, 6500);
+      });
+    } else {
+      for (const p of act.paragraphs) {
+        const pEl = document.createElement('p');
+        pEl.className = 'narrative-paragraph';
+        pEl.textContent = p;
+        textContainer.appendChild(pEl);
+      }
+      isActTyping = false;
+      this._cinematicTimerId = window.setTimeout(() => {
+        advanceToNext();
+      }, 7000);
+    }
+  }
+
+  _concludeCinematicSummary() {
+    this._clearCinematicTimer();
+    if (this._cinematicClickHandler) {
+      document.removeEventListener('click', this._cinematicClickHandler);
+      this._cinematicClickHandler = null;
+    }
+
+    // Slowly fade to black (2000ms fade-out, 500ms blackout hold, 1400ms fade-in)
+    this.transitionScreenState('CHARACTER_SELECT', () => {
+      document.body.classList.remove('is-cinematic-mode');
+      if (this.typewriter && this.dom.narrativeOutput) {
+        this.typewriter.container = this.dom.narrativeOutput;
+        this.typewriter.clear();
+      }
+      this.presetState.name = generateRandomName();
+      this.presetState.socialStatus = rollRandomSocialStatus();
+      this._updatePresetBanner();
+      this._rollRandomizedUniqueCharacter();
+      this.customState.socialStatus = rollRandomSocialStatus();
+      this._renderCustomCreator();
+      this._switchCreationMode('archetype');
+    }, {
+      fadeOutMs: 2000,
+      blackoutHoldMs: 500,
+      fadeInMs: 1400
+    });
   }
 
 }

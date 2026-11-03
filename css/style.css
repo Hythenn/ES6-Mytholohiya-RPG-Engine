@@ -4050,3 +4050,107 @@ body:has(#game-workspace:not([hidden])) {
   78% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-4px); }
 }
+
+/* ==========================================================================
+   CINEMATIC ENDING SUMMARY MODE
+   Minimalist, full-bleed narrative presentation:
+   - All side panels, top panel, action dock, and frame borders hidden
+   - Pure typography centered over ambient bleed canvas
+   ========================================================================== */
+body.is-cinematic-mode .site-header,
+body.is-cinematic-mode .hud-sidebar,
+body.is-cinematic-mode .hud-sidebar-left,
+body.is-cinematic-mode #floating-choices-dock,
+body.is-cinematic-mode .floating-choices-dock,
+body.is-cinematic-mode #atmosphere-visualizer-bar,
+body.is-cinematic-mode .atmosphere-visualizer-bar,
+body.is-cinematic-mode .scene-header,
+body.is-cinematic-mode .dock-header,
+body.is-cinematic-mode #btn-skip-text {
+  display: none !important;
+}
+
+body.is-cinematic-mode #game-workspace {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.is-cinematic-mode .narrative-column {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  min-height: 80vh !important;
+  padding: 2.5rem 2rem !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.is-cinematic-mode .narrative-stage {
+  width: 100% !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body.is-cinematic-mode .narrative-output {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: var(--font-readable), "Crimson Pro", Georgia, serif !important;
+  font-size: 1.55rem !important;
+  line-height: 2.1 !important;
+  letter-spacing: 0.025em !important;
+  color: #f7ede0 !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 0, 0, 0.85) !important;
+  text-align: center !important;
+  cursor: default !important;
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out !important;
+}
+
+body.is-cinematic-mode .narrative-output.text-fade-out {
+  opacity: 0 !important;
+}
+
+body.is-cinematic-mode .cinematic-text-content {
+  width: 100%;
+}
+
+body.is-cinematic-mode .narrative-paragraph {
+  margin-bottom: 2rem !important;
+  color: #f7ede0 !important;
+  animation: fadeInParagraph 0.5s ease-out;
+}
+
+body.is-cinematic-mode .cinematic-act-heading {
+  font-family: var(--font-pixel-header), "VT323", monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  color: var(--brass-bright, #dfb15b);
+  margin-bottom: 1.75rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(223, 177, 91, 0.45);
+  opacity: 0.92;
+}
